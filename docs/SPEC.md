@@ -28,9 +28,14 @@ Ngoài ra, app phải thể hiện được các kiến thức của course đ�
 | F5 | Settings: ngôn ngữ EN/VI, nguồn dữ liệu, đơn vị, sân bay mặc định | MVP |
 | F6 | Mock mode + tự động fallback | MVP |
 | F7 | Live Map: máy bay trên bầu trời Việt Nam (OpenSky + osmdroid) | Mở rộng (đã chốt làm) |
+| F8 | Đăng nhập / đăng ký (Firebase Authentication, email + mật khẩu), chế độ khách | Đợt 2 (bắt buộc), xem [SPEC_PHASE7.md](SPEC_PHASE7.md) |
+| F9 | Thêm chuyến bay vào Lịch | Đợt 2 (bắt buộc) |
+| F10 | Thống kê My Flights (biểu đồ tự vẽ) | Đợt 2 |
+| F11 | Nhắc giờ bay (notification trước giờ cất cánh) | Đợt 2 |
+| F12 | Bản đồ hành trình trong Detail | Đợt 2 |
 
 ### Ngoài phạm vi (ghi vào phần "Future work" của slide)
-Push notification khi đổi trạng thái, sân bay gần tôi (Location), đặt vé, đăng nhập, widget màn hình chính.
+Push notification từ server khi đổi trạng thái, sân bay gần tôi (Location), đặt vé, đồng bộ My Flights lên cloud (Firestore), đăng nhập Google, widget màn hình chính.
 
 ## 3. Nguồn dữ liệu
 
@@ -110,7 +115,9 @@ Nhận extra `EXTRA_FLIGHT_IATA` và (tuỳ chọn) `EXTRA_FLIGHT_JSON` để hi
 - osmdroid `MapView`, khung ban đầu là Việt Nam. Pinch zoom và kéo bản đồ (multi-touch).
 - Marker máy bay là icon xoay theo `true_track`. Bấm vào marker thì hiện bottom sheet: callsign, quốc gia, độ cao (m/ft theo Settings), tốc độ (km/h), vertical rate, nút **"Xem chuyến bay"**. Nút này đổi callsign ICAO sang IATA (`HVN215` → `VN215`, theo bảng `HVN→VN, VJC→VJ, BAV→QH, PIC→BL, VAG→VU`, …) rồi mở FlightDetailActivity.
 - Tự refresh mỗi 30s khi tab đang hiển thị. Có ô đếm số máy bay đang hiển thị.
-- Sân bay trong `airports.json` được vẽ thành marker nhỏ.
+- Sân bay trong `airports.json` được vẽ thành chấm trắng có nhãn mã IATA; bấm vào thì mở bảng giờ bay của sân bay đó.
+- Nền bản đồ: tile OpenStreetMap chuẩn (không cần API key; CARTO Dark nay bắt buộc key) + một `ColorMatrixColorFilter` đổi sang tông xanh đêm. Ghi nguồn "© OpenStreetMap contributors" ở góc dưới.
+- Ô đếm máy bay và bottom sheet là kính mờ thật (BlurView) đè trên bản đồ. Cấu hình osmdroid được nạp ở background thread lần đầu mở tab (không làm ở `Application.onCreate`).
 
 ### 5.6 MyFlightsFragment (F4)
 - RecyclerView các chuyến bay đã lưu (SQLite). Khi mở tab sẽ refresh trạng thái từng chuyến.
@@ -128,6 +135,9 @@ Nhận extra `EXTRA_FLIGHT_IATA` và (tuỳ chọn) `EXTRA_FLIGHT_JSON` để hi
 | `about` | Thông tin nhóm, nguồn dữ liệu | – |
 
 Đổi ngôn ngữ ngay trong app bằng `AppCompatDelegate.setApplicationLocales()`.
+
+### 5.8 – 5.12 Đợt 2 (F8–F12)
+Xem spec riêng: [SPEC_PHASE7.md](SPEC_PHASE7.md).
 
 ## 6. UI / Visual
 
@@ -161,14 +171,14 @@ util/          TimeUtils · UnitUtils · CallsignMapper · Executors
 ```
 
 - **Package:** `vn.edu.usth.flightinfo`
-- **SDK:** minSdk 24, compileSdk 35, targetSdk 34 (giữ cửa sổ kiểu cũ, không bắt buộc edge-to-edge như targetSdk 35). Java 17.
-- **Thư viện:** AppCompat, Material, RecyclerView, ViewPager2, SwipeRefreshLayout, Preference, **Volley 1.2.1**, **osmdroid 6.1.x**. Test: JUnit 4 + `org.json:json` (vì `org.json` trên JVM unit test là stub).
+- **SDK:** minSdk 24, compileSdk 37, targetSdk 34 (giữ cửa sổ kiểu cũ, không bắt buộc edge-to-edge như targetSdk 35). Java 17. AGP 9.4.1, Gradle 9.6.0.
+- **Thư viện:** AppCompat, Material, RecyclerView, ViewPager2, SwipeRefreshLayout, Preference, **Volley 1.2.1**, **osmdroid 6.1.x**, **BlurView 3.2.0**, **Firebase Auth** (BoM 35.1.0, đợt 2). Test: JUnit 4 + `org.json:json` (vì `org.json` trên JVM unit test là stub).
 - **Threading:**
   - Network: Volley (async, callback chạy trên main thread).
   - Đọc file assets/raw, SQLite: `ExecutorService` + `Handler(Looper.getMainLooper())`. Đây là bản thay thế AsyncTask (đã deprecated) nhưng cùng mô hình Thread/Handler của bài 6.
   - Không làm I/O trên main thread. Bật `StrictMode` ở debug build để kiểm tra.
 - **Cache:** Volley disk cache cho response, `ImageLoader` + `LruCache` cho logo.
-- **Permissions:** `INTERNET`, `ACCESS_NETWORK_STATE` (cả hai đều là normal permission). osmdroid không cần quyền storage trên API 29+ vì dùng cache trong thư mục riêng của app.
+- **Permissions:** `INTERNET`, `ACCESS_NETWORK_STATE` (cả hai đều là normal permission). osmdroid không cần quyền storage trên API 29+ vì dùng cache trong thư mục riêng của app. Quyền thêm cho đợt 2: xem [SPEC_PHASE7.md](SPEC_PHASE7.md).
 
 ## 8. Yêu cầu phi chức năng
 - Không ANR, không crash khi: mất mạng, JSON thiếu field, API trả lỗi, xoay màn hình khi request đang chạy (huỷ request theo tag ở `onStop`).
@@ -184,3 +194,4 @@ util/          TimeUtils · UnitUtils · CallsignMapper · Executors
 6. Xoay màn hình ở mọi màn: không mất dữ liệu, không crash.
 7. Debug GPU Overdraw: không có vùng đỏ lớn.
 8. Unit test cho các parser và `FlightStatus` mapping đều pass.
+9. Tiêu chí cho F8–F12: xem [SPEC_PHASE7.md](SPEC_PHASE7.md).

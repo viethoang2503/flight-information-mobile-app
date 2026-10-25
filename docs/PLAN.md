@@ -14,7 +14,9 @@ Ký hiệu: 🧪 = cách kiểm tra phase đã xong.
 | 4. Airports + Board | ✅ Xong. Đã chạy trên emulator: danh sách sân bay, Board HAN |
 | 4.5 Giao diện Liquid Glass | ✅ Xong. Áp cho Search, Detail, Airports, Board. Đã chạy trên emulator |
 | 5. My Flights + Settings | ✅ Xong. Đã chạy trên emulator: lưu, vuốt xoá + Undo, tắt app vẫn còn, đổi tiếng Việt |
-| 6–7 | ⏳ Chưa làm |
+| 6. Live Map | ✅ Xong. Đã chạy trên emulator: OpenSky thật (live) và 23 máy bay mock, sheet kính mờ, "View flight" mở Detail |
+| 7. Đợt 2: 5 tính năng mới (F8–F12) | ⏳ **Làm tiếp theo.** Xem [PLAN_PHASE7.md](PLAN_PHASE7.md) và [SPEC_PHASE7.md](SPEC_PHASE7.md) |
+| 8. Hoàn thiện & tối ưu | ⏳ Làm cuối cùng, sau Phase 7 |
 
 ---
 
@@ -72,12 +74,17 @@ Ký hiệu: 🧪 = cách kiểm tra phase đã xong.
 - Chuyển `Configuration.getInstance().load(...)` của osmdroid ra khỏi `FlightInfoApp.onCreate` (StrictMode báo đọc/ghi đĩa trên main thread lúc mở app)
 - 🧪 Mock: có ~25 máy bay. Live: có dữ liệu từ OpenSky
 
-## Phase 7: Hoàn thiện & tối ưu
-- Rà overdraw (bỏ background thừa), `tools:` attrs, contentDescription, kiểm tra hard-coded string (Lint)
-- App icon (adaptive, vector)
+## Phase 7: Đợt 2: 5 tính năng mới (F8–F12)
+Đăng nhập (Firebase), Thêm vào Lịch, Thống kê, Nhắc giờ bay, Bản đồ hành trình. Chia cho 5 người.
+Chi tiết: [SPEC_PHASE7.md](SPEC_PHASE7.md), [PLAN_PHASE7.md](PLAN_PHASE7.md).
+
+## Phase 8: Hoàn thiện & tối ưu (làm sau cùng, khi mọi tính năng đã merge)
+- Rà overdraw cho mọi màn, kể cả màn của Phase 7 (bỏ background thừa), `tools:` attrs, contentDescription, kiểm tra hard-coded string (Lint)
+- StrictMode còn báo 1 chỗ: lần đầu mở SharedPreferences (`Prefs`) trên main thread lúc khởi động
+- App icon (adaptive, vector): thêm icon đơn sắc (monochrome) cho Android 13+
 - `README.md`: cách cài, đặt API key, chạy, cấu trúc project
-- Kiểm tra lại toàn bộ Acceptance trong SPEC §9
-- Ghi chú cho slide: sơ đồ kiến trúc, bảng Activity, phần Networking (Volley async, REST/JSON), ảnh chụp overdraw trước/sau
+- Kiểm tra lại toàn bộ Acceptance trong SPEC §9 và SPEC_PHASE7 §8
+- Ghi chú cho slide (gộp phần của 5 người): sơ đồ kiến trúc, bảng Activity, phần Networking (Volley async, REST/JSON), ảnh chụp overdraw trước/sau
 
 ---
 
@@ -89,7 +96,9 @@ Ký hiệu: 🧪 = cách kiểm tra phase đã xong.
 | 2 | MainActivity, Search, Flight Detail | 3 |
 | 3 | Airports, Airport Board | 4 |
 | 4 | Live Map | 6 |
-| 5 | My Flights, Settings, i18n, overdraw, slide | 5, 7 |
+| 5 | My Flights, Settings, i18n, overdraw, slide | 5, 8 |
+
+Phân công Phase 7 (đợt 2): xem [PLAN_PHASE7.md](PLAN_PHASE7.md).
 
 ## Rủi ro
 | Rủi ro | Cách xử lý |
