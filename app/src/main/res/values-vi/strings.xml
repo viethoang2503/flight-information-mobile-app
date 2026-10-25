@@ -80,4 +80,41 @@
     <string name="board_city_country">%1$s · %2$s</string>
     <string name="board_empty_departures">Hiện không có chuyến khởi hành.</string>
     <string name="board_empty_arrivals">Hiện không có chuyến hạ cánh.</string>
+    <!-- Chuyến của tôi -->
+    <string name="my_flights_empty_title">Chưa lưu chuyến bay nào</string>
+    <string name="my_flights_empty_body">Mở một chuyến bay và bấm ngôi sao để lưu vào đây.</string>
+    <string name="my_flights_removed">Đã xoá %s</string>
+    <string name="action_undo">Hoàn tác</string>
+
+    <!-- Cài đặt -->
+    <string name="settings_title">Cài đặt</string>
+    <string name="pref_category_general">Chung</string>
+    <string name="pref_category_data">Dữ liệu</string>
+    <string name="pref_category_about">Thông tin</string>
+    <string name="pref_language">Ngôn ngữ</string>
+    <string name="pref_data_mode">Nguồn dữ liệu</string>
+    <string name="pref_altitude_unit">Đơn vị độ cao</string>
+    <string name="pref_default_airport">Sân bay mặc định</string>
+    <string name="pref_auto_refresh">Tự động làm mới</string>
+    <string name="pref_auto_refresh_summary">Cập nhật chuyến bay đang mở mỗi phút</string>
+    <string name="pref_version">Phiên bản</string>
+    <string name="pref_data_sources">Nguồn dữ liệu</string>
+    <string name="pref_data_sources_summary">AirLabs (chuyến bay), OpenSky Network (vị trí máy bay), aviationweather.gov (METAR), OpenStreetMap (bản đồ), pics.avs.io (logo hãng)</string>
+    <string name="pref_project">Dự án</string>
+    <string name="pref_project_summary">Bài cuối kỳ môn Mobile Application, USTH, đề tài #30 Flight Info</string>
+    <string name="format_airport_entry">%1$s · %2$s</string>
+    <string-array name="pref_language_entries">
+        <item>Theo hệ thống</item>
+        <item>English</item>
+        <item>Tiếng Việt</item>
+    </string-array>
+    <string-array name="pref_data_mode_entries">
+        <item>Tự động (dữ liệu thật, lỗi thì dùng dữ liệu mẫu)</item>
+        <item>Chỉ dữ liệu thật</item>
+        <item>Chỉ dữ liệu mẫu</item>
+    </string-array>
+    <string-array name="pref_altitude_unit_entries">
+        <item>Mét (m)</item>
+        <item>Feet (ft)</item>
+    </string-array>
 </resources>

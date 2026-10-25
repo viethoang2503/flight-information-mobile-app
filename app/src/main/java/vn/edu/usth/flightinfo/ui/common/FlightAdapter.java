@@ -59,6 +59,17 @@ public class FlightAdapter extends RecyclerView.Adapter<FlightAdapter.ViewHolder
         notifyItemInserted(position);
     }
 
+    /** Replaces the row showing the same flight number (e.g. after a refresh), if there is one. */
+    public void replace(Flight flight) {
+        for (int i = 0; i < flights.size(); i++) {
+            if (flights.get(i).getFlightIata().equals(flight.getFlightIata())) {
+                flights.set(i, flight);
+                notifyItemChanged(i);
+                return;
+            }
+        }
+    }
+
     @Override
     public int getItemCount() {
         return flights.size();

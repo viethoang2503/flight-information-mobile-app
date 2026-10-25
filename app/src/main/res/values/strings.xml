@@ -32,7 +32,7 @@
     <string name="status_unknown">Unknown</string>
 
     <string name="placeholder_empty">—</string>
-    <!-- Phase 3: placeholders -->
+    <!-- Placeholder for tabs not built yet -->
     <string name="coming_soon">Coming soon</string>
 
     <!-- Search -->
@@ -89,4 +89,41 @@
     <string name="board_city_country">%1$s · %2$s</string>
     <string name="board_empty_departures">No departures right now.</string>
     <string name="board_empty_arrivals">No arrivals right now.</string>
+    <!-- My Flights -->
+    <string name="my_flights_empty_title">No saved flights yet</string>
+    <string name="my_flights_empty_body">Open a flight and tap the star to keep it here.</string>
+    <string name="my_flights_removed">%s removed</string>
+    <string name="action_undo">Undo</string>
+
+    <!-- Settings -->
+    <string name="settings_title">Settings</string>
+    <string name="pref_category_general">General</string>
+    <string name="pref_category_data">Data</string>
+    <string name="pref_category_about">About</string>
+    <string name="pref_language">Language</string>
+    <string name="pref_data_mode">Data source</string>
+    <string name="pref_altitude_unit">Altitude unit</string>
+    <string name="pref_default_airport">Default airport</string>
+    <string name="pref_auto_refresh">Auto-refresh</string>
+    <string name="pref_auto_refresh_summary">Update open flights every minute</string>
+    <string name="pref_version">Version</string>
+    <string name="pref_data_sources">Data sources</string>
+    <string name="pref_data_sources_summary">AirLabs (flights), OpenSky Network (live positions), aviationweather.gov (METAR), OpenStreetMap (map), pics.avs.io (airline logos)</string>
+    <string name="pref_project">Project</string>
+    <string name="pref_project_summary">USTH Mobile Application final project, topic #30 Flight Info</string>
+    <string name="format_airport_entry">%1$s · %2$s</string>
+    <string-array name="pref_language_entries">
+        <item>System default</item>
+        <item>English</item>
+        <item>Tiếng Việt</item>
+    </string-array>
+    <string-array name="pref_data_mode_entries">
+        <item>Auto (live, demo data if it fails)</item>
+        <item>Live only</item>
+        <item>Demo data only</item>
+    </string-array>
+    <string-array name="pref_altitude_unit_entries">
+        <item>Meters (m)</item>
+        <item>Feet (ft)</item>
+    </string-array>
 </resources>

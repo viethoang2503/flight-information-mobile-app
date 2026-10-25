@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Keys must match data/local/Prefs.java -->
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory
+        app:iconSpaceReserved="false"
+        app:title="@string/pref_category_general">
+
+        <!-- Not persisted here: AppCompat stores the app language itself
+             (AppLocalesMetadataHolderService autoStoreLocales in the manifest). -->
+        <ListPreference
+            app:entries="@array/pref_language_entries"
+            app:entryValues="@array/pref_language_values"
+            app:iconSpaceReserved="false"
+            app:key="language"
+            app:persistent="false"
+            app:title="@string/pref_language"
+            app:useSimpleSummaryProvider="true" />
+
+        <ListPreference
+            app:defaultValue="m"
+            app:entries="@array/pref_altitude_unit_entries"
+            app:entryValues="@array/pref_altitude_unit_values"
+            app:iconSpaceReserved="false"
+            app:key="altitude_unit"
+            app:title="@string/pref_altitude_unit"
+            app:useSimpleSummaryProvider="true" />
+
+        <!-- Entries come from assets/airports.json, filled in SettingsFragment -->
+        <ListPreference
+            app:defaultValue="HAN"
+            app:enabled="false"
+            app:iconSpaceReserved="false"
+            app:key="default_airport"
+            app:title="@string/pref_default_airport"
+            app:useSimpleSummaryProvider="true" />
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        app:iconSpaceReserved="false"
+        app:title="@string/pref_category_data">
+
+        <ListPreference
+            app:defaultValue="auto"
+            app:entries="@array/pref_data_mode_entries"
+            app:entryValues="@array/pref_data_mode_values"
+            app:iconSpaceReserved="false"
+            app:key="data_mode"
+            app:title="@string/pref_data_mode"
+            app:useSimpleSummaryProvider="true" />
+
+        <SwitchPreferenceCompat
+            app:defaultValue="true"
+            app:iconSpaceReserved="false"
+            app:key="auto_refresh"
+            app:summary="@string/pref_auto_refresh_summary"
+            app:title="@string/pref_auto_refresh" />
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        app:iconSpaceReserved="false"
+        app:title="@string/pref_category_about">
+
+        <Preference
+            app:iconSpaceReserved="false"
+            app:key="version"
+            app:selectable="false"
+            app:title="@string/pref_version" />
+
+        <Preference
+            app:iconSpaceReserved="false"
+            app:selectable="false"
+            app:summary="@string/pref_data_sources_summary"
+            app:title="@string/pref_data_sources" />
+
+        <Preference
+            app:iconSpaceReserved="false"
+            app:selectable="false"
+            app:summary="@string/pref_project_summary"
+            app:title="@string/pref_project" />
+    </PreferenceCategory>
+</PreferenceScreen>

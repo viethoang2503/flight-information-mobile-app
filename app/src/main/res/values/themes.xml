@@ -23,9 +23,21 @@
         <item name="android:textColorSecondary">@color/text_secondary</item>
         <item name="android:textColorHint">@color/text_hint</item>
         <item name="textInputStyle">@style/Widget.FlightInfo.TextInput</item>
+        <item name="alertDialogTheme">@style/ThemeOverlay.FlightInfo.Dialog</item>
         <item name="snackbarStyle">@style/Widget.FlightInfo.Snackbar</item>
         <item name="snackbarTextViewStyle">@style/Widget.FlightInfo.Snackbar.Text</item>
         <item name="snackbarButtonStyle">@style/Widget.FlightInfo.Snackbar.Button</item>
+    </style>
+
+    <!-- Dialogs (e.g. the list preferences in Settings) on the dark blue surface -->
+    <style name="ThemeOverlay.FlightInfo.Dialog" parent="ThemeOverlay.MaterialComponents.Dialog.Alert">
+        <item name="android:windowBackground">@drawable/bg_dialog</item>
+        <item name="colorPrimary">@color/brand_link</item>
+        <item name="colorSecondary">@color/brand_link</item>
+        <item name="colorAccent">@color/brand_link</item>
+        <item name="colorSurface">@color/surface</item>
+        <item name="android:textColorPrimary">@color/text_primary</item>
+        <item name="android:textColorSecondary">@color/text_secondary</item>
     </style>
 
     <!-- Transparent toolbar over the gradient; its icons sit on round glass buttons. -->

@@ -15,7 +15,8 @@
 
         <activity
             android:name=".ui.MainActivity"
-            android:exported="true">
+            android:exported="true"
+            android:windowSoftInputMode="adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -30,6 +31,12 @@
         <activity
             android:name=".ui.airports.AirportBoardActivity"
             android:exported="false"
+            android:parentActivityName=".ui.MainActivity" />
+
+        <activity
+            android:name=".ui.settings.SettingsActivity"
+            android:exported="false"
+            android:label="@string/settings_title"
             android:parentActivityName=".ui.MainActivity" />
 
         <!-- Lets AppCompat persist the in-app language choice on Android 12 and below. -->

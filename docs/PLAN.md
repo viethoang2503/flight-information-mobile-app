@@ -13,7 +13,8 @@ Ký hiệu: 🧪 = cách kiểm tra phase đã xong.
 | 3. Main + Search + Detail | ✅ Xong. Đã chạy trên emulator: tìm VN215 ra Detail, xoay ngang giữ dữ liệu |
 | 4. Airports + Board | ✅ Xong. Đã chạy trên emulator: danh sách sân bay, Board HAN |
 | 4.5 Giao diện Liquid Glass | ✅ Xong. Áp cho Search, Detail, Airports, Board. Đã chạy trên emulator |
-| 5–7 | ⏳ Chưa làm |
+| 5. My Flights + Settings | ✅ Xong. Đã chạy trên emulator: lưu, vuốt xoá + Undo, tắt app vẫn còn, đổi tiếng Việt |
+| 6–7 | ⏳ Chưa làm |
 
 ---
 

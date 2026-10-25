@@ -178,6 +178,8 @@
     <style name="Widget.FlightInfo.Snackbar" parent="Widget.MaterialComponents.Snackbar">
         <item name="backgroundTint">@color/surface</item>
         <item name="android:layout_margin">@dimen/space_m</item>
+        <!-- Material dims the action to medium emphasis; keep "Undo" fully readable on dark blue -->
+        <item name="actionTextColorAlpha">1</item>
     </style>
 
     <style name="Widget.FlightInfo.Snackbar.Text" parent="Widget.MaterialComponents.Snackbar.TextView">

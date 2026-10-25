@@ -7,7 +7,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewOutlineProvider;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.IdRes;
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,7 +21,9 @@ import eightbitlab.com.blurview.BlurTarget;
 import eightbitlab.com.blurview.BlurView;
 import vn.edu.usth.flightinfo.R;
 import vn.edu.usth.flightinfo.ui.airports.AirportsFragment;
+import vn.edu.usth.flightinfo.ui.myflights.MyFlightsFragment;
 import vn.edu.usth.flightinfo.ui.search.SearchFragment;
+import vn.edu.usth.flightinfo.ui.settings.SettingsActivity;
 
 /**
  * Main screen: Toolbar + one fragment per bottom-navigation tab. Tabs are created lazily and then
@@ -115,8 +116,7 @@ public class MainActivity extends AppCompatActivity implements TabFragment.Host 
             return true;
         }
         if (id == R.id.action_settings) {
-            // SettingsActivity arrives in Phase 5.
-            Toast.makeText(this, R.string.coming_soon, Toast.LENGTH_SHORT).show();
+            startActivity(SettingsActivity.newIntent(this));
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -177,7 +177,7 @@ public class MainActivity extends AppCompatActivity implements TabFragment.Host 
             return ComingSoonFragment.newInstance(R.string.tab_map);
         }
         if (tabId == R.id.nav_my_flights) {
-            return ComingSoonFragment.newInstance(R.string.tab_my_flights);
+            return new MyFlightsFragment();
         }
         return new SearchFragment();
     }

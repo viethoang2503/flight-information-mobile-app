@@ -10,6 +10,7 @@ import vn.edu.usth.flightinfo.data.DataMode;
 /** Typed access to the values edited in SettingsActivity. Keys must match res/xml/preferences.xml. */
 public class Prefs {
 
+    /** Not stored here: the language lives in AppCompatDelegate (see SettingsFragment). */
     public static final String KEY_LANGUAGE = "language";
     public static final String KEY_DATA_MODE = "data_mode";
     public static final String KEY_ALTITUDE_UNIT = "altitude_unit";
