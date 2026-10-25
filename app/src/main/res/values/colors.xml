@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Brand: airport departure-board navy + amber -->
+    <color name="brand_primary">#0B2545</color>
+    <color name="brand_primary_dark">#061A33</color>
+    <color name="brand_accent">#F2A900</color>
+    <color name="brand_accent_dark">#C78C00</color>
+    <color name="on_primary">#FFFFFF</color>
+    <color name="toolbar_bg">#0B2545</color>
+    <color name="white">#FFFFFF</color>
+
+    <color name="background">#F4F6FA</color>
+    <color name="surface">#FFFFFF</color>
+    <color name="text_primary">#1A1D23</color>
+    <color name="text_secondary">#5F6B7A</color>
+    <color name="divider">#E1E5EC</color>
+
+    <!-- Flight status chips -->
+    <color name="status_on_time">#2E7D32</color>
+    <color name="status_delayed">#F9A825</color>
+    <color name="status_en_route">#1565C0</color>
+    <color name="status_landed">#455A64</color>
+    <color name="status_cancelled">#C62828</color>
+    <color name="status_unknown">#9E9E9E</color>
+
+    <!-- "Showing demo data" banner -->
+    <color name="banner_bg">#FFF4CC</color>
+    <color name="banner_text">#5C4400</color>
+</resources>

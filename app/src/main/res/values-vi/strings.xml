@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Flight Info</string>
+
+    <string name="tab_search">Tìm kiếm</string>
+    <string name="tab_airports">Sân bay</string>
+    <string name="tab_map">Bản đồ</string>
+    <string name="tab_my_flights">Chuyến của tôi</string>
+
+    <string name="action_refresh">Làm mới</string>
+    <string name="action_settings">Cài đặt</string>
+    <string name="action_retry">Thử lại</string>
+
+    <string name="banner_mock_data">Đang hiển thị dữ liệu mẫu</string>
+
+    <string name="error_network">Không có kết nối. Hãy kiểm tra Internet rồi thử lại.</string>
+    <string name="error_no_key">Chưa cấu hình API key của AirLabs.</string>
+    <string name="error_quota">Đã hết lượt gọi API. Hãy thử lại sau hoặc chuyển sang dữ liệu mẫu.</string>
+    <string name="error_not_found">Không tìm thấy chuyến bay.</string>
+    <string name="error_generic">Đã có lỗi xảy ra. Vui lòng thử lại.</string>
+
+    <string name="status_scheduled">Đúng giờ</string>
+    <string name="status_delayed">Trễ</string>
+    <string name="status_en_route">Đang bay</string>
+    <string name="status_landed">Đã hạ cánh</string>
+    <string name="status_cancelled">Đã huỷ</string>
+    <string name="status_unknown">Không rõ</string>
+
+    <string name="placeholder_empty">—</string>
+</resources>

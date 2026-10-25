@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.FlightInfo" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/brand_primary</item>
+        <item name="colorPrimaryVariant">@color/brand_primary_dark</item>
+        <item name="colorOnPrimary">@color/on_primary</item>
+        <item name="colorSecondary">@color/brand_accent</item>
+        <item name="colorSecondaryVariant">@color/brand_accent_dark</item>
+        <item name="colorOnSecondary">@color/brand_primary_dark</item>
+        <item name="colorSurface">@color/surface</item>
+        <item name="android:colorBackground">@color/background</item>
+        <!-- The window draws the one and only full-screen background (avoids overdraw). -->
+        <item name="android:windowBackground">@color/background</item>
+        <item name="android:statusBarColor">@color/brand_primary_dark</item>
+        <item name="android:textColorPrimary">@color/text_primary</item>
+        <item name="android:textColorSecondary">@color/text_secondary</item>
+    </style>
+
+    <style name="Widget.FlightInfo.Toolbar" parent="Widget.MaterialComponents.Toolbar">
+        <item name="android:background">@color/toolbar_bg</item>
+        <item name="titleTextColor">@color/white</item>
+        <item name="subtitleTextColor">@color/white</item>
+        <item name="android:theme">@style/ThemeOverlay.MaterialComponents.Dark.ActionBar</item>
+    </style>
+
+    <!-- Departure-board look for flight numbers and times -->
+    <style name="TextAppearance.FlightInfo.Code" parent="TextAppearance.MaterialComponents.Body1">
+        <item name="android:fontFamily">monospace</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">@dimen/text_code</item>
+    </style>
+</resources>

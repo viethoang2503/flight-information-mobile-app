@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="brand_primary">#9DBCEB</color>
+    <color name="on_primary">#0B2545</color>
+    <color name="toolbar_bg">#121B2B</color>
+
+    <color name="background">#0E1420</color>
+    <color name="surface">#18202E</color>
+    <color name="text_primary">#E8ECF2</color>
+    <color name="text_secondary">#A3AEBD</color>
+    <color name="divider">#2A3445</color>
+
+    <color name="banner_bg">#3D3200</color>
+    <color name="banner_text">#FFE08A</color>
+</resources>

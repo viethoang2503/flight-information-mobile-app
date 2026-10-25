@@ -1,0 +1,4 @@
+## Copy this file to local.properties (Android Studio usually creates it and fills sdk.dir).
+## Then add your free AirLabs key from https://airlabs.co (leave empty to use mock data).
+# sdk.dir=/Users/<you>/Library/Android/sdk
+AIRLABS_API_KEY=
