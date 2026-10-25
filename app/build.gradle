@@ -11,16 +11,16 @@ if (localPropsFile.exists()) {
 def airLabsKey = localProps.getProperty('AIRLABS_API_KEY', '')
 
 android {
-    namespace 'vn.edu.usth.flightinfo'
-    compileSdk 35
+    namespace = 'vn.edu.usth.flightinfo'
+    compileSdk = 37
 
     defaultConfig {
-        applicationId 'vn.edu.usth.flightinfo'
-        minSdk 24
+        applicationId = 'vn.edu.usth.flightinfo'
+        minSdk = 24
         // 34 keeps the classic (non edge-to-edge) window behaviour taught in the course.
-        targetSdk 34
-        versionCode 1
-        versionName '1.0'
+        targetSdk = 34
+        versionCode = 1
+        versionName = '1.0'
 
         buildConfigField 'String', 'AIRLABS_API_KEY', "\"${airLabsKey}\""
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
@@ -28,23 +28,23 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled = false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
 
     buildFeatures {
-        buildConfig true
+        buildConfig = true
     }
 
     androidResources {
         // Generates the per-app language list (Settings > Language) from values-* folders.
-        generateLocaleConfig true
+        generateLocaleConfig = true
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_17
-        targetCompatibility JavaVersion.VERSION_17
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
 
     testOptions {

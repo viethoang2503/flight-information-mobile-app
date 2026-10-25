@@ -1,5 +1,7 @@
 package vn.edu.usth.flightinfo.model;
 
+import java.util.Locale;
+
 /**
  * App-level flight status. AirLabs reports
  * {@code scheduled | active | en-route | landed | cancelled}; a scheduled flight
@@ -19,7 +21,7 @@ public enum FlightStatus {
         if (rawStatus == null) {
             return UNKNOWN;
         }
-        switch (rawStatus.trim().toLowerCase()) {
+        switch (rawStatus.trim().toLowerCase(Locale.ROOT)) {
             case "cancelled":
                 return CANCELLED;
             case "landed":

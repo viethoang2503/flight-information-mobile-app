@@ -1,5 +1,7 @@
 package vn.edu.usth.flightinfo.model;
 
+import java.util.Locale;
+
 /** A static airport entry from assets/airports.json. */
 public class Airport {
 
@@ -41,11 +43,11 @@ public class Airport {
         if (query == null || query.isEmpty()) {
             return true;
         }
-        String q = query.trim().toLowerCase();
-        return iata.toLowerCase().contains(q)
-                || (icao != null && icao.toLowerCase().contains(q))
-                || name.toLowerCase().contains(q)
-                || city.toLowerCase().contains(q)
-                || (cityVi != null && cityVi.toLowerCase().contains(q));
+        String q = query.trim().toLowerCase(Locale.ROOT);
+        return iata.toLowerCase(Locale.ROOT).contains(q)
+                || (icao != null && icao.toLowerCase(Locale.ROOT).contains(q))
+                || name.toLowerCase(Locale.ROOT).contains(q)
+                || city.toLowerCase(Locale.ROOT).contains(q)
+                || (cityVi != null && cityVi.toLowerCase(Locale.ROOT).contains(q));
     }
 }

@@ -6,6 +6,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import vn.edu.usth.flightinfo.data.ApiException;
 import vn.edu.usth.flightinfo.model.Flight;
@@ -125,7 +126,7 @@ public final class AirLabsParser {
     }
 
     static ApiException toApiException(String code, String message) {
-        String c = code == null ? "" : code.toLowerCase();
+        String c = code == null ? "" : code.toLowerCase(Locale.ROOT);
         String text = message != null ? message : code;
         if (c.contains("limit") || c.contains("quota")) {
             return new ApiException(ApiException.Type.QUOTA, text);
