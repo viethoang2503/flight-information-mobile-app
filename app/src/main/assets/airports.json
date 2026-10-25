@@ -1,0 +1,452 @@
+[
+ {
+  "iata": "HAN",
+  "icao": "VVNB",
+  "name": "Noi Bai International Airport",
+  "city": "Hanoi",
+  "city_vi": "Hà Nội",
+  "country": "VN",
+  "lat": 21.2212,
+  "lon": 105.8072
+ },
+ {
+  "iata": "SGN",
+  "icao": "VVTS",
+  "name": "Tan Son Nhat International Airport",
+  "city": "Ho Chi Minh City",
+  "city_vi": "TP. Hồ Chí Minh",
+  "country": "VN",
+  "lat": 10.8188,
+  "lon": 106.6519
+ },
+ {
+  "iata": "DAD",
+  "icao": "VVDN",
+  "name": "Da Nang International Airport",
+  "city": "Da Nang",
+  "city_vi": "Đà Nẵng",
+  "country": "VN",
+  "lat": 16.0439,
+  "lon": 108.1994
+ },
+ {
+  "iata": "CXR",
+  "icao": "VVCR",
+  "name": "Cam Ranh International Airport",
+  "city": "Nha Trang",
+  "city_vi": "Nha Trang",
+  "country": "VN",
+  "lat": 11.9982,
+  "lon": 109.2194
+ },
+ {
+  "iata": "PQC",
+  "icao": "VVPQ",
+  "name": "Phu Quoc International Airport",
+  "city": "Phu Quoc",
+  "city_vi": "Phú Quốc",
+  "country": "VN",
+  "lat": 10.1698,
+  "lon": 103.9931
+ },
+ {
+  "iata": "HPH",
+  "icao": "VVCI",
+  "name": "Cat Bi International Airport",
+  "city": "Hai Phong",
+  "city_vi": "Hải Phòng",
+  "country": "VN",
+  "lat": 20.8194,
+  "lon": 106.725
+ },
+ {
+  "iata": "VII",
+  "icao": "VVVH",
+  "name": "Vinh International Airport",
+  "city": "Vinh",
+  "city_vi": "Vinh",
+  "country": "VN",
+  "lat": 18.7376,
+  "lon": 105.6708
+ },
+ {
+  "iata": "HUI",
+  "icao": "VVPB",
+  "name": "Phu Bai International Airport",
+  "city": "Hue",
+  "city_vi": "Huế",
+  "country": "VN",
+  "lat": 16.4015,
+  "lon": 107.7026
+ },
+ {
+  "iata": "VCA",
+  "icao": "VVCT",
+  "name": "Can Tho International Airport",
+  "city": "Can Tho",
+  "city_vi": "Cần Thơ",
+  "country": "VN",
+  "lat": 10.0851,
+  "lon": 105.7119
+ },
+ {
+  "iata": "DLI",
+  "icao": "VVDL",
+  "name": "Lien Khuong Airport",
+  "city": "Da Lat",
+  "city_vi": "Đà Lạt",
+  "country": "VN",
+  "lat": 11.75,
+  "lon": 108.367
+ },
+ {
+  "iata": "UIH",
+  "icao": "VVPC",
+  "name": "Phu Cat Airport",
+  "city": "Quy Nhon",
+  "city_vi": "Quy Nhơn",
+  "country": "VN",
+  "lat": 13.955,
+  "lon": 109.042
+ },
+ {
+  "iata": "VDO",
+  "icao": "VVVD",
+  "name": "Van Don International Airport",
+  "city": "Quang Ninh",
+  "city_vi": "Quảng Ninh",
+  "country": "VN",
+  "lat": 21.1178,
+  "lon": 107.4142
+ },
+ {
+  "iata": "THD",
+  "icao": "VVTX",
+  "name": "Tho Xuan Airport",
+  "city": "Thanh Hoa",
+  "city_vi": "Thanh Hóa",
+  "country": "VN",
+  "lat": 19.9017,
+  "lon": 105.4678
+ },
+ {
+  "iata": "BMV",
+  "icao": "VVBM",
+  "name": "Buon Ma Thuot Airport",
+  "city": "Buon Ma Thuot",
+  "city_vi": "Buôn Ma Thuột",
+  "country": "VN",
+  "lat": 12.668,
+  "lon": 108.12
+ },
+ {
+  "iata": "PXU",
+  "icao": "VVPK",
+  "name": "Pleiku Airport",
+  "city": "Pleiku",
+  "city_vi": "Pleiku",
+  "country": "VN",
+  "lat": 14.0045,
+  "lon": 108.017
+ },
+ {
+  "iata": "TBB",
+  "icao": "VVTH",
+  "name": "Tuy Hoa Airport",
+  "city": "Tuy Hoa",
+  "city_vi": "Tuy Hòa",
+  "country": "VN",
+  "lat": 13.0496,
+  "lon": 109.334
+ },
+ {
+  "iata": "VCL",
+  "icao": "VVCA",
+  "name": "Chu Lai Airport",
+  "city": "Quang Nam",
+  "city_vi": "Quảng Nam",
+  "country": "VN",
+  "lat": 15.4033,
+  "lon": 108.7058
+ },
+ {
+  "iata": "VDH",
+  "icao": "VVDH",
+  "name": "Dong Hoi Airport",
+  "city": "Dong Hoi",
+  "city_vi": "Đồng Hới",
+  "country": "VN",
+  "lat": 17.515,
+  "lon": 106.5907
+ },
+ {
+  "iata": "CAH",
+  "icao": "VVCM",
+  "name": "Ca Mau Airport",
+  "city": "Ca Mau",
+  "city_vi": "Cà Mau",
+  "country": "VN",
+  "lat": 9.1777,
+  "lon": 105.1778
+ },
+ {
+  "iata": "VCS",
+  "icao": "VVCS",
+  "name": "Con Dao Airport",
+  "city": "Con Dao",
+  "city_vi": "Côn Đảo",
+  "country": "VN",
+  "lat": 8.7318,
+  "lon": 106.633
+ },
+ {
+  "iata": "DIN",
+  "icao": "VVDB",
+  "name": "Dien Bien Phu Airport",
+  "city": "Dien Bien Phu",
+  "city_vi": "Điện Biên Phủ",
+  "country": "VN",
+  "lat": 21.3975,
+  "lon": 103.0078
+ },
+ {
+  "iata": "VKG",
+  "icao": "VVRG",
+  "name": "Rach Gia Airport",
+  "city": "Rach Gia",
+  "city_vi": "Rạch Giá",
+  "country": "VN",
+  "lat": 9.958,
+  "lon": 105.1324
+ },
+ {
+  "iata": "BKK",
+  "icao": "VTBS",
+  "name": "Suvarnabhumi Airport",
+  "city": "Bangkok",
+  "city_vi": "Bangkok",
+  "country": "TH",
+  "lat": 13.69,
+  "lon": 100.7501
+ },
+ {
+  "iata": "DMK",
+  "icao": "VTBD",
+  "name": "Don Mueang International Airport",
+  "city": "Bangkok",
+  "city_vi": "Bangkok",
+  "country": "TH",
+  "lat": 13.9126,
+  "lon": 100.6068
+ },
+ {
+  "iata": "SIN",
+  "icao": "WSSS",
+  "name": "Singapore Changi Airport",
+  "city": "Singapore",
+  "city_vi": "Singapore",
+  "country": "SG",
+  "lat": 1.3644,
+  "lon": 103.9915
+ },
+ {
+  "iata": "KUL",
+  "icao": "WMKK",
+  "name": "Kuala Lumpur International Airport",
+  "city": "Kuala Lumpur",
+  "city_vi": "Kuala Lumpur",
+  "country": "MY",
+  "lat": 2.7456,
+  "lon": 101.7099
+ },
+ {
+  "iata": "PNH",
+  "icao": "VDPP",
+  "name": "Phnom Penh International Airport",
+  "city": "Phnom Penh",
+  "city_vi": "Phnôm Pênh",
+  "country": "KH",
+  "lat": 11.5466,
+  "lon": 104.8441
+ },
+ {
+  "iata": "VTE",
+  "icao": "VLVT",
+  "name": "Wattay International Airport",
+  "city": "Vientiane",
+  "city_vi": "Viêng Chăn",
+  "country": "LA",
+  "lat": 17.9883,
+  "lon": 102.5633
+ },
+ {
+  "iata": "HKG",
+  "icao": "VHHH",
+  "name": "Hong Kong International Airport",
+  "city": "Hong Kong",
+  "city_vi": "Hồng Kông",
+  "country": "HK",
+  "lat": 22.308,
+  "lon": 113.9185
+ },
+ {
+  "iata": "TPE",
+  "icao": "RCTP",
+  "name": "Taoyuan International Airport",
+  "city": "Taipei",
+  "city_vi": "Đài Bắc",
+  "country": "TW",
+  "lat": 25.0777,
+  "lon": 121.2328
+ },
+ {
+  "iata": "CAN",
+  "icao": "ZGGG",
+  "name": "Guangzhou Baiyun International Airport",
+  "city": "Guangzhou",
+  "city_vi": "Quảng Châu",
+  "country": "CN",
+  "lat": 23.3924,
+  "lon": 113.2988
+ },
+ {
+  "iata": "PVG",
+  "icao": "ZSPD",
+  "name": "Shanghai Pudong International Airport",
+  "city": "Shanghai",
+  "city_vi": "Thượng Hải",
+  "country": "CN",
+  "lat": 31.1443,
+  "lon": 121.8083
+ },
+ {
+  "iata": "ICN",
+  "icao": "RKSI",
+  "name": "Incheon International Airport",
+  "city": "Seoul",
+  "city_vi": "Seoul",
+  "country": "KR",
+  "lat": 37.4602,
+  "lon": 126.4407
+ },
+ {
+  "iata": "NRT",
+  "icao": "RJAA",
+  "name": "Narita International Airport",
+  "city": "Tokyo",
+  "city_vi": "Tokyo",
+  "country": "JP",
+  "lat": 35.7647,
+  "lon": 140.3864
+ },
+ {
+  "iata": "HND",
+  "icao": "RJTT",
+  "name": "Haneda Airport",
+  "city": "Tokyo",
+  "city_vi": "Tokyo",
+  "country": "JP",
+  "lat": 35.5523,
+  "lon": 139.7798
+ },
+ {
+  "iata": "KIX",
+  "icao": "RJBB",
+  "name": "Kansai International Airport",
+  "city": "Osaka",
+  "city_vi": "Osaka",
+  "country": "JP",
+  "lat": 34.4347,
+  "lon": 135.244
+ },
+ {
+  "iata": "MNL",
+  "icao": "RPLL",
+  "name": "Ninoy Aquino International Airport",
+  "city": "Manila",
+  "city_vi": "Manila",
+  "country": "PH",
+  "lat": 14.5086,
+  "lon": 121.0194
+ },
+ {
+  "iata": "CGK",
+  "icao": "WIII",
+  "name": "Soekarno-Hatta International Airport",
+  "city": "Jakarta",
+  "city_vi": "Jakarta",
+  "country": "ID",
+  "lat": -6.1256,
+  "lon": 106.6559
+ },
+ {
+  "iata": "DPS",
+  "icao": "WADD",
+  "name": "Ngurah Rai International Airport",
+  "city": "Bali",
+  "city_vi": "Bali",
+  "country": "ID",
+  "lat": -8.7482,
+  "lon": 115.1672
+ },
+ {
+  "iata": "SYD",
+  "icao": "YSSY",
+  "name": "Sydney Kingsford Smith Airport",
+  "city": "Sydney",
+  "city_vi": "Sydney",
+  "country": "AU",
+  "lat": -33.9399,
+  "lon": 151.1753
+ },
+ {
+  "iata": "DXB",
+  "icao": "OMDB",
+  "name": "Dubai International Airport",
+  "city": "Dubai",
+  "city_vi": "Dubai",
+  "country": "AE",
+  "lat": 25.2528,
+  "lon": 55.3644
+ },
+ {
+  "iata": "DOH",
+  "icao": "OTHH",
+  "name": "Hamad International Airport",
+  "city": "Doha",
+  "city_vi": "Doha",
+  "country": "QA",
+  "lat": 25.2731,
+  "lon": 51.6081
+ },
+ {
+  "iata": "CDG",
+  "icao": "LFPG",
+  "name": "Paris Charles de Gaulle Airport",
+  "city": "Paris",
+  "city_vi": "Paris",
+  "country": "FR",
+  "lat": 49.0097,
+  "lon": 2.5479
+ },
+ {
+  "iata": "FRA",
+  "icao": "EDDF",
+  "name": "Frankfurt Airport",
+  "city": "Frankfurt",
+  "city_vi": "Frankfurt",
+  "country": "DE",
+  "lat": 50.0379,
+  "lon": 8.5622
+ },
+ {
+  "iata": "LHR",
+  "icao": "EGLL",
+  "name": "London Heathrow Airport",
+  "city": "London",
+  "city_vi": "Luân Đôn",
+  "country": "GB",
+  "lat": 51.47,
+  "lon": -0.4543
+ }
+]
