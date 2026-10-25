@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Detail rows (added from code) and the arrival-airport weather card -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        style="@style/Widget.FlightInfo.SectionHeader"
+        android:text="@string/detail_section_info" />
+
+    <com.google.android.material.card.MaterialCardView
+        style="@style/Widget.FlightInfo.Card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:id="@+id/info_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingStart="@dimen/space_m"
+            android:paddingTop="@dimen/space_s"
+            android:paddingEnd="@dimen/space_m"
+            android:paddingBottom="@dimen/space_s" />
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/weather_card"
+        style="@style/Widget.FlightInfo.Card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/space_m"
+        android:layout_marginBottom="@dimen/space_m"
+        android:visibility="gone"
+        tools:visibility="visible">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/space_m">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/weather_title"
+                    android:textColor="?android:attr/textColorPrimary"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="@dimen/text_title"
+                    android:textStyle="bold"
+                    tools:text="Weather at Ho Chi Minh City" />
+
+                <TextView
+                    android:id="@+id/weather_category"
+                    style="@style/Widget.FlightInfo.StatusChip"
+                    tools:text="VFR" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/weather_summary"
+                android:textColor="?android:attr/textColorPrimary"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_s"
+                tools:text="32°C · Wind 200° 9 kt · Visibility 6+ mi" />
+
+            <!-- Collapsed to one line; tapping changes its LayoutParams height -->
+            <TextView
+                android:id="@+id/metar_raw"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_s"
+                android:background="?attr/selectableItemBackground"
+                android:fontFamily="monospace"
+                android:paddingTop="@dimen/space_xs"
+                android:paddingBottom="@dimen/space_xs"
+                android:textColor="?android:attr/textColorSecondary"
+                android:textSize="@dimen/text_caption"
+                tools:text="METAR VVTS 010430Z 20009KT 9999 FEW020 SCT100 32/24 Q1012 NOSIG" />
+
+            <TextView
+                android:id="@+id/metar_hint"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/metar_expand_hint"
+                android:textColor="?android:attr/textColorSecondary"
+                android:textSize="10sp" />
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+</LinearLayout>

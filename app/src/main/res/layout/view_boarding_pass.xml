@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Boarding-pass card. The 9-patch background is white and tinted with the surface color. -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/boarding_pass"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_boarding_pass"
+    android:backgroundTint="@color/surface"
+    android:orientation="vertical"
+    android:padding="20dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <com.android.volley.toolbox.NetworkImageView
+            android:id="@+id/detail_logo"
+            android:layout_width="@dimen/logo_size_large"
+            android:layout_height="@dimen/logo_size_large"
+            android:contentDescription="@string/content_airline_logo"
+            android:scaleType="fitCenter" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/detail_flight_code"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/TextAppearance.FlightInfo.Code"
+                android:textSize="22sp"
+                tools:text="VN215" />
+
+            <TextView
+                android:id="@+id/detail_airline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="?android:attr/textColorSecondary"
+                tools:text="Vietnam Airlines" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/detail_status"
+            style="@style/Widget.FlightInfo.StatusChip"
+            tools:text="In flight" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:baselineAligned="false"
+        android:orientation="horizontal">
+
+        <!-- Departure -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/dep_code"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/TextAppearance.FlightInfo.AirportCode"
+                tools:text="HAN" />
+
+            <TextView
+                android:id="@+id/dep_city"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxLines="2"
+                android:textColor="?android:attr/textColorSecondary"
+                android:textSize="@dimen/text_caption"
+                tools:text="Hà Nội" />
+
+            <TextView
+                android:id="@+id/dep_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_s"
+                android:textAppearance="@style/TextAppearance.FlightInfo.Code"
+                tools:text="11:00" />
+
+            <TextView
+                android:id="@+id/dep_time_old"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="?android:attr/textColorSecondary"
+                android:textSize="@dimen/text_caption"
+                android:visibility="gone" />
+        </LinearLayout>
+
+        <!-- Progress between the two airports -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:importantForAccessibility="no"
+                android:rotation="90"
+                android:src="@drawable/ic_flight"
+                app:tint="@color/brand_accent" />
+
+            <com.google.android.material.progressindicator.LinearProgressIndicator
+                android:id="@+id/detail_progress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_xs"
+                android:max="100"
+                app:indicatorColor="@color/brand_accent"
+                app:trackColor="@color/divider"
+                app:trackCornerRadius="2dp" />
+
+            <TextView
+                android:id="@+id/detail_progress_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_xs"
+                android:gravity="center"
+                android:textColor="?android:attr/textColorSecondary"
+                android:textSize="@dimen/text_caption"
+                tools:text="46% flown" />
+        </LinearLayout>
+
+        <!-- Arrival -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="end"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/arr_code"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/TextAppearance.FlightInfo.AirportCode"
+                tools:text="SGN" />
+
+            <TextView
+                android:id="@+id/arr_city"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:maxLines="2"
+                android:textColor="?android:attr/textColorSecondary"
+                android:textSize="@dimen/text_caption"
+                tools:text="TP. Hồ Chí Minh" />
+
+            <TextView
+                android:id="@+id/arr_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_s"
+                android:textAppearance="@style/TextAppearance.FlightInfo.Code"
+                tools:text="13:10" />
+
+            <TextView
+                android:id="@+id/arr_time_old"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="?android:attr/textColorSecondary"
+                android:textSize="@dimen/text_caption"
+                android:visibility="gone" />
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

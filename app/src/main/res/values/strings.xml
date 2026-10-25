@@ -32,4 +32,51 @@
     <string name="status_unknown">Unknown</string>
 
     <string name="placeholder_empty">—</string>
+    <!-- Phase 3: placeholders -->
+    <string name="coming_soon">Coming soon</string>
+
+    <!-- Search -->
+    <string name="search_hint">Flight number</string>
+    <string name="search_helper">e.g. VN215, VJ123, QH201</string>
+    <string name="action_search">Search</string>
+    <string name="error_invalid_flight">Enter a flight number like VN215</string>
+    <string name="recent_title">Recent searches</string>
+    <string name="action_clear">Clear</string>
+    <string name="recent_empty">Your recent searches will appear here.</string>
+
+    <!-- Flight detail -->
+    <string name="detail_section_info">Flight details</string>
+    <string name="label_delay">Delay</string>
+    <string name="label_departure">Departure</string>
+    <string name="label_arrival">Arrival</string>
+    <string name="label_baggage">Baggage belt</string>
+    <string name="label_aircraft">Aircraft</string>
+    <string name="label_registration">Registration</string>
+    <string name="label_duration">Duration</string>
+    <string name="format_terminal">Terminal %s</string>
+    <string name="format_gate">Gate %s</string>
+    <string name="format_delay_minutes">%d min</string>
+    <string name="format_duration">%1$dh %2$02dm</string>
+    <string name="format_progress">%d%% flown</string>
+    <string name="progress_not_departed">Not departed yet</string>
+    <string name="progress_arrived">Arrived</string>
+    <string name="separator_dot">" · "</string>
+    <string name="route_format">%1$s → %2$s</string>
+
+    <string name="weather_title">Weather at %s</string>
+    <string name="format_temperature">%.0f°C</string>
+    <string name="format_wind">Wind %1$d° %2$d kt</string>
+    <string name="format_wind_variable">Wind variable %d kt</string>
+    <string name="format_visibility">Visibility %s mi</string>
+    <string name="metar_expand_hint">Tap the report to expand</string>
+    <string name="metar_collapse_hint">Tap the report to collapse</string>
+
+    <string name="action_save">Save to My Flights</string>
+    <string name="action_unsave">Remove from My Flights</string>
+    <string name="action_share">Share</string>
+    <string name="saved_message">Saved to My Flights</string>
+    <string name="removed_message">Removed from My Flights</string>
+    <string name="share_chooser">Share flight</string>
+    <string name="share_text">%1$s %2$s → %3$s · Departs %4$s · Arrives %5$s · %6$s</string>
+    <string name="content_airline_logo">Airline logo</string>
 </resources>

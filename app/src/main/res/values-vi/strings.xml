@@ -27,4 +27,48 @@
     <string name="status_unknown">Không rõ</string>
 
     <string name="placeholder_empty">—</string>
+    <string name="coming_soon">Sắp ra mắt</string>
+
+    <string name="search_hint">Số hiệu chuyến bay</string>
+    <string name="search_helper">Ví dụ: VN215, VJ123, QH201</string>
+    <string name="action_search">Tìm</string>
+    <string name="error_invalid_flight">Hãy nhập số hiệu chuyến bay, ví dụ VN215</string>
+    <string name="recent_title">Tìm kiếm gần đây</string>
+    <string name="action_clear">Xoá</string>
+    <string name="recent_empty">Các chuyến bay bạn đã tìm sẽ hiện ở đây.</string>
+
+    <string name="detail_section_info">Thông tin chuyến bay</string>
+    <string name="label_delay">Trễ</string>
+    <string name="label_departure">Khởi hành</string>
+    <string name="label_arrival">Hạ cánh</string>
+    <string name="label_baggage">Băng chuyền hành lý</string>
+    <string name="label_aircraft">Loại máy bay</string>
+    <string name="label_registration">Số đăng ký</string>
+    <string name="label_duration">Thời gian bay</string>
+    <string name="format_terminal">Nhà ga %s</string>
+    <string name="format_gate">Cửa %s</string>
+    <string name="format_delay_minutes">%d phút</string>
+    <string name="format_duration">%1$d giờ %2$02d phút</string>
+    <string name="format_progress">Đã bay %d%%</string>
+    <string name="progress_not_departed">Chưa khởi hành</string>
+    <string name="progress_arrived">Đã đến nơi</string>
+    <string name="separator_dot">" · "</string>
+    <string name="route_format">%1$s → %2$s</string>
+
+    <string name="weather_title">Thời tiết tại %s</string>
+    <string name="format_temperature">%.0f°C</string>
+    <string name="format_wind">Gió %1$d° %2$d kt</string>
+    <string name="format_wind_variable">Gió đổi hướng %d kt</string>
+    <string name="format_visibility">Tầm nhìn %s dặm</string>
+    <string name="metar_expand_hint">Chạm vào bản tin để mở rộng</string>
+    <string name="metar_collapse_hint">Chạm vào bản tin để thu gọn</string>
+
+    <string name="action_save">Lưu vào Chuyến của tôi</string>
+    <string name="action_unsave">Xoá khỏi Chuyến của tôi</string>
+    <string name="action_share">Chia sẻ</string>
+    <string name="saved_message">Đã lưu vào Chuyến của tôi</string>
+    <string name="removed_message">Đã xoá khỏi Chuyến của tôi</string>
+    <string name="share_chooser">Chia sẻ chuyến bay</string>
+    <string name="share_text">%1$s %2$s → %3$s · Khởi hành %4$s · Đến %5$s · %6$s</string>
+    <string name="content_airline_logo">Logo hãng bay</string>
 </resources>
