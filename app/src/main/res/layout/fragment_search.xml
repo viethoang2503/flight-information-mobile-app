@@ -17,7 +17,6 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/search_input_layout"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -38,16 +37,14 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/search_button"
+            style="@style/Widget.FlightInfo.Button.Primary"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/space_s"
             android:layout_marginTop="6dp"
             android:minHeight="56dp"
             android:text="@string/action_search"
-            app:backgroundTint="@color/brand_accent"
-            app:icon="@drawable/ic_search"
-            app:iconTint="@color/brand_primary_dark"
-            android:textColor="@color/brand_primary_dark" />
+            app:icon="@drawable/ic_search" />
     </LinearLayout>
 
     <ProgressBar
@@ -70,11 +67,10 @@
             android:layout_weight="1"
             android:text="@string/recent_title" />
 
-        <com.google.android.material.button.MaterialButton
+        <!-- Plain text link: the ripple only draws while pressed, so no extra layer at rest -->
+        <TextView
             android:id="@+id/clear_recent_button"
-            style="@style/Widget.MaterialComponents.Button.TextButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/Widget.FlightInfo.TextLink"
             android:text="@string/action_clear" />
     </LinearLayout>
 
@@ -88,7 +84,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:clipToPadding="false"
-            android:paddingBottom="@dimen/space_m"
+            android:paddingBottom="@dimen/nav_bar_clearance"
             tools:listitem="@layout/item_flight" />
 
         <TextView

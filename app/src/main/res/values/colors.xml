@@ -1,29 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Brand: airport departure-board navy + amber -->
-    <color name="brand_primary">#0B2545</color>
-    <color name="brand_primary_dark">#061A33</color>
-    <color name="brand_accent">#F2A900</color>
-    <color name="brand_accent_dark">#C78C00</color>
+    <!-- Liquid Glass, night blue. The app has one dark look, so there is no values-night. -->
+    <color name="brand_primary">#2F6BFF</color>
+    <color name="brand_primary_light">#5B95FF</color>
+    <color name="brand_link">#8FB8FF</color>
+    <color name="brand_navy">#0B2545</color>
+    <color name="brand_accent">#FFC24B</color>
     <color name="on_primary">#FFFFFF</color>
-    <color name="toolbar_bg">#0B2545</color>
     <color name="white">#FFFFFF</color>
 
-    <color name="background">#F4F6FA</color>
-    <color name="surface">#FFFFFF</color>
-    <color name="text_primary">#1A1D23</color>
-    <color name="text_secondary">#5F6B7A</color>
-    <color name="divider">#E1E5EC</color>
+    <!-- Gradient stops of the window background (bg_window_glow.png): #0A2A5E, then these two -->
+    <color name="background">#071B3D</color>
+    <color name="background_bottom">#040E24</color>
+    <!-- Opaque surface for popups, menus and snackbars that must stay readable -->
+    <color name="surface">#102C57</color>
 
-    <!-- Flight status chips -->
-    <color name="status_on_time">#2E7D32</color>
-    <color name="status_delayed">#F9A825</color>
-    <color name="status_en_route">#1565C0</color>
-    <color name="status_landed">#455A64</color>
-    <color name="status_cancelled">#C62828</color>
-    <color name="status_unknown">#9E9E9E</color>
+    <color name="text_primary">#FFFFFF</color>
+    <color name="text_secondary">#ADFFFFFF</color>
+    <color name="text_hint">#99FFFFFF</color>
+    <color name="divider">#1FFFFFFF</color>
 
-    <!-- "Showing demo data" banner -->
-    <color name="banner_bg">#FFF4CC</color>
-    <color name="banner_text">#5C4400</color>
+    <!-- Glass: translucent white over the window background -->
+    <color name="glass_fill_top">#2EFFFFFF</color>
+    <color name="glass_fill_bottom">#0DFFFFFF</color>
+    <color name="glass_stroke">#33FFFFFF</color>
+    <color name="glass_highlight">#29FFFFFF</color>
+    <color name="glass_ripple">#33FFFFFF</color>
+    <color name="glass_inset">#59000A1E</color>
+    <!-- Glass bar over the real blur (Android 12+): 16%→5% white gloss over a 25% navy tint,
+         pre-mixed. And the fallback fill when blur is not available. -->
+    <color name="glass_bar_top">#5E7887A0</color>
+    <color name="glass_bar_bottom">#493A5074</color>
+    <color name="glass_bar_fallback">#E6122E5A</color>
+
+    <!-- Flight status, brightened to read well on the dark glass -->
+    <color name="status_on_time">#5BD68A</color>
+    <color name="status_delayed">#FFC24B</color>
+    <color name="status_en_route">#5AA9FF</color>
+    <color name="status_landed">#9FB1C7</color>
+    <color name="status_cancelled">#FF6B6B</color>
+    <color name="status_unknown">#B0B8C4</color>
+
+    <!-- "Showing demo data" pill -->
+    <color name="banner_text">#FFD98A</color>
 </resources>

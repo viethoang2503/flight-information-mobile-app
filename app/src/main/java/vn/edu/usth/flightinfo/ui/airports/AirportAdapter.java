@@ -68,7 +68,7 @@ public class AirportAdapter extends RecyclerView.Adapter<AirportAdapter.ViewHold
         boolean isDefault = airport.getIata().equals(defaultIata);
         holder.defaultChip.setVisibility(isDefault ? View.VISIBLE : View.GONE);
         if (isDefault) {
-            StatusUi.tint(holder.defaultChip, R.color.brand_primary_dark);
+            StatusUi.tint(holder.defaultChip, R.color.brand_link);
         }
         holder.itemView.setOnClickListener(v -> listener.onAirportClick(airport));
     }

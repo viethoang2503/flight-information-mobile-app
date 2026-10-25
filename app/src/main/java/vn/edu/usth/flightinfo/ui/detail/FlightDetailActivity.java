@@ -148,7 +148,8 @@ public class FlightDetailActivity extends AppCompatActivity {
         prefs = new Prefs(this);
         bindViews();
 
-        swipeRefresh.setColorSchemeResources(R.color.brand_accent);
+        swipeRefresh.setColorSchemeResources(R.color.brand_link);
+        swipeRefresh.setProgressBackgroundColorSchemeResource(R.color.surface);
         swipeRefresh.setOnRefreshListener(this::loadFlight);
         metarRaw.setOnClickListener(v -> {
             metarExpanded = !metarExpanded;
@@ -243,7 +244,7 @@ public class FlightDetailActivity extends AppCompatActivity {
     public boolean onPrepareOptionsMenu(Menu menu) {
         MenuItem save = menu.findItem(R.id.action_save);
         boolean isSaved = Boolean.TRUE.equals(saved);
-        save.setIcon(isSaved ? R.drawable.ic_star : R.drawable.ic_star_border);
+        save.setIcon(isSaved ? R.drawable.ic_star_saved : R.drawable.ic_star_border);
         save.setTitle(isSaved ? R.string.action_unsave : R.string.action_save);
         save.setEnabled(flight != null && saved != null);
         menu.findItem(R.id.action_share).setEnabled(flight != null);

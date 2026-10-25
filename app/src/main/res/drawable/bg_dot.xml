@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Small status dot drawn before chip labels; tinted at runtime or with drawableTint. -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="oval">
+    <solid android:color="@color/white" />
+    <size
+        android:width="6dp"
+        android:height="6dp" />
+</shape>

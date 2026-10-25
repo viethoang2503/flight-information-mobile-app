@@ -1,28 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Yellow strip shown when the screen displays mock data -->
+    <!-- Small glass pill shown when the screen displays mock data -->
     <style name="Widget.FlightInfo.Banner" parent="">
-        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:background">@color/banner_bg</item>
-        <item name="android:textColor">@color/banner_text</item>
-        <item name="android:textSize">@dimen/text_caption</item>
-        <item name="android:gravity">center</item>
+        <item name="android:layout_marginStart">@dimen/space_m</item>
+        <item name="android:layout_marginBottom">@dimen/space_xs</item>
+        <item name="android:background">@drawable/bg_glass_pill</item>
+        <item name="android:drawableStart">@drawable/bg_dot</item>
+        <item name="android:drawableTint">@color/status_delayed</item>
+        <item name="android:drawablePadding">6dp</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:paddingStart">12dp</item>
+        <item name="android:paddingEnd">12dp</item>
         <item name="android:paddingTop">@dimen/space_xs</item>
         <item name="android:paddingBottom">@dimen/space_xs</item>
+        <item name="android:textColor">@color/banner_text</item>
+        <item name="android:textSize">@dimen/text_caption</item>
         <item name="android:text">@string/banner_mock_data</item>
         <item name="android:visibility">gone</item>
     </style>
 
-    <!-- Colored pill for a flight status; color is applied by StatusUi -->
+    <!-- Tinted glass pill with a colored dot; StatusUi sets the colors at runtime -->
     <style name="Widget.FlightInfo.StatusChip" parent="">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:background">@drawable/bg_status_chip</item>
-        <item name="android:paddingStart">@dimen/space_s</item>
-        <item name="android:paddingEnd">@dimen/space_s</item>
-        <item name="android:paddingTop">2dp</item>
-        <item name="android:paddingBottom">2dp</item>
+        <item name="android:drawablePadding">6dp</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:paddingStart">10dp</item>
+        <item name="android:paddingEnd">10dp</item>
+        <item name="android:paddingTop">3dp</item>
+        <item name="android:paddingBottom">3dp</item>
         <item name="android:textSize">@dimen/text_caption</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">@color/white</item>
@@ -35,18 +44,148 @@
         <item name="android:textSize">@dimen/text_caption</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textAllCaps">true</item>
+        <item name="android:letterSpacing">0.1</item>
         <item name="android:textColor">?android:attr/textColorSecondary</item>
         <item name="android:layout_marginTop">@dimen/space_m</item>
         <item name="android:layout_marginBottom">@dimen/space_s</item>
+        <item name="android:layout_marginStart">6dp</item>
     </style>
 
-    <!-- Outlined surface card: one background layer on top of the window -->
-    <style name="Widget.FlightInfo.Card" parent="Widget.MaterialComponents.CardView">
-        <item name="cardBackgroundColor">@color/surface</item>
-        <item name="cardCornerRadius">@dimen/card_radius</item>
-        <item name="cardElevation">0dp</item>
-        <item name="strokeColor">@color/divider</item>
-        <item name="strokeWidth">1dp</item>
+    <!-- Glass card for any layout: one translucent layer over the window background -->
+    <style name="Widget.FlightInfo.Glass" parent="">
+        <item name="android:background">@drawable/bg_glass_card</item>
+    </style>
+
+    <style name="Widget.FlightInfo.Glass.Clickable">
+        <item name="android:background">@drawable/bg_glass_card_clickable</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+    </style>
+
+    <!-- Airline logo on its white tile -->
+    <style name="Widget.FlightInfo.Logo" parent="">
+        <item name="android:background">@drawable/bg_logo</item>
+        <item name="android:padding">@dimen/logo_padding</item>
+        <item name="android:scaleType">fitCenter</item>
+        <item name="android:contentDescription">@string/content_airline_logo</item>
+    </style>
+
+    <!-- Default for every TextInputLayout in the app (theme attribute textInputStyle) -->
+    <style name="Widget.FlightInfo.TextInput" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="boxBackgroundColor">@color/glass_fill_bottom</item>
+        <item name="boxStrokeColor">@color/text_input_stroke</item>
+        <item name="boxStrokeWidth">1dp</item>
+        <item name="boxStrokeWidthFocused">1.5dp</item>
+        <item name="boxCornerRadiusTopStart">20dp</item>
+        <item name="boxCornerRadiusTopEnd">20dp</item>
+        <item name="boxCornerRadiusBottomStart">20dp</item>
+        <item name="boxCornerRadiusBottomEnd">20dp</item>
+        <item name="hintTextColor">@color/brand_link</item>
+        <item name="startIconTint">@color/text_secondary</item>
+        <item name="endIconTint">@color/text_secondary</item>
+        <item name="helperTextTextColor">@color/text_secondary</item>
+    </style>
+
+    <style name="Widget.FlightInfo.Button.Primary" parent="Widget.MaterialComponents.Button">
+        <item name="backgroundTint">@null</item>
+        <item name="android:background">@drawable/bg_button_primary</item>
+        <item name="android:stateListAnimator">@null</item>
+        <item name="android:minHeight">52dp</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="iconTint">@color/white</item>
+    </style>
+
+    <!-- Text-only action (e.g. "Clear"): 48dp touch target, ripple only while pressed -->
+    <style name="Widget.FlightInfo.TextLink" parent="">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:minHeight">48dp</item>
+        <item name="android:minWidth">48dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:paddingStart">12dp</item>
+        <item name="android:paddingEnd">12dp</item>
+        <item name="android:background">?attr/selectableItemBackgroundBorderless</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+        <item name="android:textColor">@color/brand_link</item>
+        <item name="android:textSize">@dimen/text_body</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="Widget.FlightInfo.Button.Outlined" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="strokeColor">@color/glass_stroke</item>
+        <item name="backgroundTint">@color/glass_fill_bottom</item>
+        <item name="rippleColor">@color/glass_ripple</item>
+        <item name="cornerRadius">@dimen/button_radius</item>
+    </style>
+
+    <!-- Bottom navigation inside the floating glass bar -->
+    <style name="Widget.FlightInfo.BottomNav" parent="Widget.MaterialComponents.BottomNavigationView">
+        <item name="android:background">@android:color/transparent</item>
+        <item name="elevation">0dp</item>
+        <item name="itemIconTint">@color/bottom_nav_item</item>
+        <item name="itemTextColor">@color/bottom_nav_item</item>
+        <item name="itemRippleColor">@color/glass_ripple</item>
+        <item name="labelVisibilityMode">labeled</item>
+        <item name="itemActiveIndicatorStyle">@style/Widget.FlightInfo.NavIndicator</item>
+    </style>
+
+    <!-- Pill of light behind the selected tab icon -->
+    <style name="Widget.FlightInfo.NavIndicator" parent="">
+        <item name="android:width">60dp</item>
+        <item name="android:height">30dp</item>
+        <item name="android:color">@color/glass_highlight</item>
+        <item name="marginHorizontal">4dp</item>
+        <item name="shapeAppearance">@style/ShapeAppearance.FlightInfo.Pill</item>
+    </style>
+
+    <style name="ShapeAppearance.FlightInfo.Pill" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+    </style>
+
+    <!-- Departures / Arrivals as a glass segmented switch -->
+    <style name="Widget.FlightInfo.Tabs" parent="Widget.MaterialComponents.TabLayout">
+        <item name="android:background">@drawable/bg_glass_pill</item>
+        <item name="android:padding">4dp</item>
+        <item name="tabIndicator">@drawable/bg_tab_indicator</item>
+        <item name="tabIndicatorColor">@color/brand_primary</item>
+        <item name="tabIndicatorGravity">stretch</item>
+        <item name="tabIndicatorFullWidth">true</item>
+        <item name="tabIndicatorAnimationMode">elastic</item>
+        <item name="tabSelectedTextColor">@color/white</item>
+        <item name="tabTextColor">@color/text_secondary</item>
+        <item name="tabRippleColor">@null</item>
+        <item name="tabMode">fixed</item>
+        <item name="tabGravity">fill</item>
+        <item name="tabTextAppearance">@style/TextAppearance.FlightInfo.Tab</item>
+    </style>
+
+    <style name="TextAppearance.FlightInfo.Tab" parent="TextAppearance.MaterialComponents.Button">
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <!-- Snackbars on the opaque dark surface, white text, blue action -->
+    <style name="Widget.FlightInfo.Snackbar" parent="Widget.MaterialComponents.Snackbar">
+        <item name="backgroundTint">@color/surface</item>
+        <item name="android:layout_margin">@dimen/space_m</item>
+    </style>
+
+    <style name="Widget.FlightInfo.Snackbar.Text" parent="Widget.MaterialComponents.Snackbar.TextView">
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="Widget.FlightInfo.Snackbar.Button" parent="Widget.MaterialComponents.Button.TextButton.Snackbar">
+        <item name="android:textColor">@color/brand_link</item>
     </style>
 
     <style name="TextAppearance.FlightInfo.AirportCode" parent="TextAppearance.MaterialComponents.Headline4">

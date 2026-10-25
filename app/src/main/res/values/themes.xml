@@ -1,26 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="Theme.FlightInfo" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <item name="colorPrimary">@color/brand_primary</item>
-        <item name="colorPrimaryVariant">@color/brand_primary_dark</item>
+    <!-- Liquid Glass night theme. Dark only: the glass look depends on the dark blue backdrop. -->
+    <style name="Theme.FlightInfo" parent="Theme.MaterialComponents.NoActionBar">
+        <item name="colorPrimary">@color/brand_primary_light</item>
+        <item name="colorPrimaryVariant">@color/brand_primary</item>
         <item name="colorOnPrimary">@color/on_primary</item>
-        <item name="colorSecondary">@color/brand_accent</item>
-        <item name="colorSecondaryVariant">@color/brand_accent_dark</item>
-        <item name="colorOnSecondary">@color/brand_primary_dark</item>
+        <item name="colorSecondary">@color/brand_link</item>
+        <item name="colorSecondaryVariant">@color/brand_primary_light</item>
+        <item name="colorOnSecondary">@color/brand_navy</item>
         <item name="colorSurface">@color/surface</item>
+        <item name="colorOnSurface">@color/white</item>
+        <item name="colorControlNormal">@color/text_secondary</item>
+        <item name="colorControlActivated">@color/brand_link</item>
+        <item name="colorControlHighlight">@color/glass_ripple</item>
         <item name="android:colorBackground">@color/background</item>
-        <!-- The window draws the one and only full-screen background (avoids overdraw). -->
-        <item name="android:windowBackground">@color/background</item>
-        <item name="android:statusBarColor">@color/brand_primary_dark</item>
+        <!-- The window draws the one and only full-screen background (avoids overdraw).
+             Transparent system bars let the same gradient show under them. -->
+        <item name="android:windowBackground">@drawable/bg_window</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@color/background_bottom</item>
         <item name="android:textColorPrimary">@color/text_primary</item>
         <item name="android:textColorSecondary">@color/text_secondary</item>
+        <item name="android:textColorHint">@color/text_hint</item>
+        <item name="textInputStyle">@style/Widget.FlightInfo.TextInput</item>
+        <item name="snackbarStyle">@style/Widget.FlightInfo.Snackbar</item>
+        <item name="snackbarTextViewStyle">@style/Widget.FlightInfo.Snackbar.Text</item>
+        <item name="snackbarButtonStyle">@style/Widget.FlightInfo.Snackbar.Button</item>
     </style>
 
+    <!-- Transparent toolbar over the gradient; its icons sit on round glass buttons. -->
     <style name="Widget.FlightInfo.Toolbar" parent="Widget.MaterialComponents.Toolbar">
-        <item name="android:background">@color/toolbar_bg</item>
+        <item name="android:background">@null</item>
         <item name="titleTextColor">@color/white</item>
-        <item name="subtitleTextColor">@color/white</item>
-        <item name="android:theme">@style/ThemeOverlay.MaterialComponents.Dark.ActionBar</item>
+        <item name="subtitleTextColor">@color/text_secondary</item>
+        <item name="titleTextAppearance">@style/TextAppearance.FlightInfo.ToolbarTitle</item>
+        <item name="android:theme">@style/ThemeOverlay.FlightInfo.Toolbar</item>
+    </style>
+
+    <style name="ThemeOverlay.FlightInfo.Toolbar" parent="ThemeOverlay.MaterialComponents.Dark.ActionBar">
+        <item name="actionButtonStyle">@style/Widget.FlightInfo.ActionButton</item>
+        <item name="actionOverflowButtonStyle">@style/Widget.FlightInfo.ActionButton.Overflow</item>
+        <item name="toolbarNavigationButtonStyle">@style/Widget.FlightInfo.ToolbarNavigationButton</item>
+        <item name="colorControlNormal">@color/white</item>
+    </style>
+
+    <style name="Widget.FlightInfo.ActionButton" parent="Widget.AppCompat.ActionButton">
+        <item name="android:background">@drawable/bg_glass_circle</item>
+    </style>
+
+    <style name="Widget.FlightInfo.ActionButton.Overflow" parent="Widget.AppCompat.ActionButton.Overflow">
+        <item name="android:background">@drawable/bg_glass_circle</item>
+    </style>
+
+    <style name="Widget.FlightInfo.ToolbarNavigationButton" parent="Widget.AppCompat.Toolbar.Button.Navigation">
+        <item name="android:background">@drawable/bg_glass_circle</item>
+    </style>
+
+    <style name="TextAppearance.FlightInfo.ToolbarTitle" parent="TextAppearance.MaterialComponents.Headline6">
+        <item name="android:textSize">22sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/white</item>
     </style>
 
     <!-- Departure-board look for flight numbers and times -->
@@ -28,5 +67,6 @@
         <item name="android:fontFamily">monospace</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textSize">@dimen/text_code</item>
+        <item name="android:textColor">@color/text_primary</item>
     </style>
 </resources>

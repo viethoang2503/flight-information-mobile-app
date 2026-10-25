@@ -12,6 +12,7 @@ Ký hiệu: 🧪 = cách kiểm tra phase đã xong.
 | 2. Data layer | ✅ Xong, build được |
 | 3. Main + Search + Detail | ✅ Xong. Đã chạy trên emulator: tìm VN215 ra Detail, xoay ngang giữ dữ liệu |
 | 4. Airports + Board | ✅ Xong. Đã chạy trên emulator: danh sách sân bay, Board HAN |
+| 4.5 Giao diện Liquid Glass | ✅ Xong. Áp cho Search, Detail, Airports, Board. Đã chạy trên emulator |
 | 5–7 | ⏳ Chưa làm |
 
 ---
@@ -51,6 +52,14 @@ Ký hiệu: 🧪 = cách kiểm tra phase đã xong.
 - `AirportsFragment` (lọc, ghim sân bay mặc định), `AirportAdapter`
 - `AirportBoardActivity` + `BoardPagerAdapter` (ViewPager2 + TabLayoutMediator), `BoardFragment`, `FlightRowAdapter`, SwipeRefresh
 - 🧪 Board HAN có 2 tab vuốt được, bấm vào dòng mở Detail
+
+## Phase 4.5: Giao diện Liquid Glass
+- Theme tối, nền gradient 1 bitmap (`tools/gen_window_bg.py`), status bar trong suốt
+- Drawable kính: card, pill, nút tròn toolbar, nút chính gradient xanh, ô METAR; 9-patch vé kính (`tools/gen_ninepatch.py`)
+- Thanh tab nổi dùng BlurView (`RenderEffect`, Android 12+), máy cũ dùng nền gần đặc
+- Chip trạng thái kính nhuộm màu (`StatusUi`), TabLayout dạng công tắc kính
+- Màn mới (Phase 5–6) dùng các style `Widget.FlightInfo.*` sẵn có
+- 🧪 Debug GPU Overdraw: card 1 lớp (xanh dương), thanh tab tối đa 2 lớp
 
 ## Phase 5: My Flights + Settings (F4, F5)
 - `MyFlightsFragment`: SQLite, refresh trạng thái, swipe-to-delete + Undo, empty state

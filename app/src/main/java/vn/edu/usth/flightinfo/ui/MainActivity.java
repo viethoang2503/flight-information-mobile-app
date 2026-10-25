@@ -1,9 +1,11 @@
 package vn.edu.usth.flightinfo.ui;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewOutlineProvider;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -16,6 +18,8 @@ import androidx.fragment.app.FragmentTransaction;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import eightbitlab.com.blurview.BlurTarget;
+import eightbitlab.com.blurview.BlurView;
 import vn.edu.usth.flightinfo.R;
 import vn.edu.usth.flightinfo.ui.airports.AirportsFragment;
 import vn.edu.usth.flightinfo.ui.search.SearchFragment;
@@ -27,7 +31,10 @@ import vn.edu.usth.flightinfo.ui.search.SearchFragment;
 public class MainActivity extends AppCompatActivity implements TabFragment.Host {
 
     private static final String STATE_SELECTED_TAB = "selected_tab";
+    /** Blur radius of the glass tab bar, applied to the downscaled snapshot of the content. */
+    private static final float NAV_BAR_BLUR_RADIUS = 20f;
 
+    private MaterialToolbar toolbar;
     private TextView mockBanner;
     @IdRes
     private int selectedTabId = R.id.nav_search;
@@ -37,11 +44,15 @@ public class MainActivity extends AppCompatActivity implements TabFragment.Host 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        MaterialToolbar toolbar = findViewById(R.id.toolbar);
+        toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         mockBanner = findViewById(R.id.mock_banner);
+        setUpGlassNavBar();
 
         BottomNavigationView bottomNav = findViewById(R.id.bottom_nav);
+        // BottomNavigationView always wraps its background in a MaterialShapeDrawable, which is
+        // drawn even when transparent. The glass bar behind it is enough: no extra layer.
+        bottomNav.setBackground(null);
         bottomNav.setOnItemSelectedListener(item -> {
             showTab(item.getItemId());
             return true;
@@ -60,6 +71,24 @@ public class MainActivity extends AppCompatActivity implements TabFragment.Host 
             // FragmentManager restores the fragments and their hidden state by itself.
             selectedTabId = savedInstanceState.getInt(STATE_SELECTED_TAB, R.id.nav_search);
             updateChrome();
+        }
+    }
+
+    /**
+     * The floating tab bar is real frosted glass on Android 12+ (RenderEffect blur of the content
+     * scrolling under it). Older versions get a near-opaque fill instead of a costly software blur.
+     */
+    private void setUpGlassNavBar() {
+        BlurView navBar = findViewById(R.id.nav_bar);
+        navBar.setOutlineProvider(ViewOutlineProvider.BACKGROUND);
+        navBar.setClipToOutline(true);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            BlurTarget target = findViewById(R.id.blur_target);
+            // No frame-clear drawable: the window gradient already shows through the transparent
+            // parts of the blurred snapshot, so repainting it would only add a layer of overdraw.
+            navBar.setupWith(target).setBlurRadius(NAV_BAR_BLUR_RADIUS);
+        } else {
+            navBar.setBackgroundResource(R.drawable.bg_nav_bar_fallback);
         }
     }
 
@@ -126,7 +155,8 @@ public class MainActivity extends AppCompatActivity implements TabFragment.Host 
         if (tab == null) {
             return;
         }
-        setTitle(tab.getTitleRes());
+        // Set on the toolbar itself: it has a title from XML, so Activity.setTitle() would be ignored.
+        toolbar.setTitle(tab.getTitleRes());
         mockBanner.setVisibility(tab.isShowingMockData() ? View.VISIBLE : View.GONE);
     }
 

@@ -2,18 +2,28 @@ package vn.edu.usth.flightinfo.ui.common;
 
 import android.content.Context;
 import android.content.res.ColorStateList;
+import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import android.widget.TextView;
 
+import androidx.annotation.ColorInt;
 import androidx.annotation.ColorRes;
 import androidx.annotation.StringRes;
 import androidx.core.content.ContextCompat;
-import androidx.core.view.ViewCompat;
+import androidx.core.graphics.ColorUtils;
+import androidx.core.widget.TextViewCompat;
 
 import vn.edu.usth.flightinfo.R;
 import vn.edu.usth.flightinfo.model.FlightStatus;
 
 /** Label and color of each flight status, applied to a status chip. */
 public final class StatusUi {
+
+    /** Alpha of the chip fill and rim, so the glass behind stays visible. */
+    private static final int FILL_ALPHA = 0x29;
+    private static final int STROKE_ALPHA = 0x73;
+    /** How much the label is mixed with white to stay readable on the tinted glass. */
+    private static final float LABEL_LIGHTEN = 0.45f;
 
     private StatusUi() {
     }
@@ -45,15 +55,25 @@ public final class StatusUi {
     public static void bind(TextView chip, FlightStatus status) {
         chip.setText(label(status));
         tint(chip, color(status));
-        // Dark text on the yellow "delayed" chip for contrast, white elsewhere.
-        chip.setTextColor(ContextCompat.getColor(chip.getContext(),
-                status == FlightStatus.DELAYED ? R.color.brand_primary_dark : R.color.white));
     }
 
-    /** Tints the chip background with a color resource. */
+    /**
+     * Turns the chip into tinted glass: a translucent fill and rim of the color,
+     * a solid dot before the label, and the label in a lighter shade of the color.
+     */
     public static void tint(TextView chip, @ColorRes int colorRes) {
         Context context = chip.getContext();
-        ViewCompat.setBackgroundTintList(chip,
-                ColorStateList.valueOf(ContextCompat.getColor(context, colorRes)));
+        @ColorInt int color = ContextCompat.getColor(context, colorRes);
+
+        GradientDrawable background = new GradientDrawable();
+        background.setCornerRadius(context.getResources().getDimension(R.dimen.pill_radius));
+        background.setColor(ColorUtils.setAlphaComponent(color, FILL_ALPHA));
+        background.setStroke(Math.round(context.getResources().getDisplayMetrics().density),
+                ColorUtils.setAlphaComponent(color, STROKE_ALPHA));
+        chip.setBackground(background);
+
+        chip.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.bg_dot, 0, 0, 0);
+        TextViewCompat.setCompoundDrawableTintList(chip, ColorStateList.valueOf(color));
+        chip.setTextColor(ColorUtils.blendARGB(color, Color.WHITE, LABEL_LIGHTEN));
     }
 }

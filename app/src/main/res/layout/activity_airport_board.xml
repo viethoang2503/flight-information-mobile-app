@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -11,19 +10,20 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize" />
 
-    <!-- Tab header for the ViewPager2 below, linked with TabLayoutMediator -->
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/board_tabs"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/toolbar_bg"
-        app:tabIndicatorColor="@color/brand_accent"
-        app:tabSelectedTextColor="@color/brand_accent"
-        app:tabTextColor="@color/white" />
-
     <TextView
         android:id="@+id/mock_banner"
         style="@style/Widget.FlightInfo.Banner" />
+
+    <!-- Glass segmented switch for the ViewPager2 below, linked with TabLayoutMediator -->
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/board_tabs"
+        style="@style/Widget.FlightInfo.Tabs"
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:layout_marginStart="@dimen/space_m"
+        android:layout_marginTop="@dimen/space_s"
+        android:layout_marginEnd="@dimen/space_m"
+        android:layout_marginBottom="@dimen/space_xs" />
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/board_pager"

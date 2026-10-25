@@ -12,7 +12,6 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -66,7 +65,6 @@ public class AirportsFragment extends TabFragment {
                 AirportBoardActivity.newIntent(requireContext(), airport.getIata())));
         RecyclerView list = view.findViewById(R.id.airport_list);
         list.setLayoutManager(new LinearLayoutManager(requireContext()));
-        list.addItemDecoration(new DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL));
         list.setAdapter(adapter);
 
         filter.addTextChangedListener(new TextWatcher() {

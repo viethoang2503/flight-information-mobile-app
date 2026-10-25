@@ -52,7 +52,7 @@ public class SearchFragment extends TabFragment {
     private Button searchButton;
     private ProgressBar progress;
     private TextView emptyView;
-    private Button clearButton;
+    private TextView clearButton;
 
     @Override
     public int getTitleRes() {
@@ -156,6 +156,8 @@ public class SearchFragment extends TabFragment {
                 setLoading(false);
                 Snackbar.make(requireView(), ErrorMessages.of(error), Snackbar.LENGTH_LONG)
                         .setAction(R.string.action_retry, v -> search())
+                        // Float above the glass tab bar instead of hiding under it.
+                        .setAnchorView(requireActivity().findViewById(R.id.nav_bar))
                         .show();
             }
         });

@@ -94,7 +94,8 @@ public class BoardFragment extends Fragment {
         stateText = view.findViewById(R.id.board_state_text);
         retryButton = view.findViewById(R.id.board_retry);
 
-        refreshLayout.setColorSchemeResources(R.color.brand_accent);
+        refreshLayout.setColorSchemeResources(R.color.brand_link);
+        refreshLayout.setProgressBackgroundColorSchemeResource(R.color.surface);
         refreshLayout.setOnRefreshListener(this::load);
         retryButton.setOnClickListener(v -> load());
 

@@ -8,10 +8,12 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/airport_filter_layout"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/space_m"
+        android:layout_marginStart="@dimen/space_m"
+        android:layout_marginTop="@dimen/space_s"
+        android:layout_marginEnd="@dimen/space_m"
+        android:layout_marginBottom="@dimen/space_xs"
         android:hint="@string/airports_filter_hint"
         app:endIconMode="clear_text"
         app:startIconDrawable="@drawable/ic_search">
@@ -30,10 +32,16 @@
         android:layout_height="0dp"
         android:layout_weight="1">
 
+        <!-- Bottom padding keeps the last airport clear of the floating tab bar -->
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/airport_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:clipToPadding="false"
+            android:paddingStart="@dimen/space_m"
+            android:paddingTop="@dimen/space_xs"
+            android:paddingEnd="@dimen/space_m"
+            android:paddingBottom="@dimen/nav_bar_clearance"
             tools:listitem="@layout/item_airport" />
 
         <TextView

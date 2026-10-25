@@ -1,24 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Plain row (no card background) to keep overdraw low in a long list -->
+<!-- One airport as a glass card (ripple clipped to the rounded shape) -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    style="@style/Widget.FlightInfo.Glass.Clickable"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="?attr/selectableItemBackground"
+    android:layout_marginTop="5dp"
+    android:layout_marginBottom="5dp"
     android:gravity="center_vertical"
-    android:minHeight="64dp"
+    android:minHeight="68dp"
     android:orientation="horizontal"
     android:paddingStart="@dimen/space_m"
-    android:paddingTop="@dimen/space_s"
-    android:paddingEnd="@dimen/space_m"
-    android:paddingBottom="@dimen/space_s">
+    android:paddingTop="10dp"
+    android:paddingEnd="14dp"
+    android:paddingBottom="10dp">
 
     <TextView
         android:id="@+id/airport_code"
         android:layout_width="64dp"
         android:layout_height="wrap_content"
         android:textAppearance="@style/TextAppearance.FlightInfo.Code"
-        android:textColor="?attr/colorPrimary"
+        android:textColor="@color/brand_link"
         android:textSize="20sp"
         tools:text="HAN" />
 
@@ -30,10 +32,10 @@
 
         <TextView
             android:id="@+id/airport_city"
-            android:textColor="?android:attr/textColorPrimary"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/text_body"
+            android:textColor="?android:attr/textColorPrimary"
+            android:textSize="15sp"
             android:textStyle="bold"
             tools:text="Hà Nội · Việt Nam" />
 
@@ -41,8 +43,8 @@
             android:id="@+id/airport_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:maxLines="1"
             android:ellipsize="end"
+            android:maxLines="1"
             android:textColor="?android:attr/textColorSecondary"
             android:textSize="@dimen/text_caption"
             tools:text="Noi Bai International Airport" />

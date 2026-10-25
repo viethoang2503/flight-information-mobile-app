@@ -81,8 +81,8 @@ Toolbar menu: Refresh · Settings ──► SettingsActivity (PreferenceFragment
 
 ### 5.1 MainActivity
 - Toolbar: tiêu đề theo tab, action **Refresh** (`ifRoom`), **Settings** (`never`, nằm trong overflow).
-- BottomNavigationView: Search, Airports, Map, My Flights. Đổi tab bằng `FragmentManager` (show/hide, giữ state).
-- Banner mock (TextView màu vàng) nằm trên Fragment container, chỉ hiện khi kết quả đến từ mock.
+- BottomNavigationView: Search, Airports, Map, My Flights, đặt trong thanh kính nổi (bo tròn, làm mờ nội dung cuộn bên dưới). Đổi tab bằng `FragmentManager` (show/hide, giữ state).
+- Banner mock (viên thuốc kính có chấm vàng "Showing demo data") nằm trên Fragment container, chỉ hiện khi kết quả đến từ mock.
 
 ### 5.2 SearchFragment (F1)
 - Ô nhập mã chuyến bay (EditText, viết hoa, IME action Search), nút Search.
@@ -131,12 +131,18 @@ Nhận extra `EXTRA_FLIGHT_IATA` và (tuỳ chọn) `EXTRA_FLIGHT_JSON` để hi
 
 ## 6. UI / Visual
 
-- **Theme:** Material Components (`Theme.MaterialComponents.DayNight.NoActionBar`) + Toolbar.
-- **Màu (`colors.xml`):** primary `#0B2545` (navy), secondary `#F2A900` (vàng bảng bay), surface `#FFFFFF`, background `#F4F6FA`. Màu trạng thái: on-time `#2E7D32`, delayed `#F9A825`, en-route `#1565C0`, landed `#455A64`, cancelled `#C62828`. Có bản `values-night`.
+Phong cách **Liquid Glass, xanh đêm** (mockup đã duyệt: https://claude.ai/artifact/3j4QGJa1jSrcQY4g5uDJ8R).
+
+- **Theme:** `Theme.MaterialComponents.NoActionBar` (chỉ có bản tối, vì hiệu ứng kính cần nền xanh đậm phía sau) + Toolbar trong suốt.
+- **Nền:** gradient navy → xanh đêm có 2 vầng sáng xanh, render sẵn thành **một bitmap** (`tools/gen_window_bg.py`) làm `android:windowBackground`. Status bar trong suốt để gradient chạy lên tận mép trên.
+- **Kính:**
+  - *Kính giả* cho card, ô nhập, chip: nền trắng trong suốt 18%→5% (sáng ở góc trên trái như phản chiếu), viền 1dp trắng 20%, bo 24dp (`bg_glass_card.xml`). Ripple bo theo góc card.
+  - *Mờ thật* (thư viện BlurView, `RenderEffect`) chỉ cho **thanh tab nổi** và bottom sheet trên bản đồ, trên Android 12+. Máy cũ hơn dùng nền gần đặc thay vì blur phần mềm (chậm).
+- **Màu (`colors.xml`):** xanh chủ đạo `#2F6BFF` → `#5B95FF` (nút chính gradient), link `#8FB8FF`, chữ trắng / trắng 68%. Amber `#FFC24B` chỉ còn cho trạng thái Delayed và sao "đã lưu". Màu trạng thái (làm sáng cho nền tối): on-time `#5BD68A`, delayed `#FFC24B`, en-route `#5AA9FF`, landed `#9FB1C7`, cancelled `#FF6B6B`. Chip trạng thái = kính nhuộm màu + chấm tròn.
 - **Không hard-code**: mọi string, dimen, color đều để trong `res/values*`. Có `values-vi/strings.xml` đầy đủ.
 - **Typography:** mã chuyến bay và giờ dùng `monospace`, cỡ trong `dimens.xml`.
-- **Drawable:** vector icon (máy bay, sân bay, ngôi sao, refresh…), `bg_boarding_pass.9.png` (9-patch), shape xml cho chip trạng thái.
-- **Overdraw:** theme dùng `android:windowBackground` = màu nền. Các root layout **không** set background trùng. Chỉ card mới có nền. Phải đạt mức tối đa "xanh dương/xanh lá" khi bật *Debug GPU Overdraw*.
+- **Drawable:** vector icon, `bg_boarding_pass.9.png` (9-patch vé kính có khấc, `tools/gen_ninepatch.py`), shape/ripple xml cho kính, nút, chip.
+- **Overdraw:** gradient nằm trong `windowBackground` (1 bitmap = 1 lần vẽ, thay vì layer-list 3 lớp). Root layout không set background. Card kính chỉ là 1 lớp. Thanh tab: gộp lớp phủ màu vào drawable nền và bỏ nền trong suốt của BottomNavigationView (từ 4 lớp còn 2). Mục tiêu khi bật *Debug GPU Overdraw*: không có vùng đỏ lớn.
 
 ## 7. Kiến trúc
 

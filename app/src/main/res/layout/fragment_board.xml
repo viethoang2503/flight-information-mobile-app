@@ -17,7 +17,7 @@
             android:paddingStart="@dimen/space_m"
             android:paddingTop="@dimen/space_s"
             android:paddingEnd="@dimen/space_m"
-            android:paddingBottom="@dimen/space_m"
+            android:paddingBottom="@dimen/space_l"
             tools:listitem="@layout/item_flight" />
 
         <!-- Empty / error state -->
@@ -41,7 +41,7 @@
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/board_retry"
-                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                style="@style/Widget.FlightInfo.Button.Outlined"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_s"

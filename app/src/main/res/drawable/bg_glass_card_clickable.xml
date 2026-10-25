@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Glass card with a touch ripple; the ripple is clipped to the card's rounded shape. -->
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="@color/glass_ripple">
+    <item android:drawable="@drawable/bg_glass_card" />
+</ripple>

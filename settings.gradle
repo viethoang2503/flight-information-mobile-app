@@ -10,6 +10,11 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
+        // Only BlurView is fetched from JitPack.
+        maven {
+            url = 'https://jitpack.io'
+            content { includeGroup 'com.github.Dimezis' }
+        }
     }
 }
 

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Window background: one pre-rendered bitmap (see tools/gen_window_bg.py), so a single draw per pixel. -->
+<bitmap xmlns:android="http://schemas.android.com/apk/res/android"
+    android:dither="true"
+    android:filter="true"
+    android:gravity="fill"
+    android:src="@drawable/bg_window_glow" />
