@@ -4,6 +4,14 @@ Dựa trên [SPEC.md](SPEC.md). Mỗi phase kết thúc ở trạng thái **buil
 
 Ký hiệu: 🧪 = cách kiểm tra phase đã xong.
 
+## Tiến độ
+| Phase | Trạng thái |
+|---|---|
+| 0. Khung project | ✅ Code xong, chờ sync lần đầu bằng Android Studio |
+| 1. Model + Parser + Mock | ✅ Xong, 29 unit test pass (chạy bằng JDK 17 ngoài Gradle) |
+| 2. Data layer | ✅ Code xong. Phần dùng Android/Volley chưa được compile, chờ có Android SDK |
+| 3–7 | ⏳ Chưa làm |
+
 ## Phase 0: Khung project
 - `settings.gradle`, `build.gradle` (root + app), `gradle.properties`, `gradle/wrapper/*`, `.gitignore`, `local.properties.example`
 - `AndroidManifest.xml` (INTERNET, ACCESS_NETWORK_STATE, `FlightInfoApp`, các activity, locales config)
