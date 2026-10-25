@@ -19,6 +19,8 @@
     <dimen name="nav_bar_margin">16dp</dimen>
     <dimen name="nav_bar_margin_bottom">20dp</dimen>
     <dimen name="nav_bar_clearance">104dp</dimen>
+    <!-- Map sheet sits just above the floating tab bar (20dp margin + 68dp bar + 12dp gap) -->
+    <dimen name="map_sheet_margin_bottom">100dp</dimen>
 
     <dimen name="text_caption">12sp</dimen>
     <dimen name="text_body">14sp</dimen>

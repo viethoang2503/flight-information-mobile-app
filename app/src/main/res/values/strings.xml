@@ -32,8 +32,6 @@
     <string name="status_unknown">Unknown</string>
 
     <string name="placeholder_empty">—</string>
-    <!-- Placeholder for tabs not built yet -->
-    <string name="coming_soon">Coming soon</string>
 
     <!-- Search -->
     <string name="search_hint">Flight number</string>
@@ -126,4 +124,25 @@
         <item>Meters (m)</item>
         <item>Feet (ft)</item>
     </string-array>
+    <!-- Live map -->
+    <plurals name="map_aircraft_count">
+        <item quantity="one">%d aircraft</item>
+        <item quantity="other">%d aircraft</item>
+    </plurals>
+    <string name="map_updated_at">updated %s</string>
+    <string name="map_loading">Loading aircraft…</string>
+    <string name="map_view_flight">View flight</string>
+    <string name="map_no_flight_number">No matching flight number</string>
+    <string name="map_label_altitude">Altitude</string>
+    <string name="map_label_speed">Speed</string>
+    <string name="map_label_heading">Heading</string>
+    <string name="map_on_ground">On ground</string>
+    <string name="map_vertical_climb">climbing %s</string>
+    <string name="map_vertical_descent">descending %s</string>
+    <string name="format_altitude_m">%,d m</string>
+    <string name="format_altitude_ft">%,d ft</string>
+    <string name="format_speed_kmh">%d km/h</string>
+    <string name="format_heading">%d°</string>
+    <string name="format_vertical_rate">%.1f m/s</string>
+    <string name="content_close">Close</string>
 </resources>

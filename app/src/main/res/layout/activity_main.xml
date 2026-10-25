@@ -43,7 +43,7 @@
         android:layout_marginStart="@dimen/nav_bar_margin"
         android:layout_marginEnd="@dimen/nav_bar_margin"
         android:layout_marginBottom="@dimen/nav_bar_margin_bottom"
-        android:background="@drawable/bg_nav_bar"
+        android:background="@drawable/bg_blur_glass"
         android:paddingStart="6dp"
         android:paddingEnd="6dp">
 

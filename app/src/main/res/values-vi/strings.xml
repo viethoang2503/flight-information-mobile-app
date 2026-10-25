@@ -27,7 +27,6 @@
     <string name="status_unknown">Không rõ</string>
 
     <string name="placeholder_empty">—</string>
-    <string name="coming_soon">Sắp ra mắt</string>
 
     <string name="search_hint">Số hiệu chuyến bay</string>
     <string name="search_helper">Ví dụ: VN215, VJ123, QH201</string>
@@ -117,4 +116,24 @@
         <item>Mét (m)</item>
         <item>Feet (ft)</item>
     </string-array>
+    <!-- Bản đồ trực tiếp -->
+    <plurals name="map_aircraft_count">
+        <item quantity="other">%d máy bay</item>
+    </plurals>
+    <string name="map_updated_at">cập nhật %s</string>
+    <string name="map_loading">Đang tải máy bay…</string>
+    <string name="map_view_flight">Xem chuyến bay</string>
+    <string name="map_no_flight_number">Không xác định được số hiệu chuyến</string>
+    <string name="map_label_altitude">Độ cao</string>
+    <string name="map_label_speed">Tốc độ</string>
+    <string name="map_label_heading">Hướng bay</string>
+    <string name="map_on_ground">Trên mặt đất</string>
+    <string name="map_vertical_climb">đang lên %s</string>
+    <string name="map_vertical_descent">đang xuống %s</string>
+    <string name="format_altitude_m">%,d m</string>
+    <string name="format_altitude_ft">%,d ft</string>
+    <string name="format_speed_kmh">%d km/h</string>
+    <string name="format_heading">%d°</string>
+    <string name="format_vertical_rate">%.1f m/s</string>
+    <string name="content_close">Đóng</string>
 </resources>

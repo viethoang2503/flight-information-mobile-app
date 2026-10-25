@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Floating bottom bar, drawn on top of the real blur (Android 12+). The navy tint and the
-     white gloss are pre-mixed into one gradient, so the bar costs one layer instead of two. -->
+<!-- Real-blur glass (tab bar, map sheet), drawn on top of the BlurView's blur (Android 12+).
+     The navy tint and the white gloss are pre-mixed into one gradient: one layer instead of two. -->
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
     android:shape="rectangle">
     <gradient

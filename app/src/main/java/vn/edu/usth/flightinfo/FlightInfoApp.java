@@ -3,15 +3,12 @@ package vn.edu.usth.flightinfo;
 import android.app.Application;
 import android.os.StrictMode;
 
-import androidx.preference.PreferenceManager;
-
-import org.osmdroid.config.Configuration;
-
 import vn.edu.usth.flightinfo.data.remote.ApiClient;
 
 /**
  * Application subclass: the one place for app-wide, early initialization
- * (one Volley RequestQueue per app, osmdroid configuration, StrictMode).
+ * (one Volley RequestQueue per app, StrictMode in debug builds). osmdroid is configured later,
+ * off the main thread, the first time the map is opened (LiveMapFragment).
  */
 public class FlightInfoApp extends Application {
 
@@ -30,9 +27,5 @@ public class FlightInfoApp extends Application {
         }
 
         ApiClient.init(this);
-
-        // osmdroid needs a user agent to be allowed to download OpenStreetMap tiles.
-        Configuration.getInstance().load(this, PreferenceManager.getDefaultSharedPreferences(this));
-        Configuration.getInstance().setUserAgentValue(BuildConfig.APPLICATION_ID);
     }
 }

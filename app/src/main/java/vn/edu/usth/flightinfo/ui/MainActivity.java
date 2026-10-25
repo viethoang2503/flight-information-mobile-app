@@ -21,6 +21,7 @@ import eightbitlab.com.blurview.BlurTarget;
 import eightbitlab.com.blurview.BlurView;
 import vn.edu.usth.flightinfo.R;
 import vn.edu.usth.flightinfo.ui.airports.AirportsFragment;
+import vn.edu.usth.flightinfo.ui.map.LiveMapFragment;
 import vn.edu.usth.flightinfo.ui.myflights.MyFlightsFragment;
 import vn.edu.usth.flightinfo.ui.search.SearchFragment;
 import vn.edu.usth.flightinfo.ui.settings.SettingsActivity;
@@ -89,7 +90,7 @@ public class MainActivity extends AppCompatActivity implements TabFragment.Host 
             // parts of the blurred snapshot, so repainting it would only add a layer of overdraw.
             navBar.setupWith(target).setBlurRadius(NAV_BAR_BLUR_RADIUS);
         } else {
-            navBar.setBackgroundResource(R.drawable.bg_nav_bar_fallback);
+            navBar.setBackgroundResource(R.drawable.bg_blur_glass_fallback);
         }
     }
 
@@ -174,7 +175,7 @@ public class MainActivity extends AppCompatActivity implements TabFragment.Host 
             return new AirportsFragment();
         }
         if (tabId == R.id.nav_map) {
-            return ComingSoonFragment.newInstance(R.string.tab_map);
+            return new LiveMapFragment();
         }
         if (tabId == R.id.nav_my_flights) {
             return new MyFlightsFragment();
