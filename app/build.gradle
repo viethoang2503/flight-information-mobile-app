@@ -2,6 +2,13 @@ plugins {
     id 'com.android.application'
 }
 
+// The team supplies this file from Firebase Console. Without it, guest mode remains usable.
+if (file('google-services.json').exists()) {
+    apply plugin: 'com.google.gms.google-services'
+} else {
+    logger.warn('Firebase configuration missing: add app/google-services.json to enable email authentication.')
+}
+
 // The AirLabs key is read from local.properties so it never ends up in git.
 def localProps = new Properties()
 def localPropsFile = rootProject.file('local.properties')
@@ -49,6 +56,7 @@ android {
 
     testOptions {
         unitTests.returnDefaultValues = true
+        unitTests.includeAndroidResources = true
     }
 }
 
@@ -65,7 +73,13 @@ dependencies {
     // Real backdrop blur for the glass navigation bar and map sheet (RenderEffect on Android 12+).
     implementation 'com.github.Dimezis:BlurView:version-3.2.0'
 
+    implementation platform('com.google.firebase:firebase-bom:35.1.0')
+    implementation 'com.google.firebase:firebase-auth'
+    implementation 'androidx.lifecycle:lifecycle-livedata:2.8.7'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel:2.8.7'
+
     testImplementation 'junit:junit:4.13.2'
+    testImplementation 'org.robolectric:robolectric:4.16.1'
     // android.jar only ships stubs of org.json, so JVM unit tests need the real implementation.
     testImplementation 'org.json:json:20240303'
 }

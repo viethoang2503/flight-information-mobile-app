@@ -196,4 +196,10 @@
         <item name="android:textSize">@dimen/text_airport_code</item>
         <item name="android:textColor">?android:attr/textColorPrimary</item>
     </style>
+    <!-- F8 Authentication -->
+    <style name="Widget.FlightInfo.Button.Text" parent="Widget.MaterialComponents.Button.TextButton">
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textColor">@color/brand_link</item>
+        <item name="android:minHeight">@dimen/auth_touch_target</item>
+    </style>
 </resources>

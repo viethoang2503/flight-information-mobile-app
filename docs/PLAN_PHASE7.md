@@ -8,7 +8,7 @@ Ký hiệu: 🧪 = cách kiểm tra bước đã xong.
 | Bước | Người | Trạng thái |
 |---|---|---|
 | 7.0 Chuẩn bị chung | Trưởng nhóm | ⏳ |
-| 7.1 F8 Đăng nhập (Firebase) | Người 1 | ⏳ |
+| 7.1 F8 Đăng nhập (Firebase) | Người 1 | Đã triển khai; build/test/lint pass; chờ Firebase nhóm và demo thiết bị ([chi tiết](F8_IMPLEMENTATION.md)) |
 | 7.2 F9 Thêm vào Lịch | Người 2 | ⏳ |
 | 7.3 F10 Thống kê My Flights | Người 3 | ⏳ |
 | 7.4 F11 Nhắc giờ bay | Người 4 | ⏳ |

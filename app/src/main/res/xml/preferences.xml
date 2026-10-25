@@ -2,6 +2,21 @@
 <!-- Keys must match data/local/Prefs.java -->
 <PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <!-- F8 Authentication -->
+    <PreferenceCategory
+        app:iconSpaceReserved="false"
+        app:title="@string/auth_account_category">
+        <Preference
+            app:key="auth_account_info"
+            app:iconSpaceReserved="false"
+            app:selectable="false"
+            app:title="@string/auth_guest" />
+        <Preference
+            app:key="auth_account_action"
+            app:iconSpaceReserved="false"
+            app:title="@string/auth_sign_in" />
+    </PreferenceCategory>
+
     <PreferenceCategory
         app:iconSpaceReserved="false"
         app:title="@string/pref_category_general">
