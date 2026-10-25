@@ -94,29 +94,6 @@ public class LiveMapFragment extends TabFragment {
     private static final String STATE_LON = "map_lon";
     private static final String STATE_ZOOM = "map_zoom";
 
-    /**
-     * Turns the light OpenStreetMap tiles into the app's night blue: each pixel's brightness is
-     * inverted (light land becomes dark, dark labels become light) and mapped onto a navy→blue ramp.
-     * One color filter on the tiles overlay, no extra tile server or API key needed.
-     */
-    private static final float[] NIGHT_BLUE_MATRIX = nightBlueMatrix();
-
-    private static float[] nightBlueMatrix() {
-        // out = base + scale * (255 - luminance), per channel
-        float[] scale = {0.20f, 0.33f, 0.60f};
-        float[] base = {4f, 12f, 30f};
-        float[] matrix = new float[20];
-        for (int c = 0; c < 3; c++) {
-            matrix[c * 5] = -0.299f * scale[c];
-            matrix[c * 5 + 1] = -0.587f * scale[c];
-            matrix[c * 5 + 2] = -0.114f * scale[c];
-            matrix[c * 5 + 4] = base[c] + 255f * scale[c];
-        }
-        matrix[18] = 1f; // alpha unchanged
-        return matrix;
-    }
-
-    private static volatile boolean osmdroidConfigured;
 
     private final Handler handler = new Handler(Looper.getMainLooper());
     private final Runnable refreshTask = new Runnable() {
@@ -193,7 +170,11 @@ public class LiveMapFragment extends TabFragment {
             selectedIcao24 = savedInstanceState.getString(STATE_SELECTED);
             pendingMapState = savedInstanceState;
         }
-        loadOsmdroidConfigThen(this::createMap);
+        MapStyle.loadConfigThen(requireContext(), () -> {
+            if (getView() != null) {
+                createMap();
+            }
+        });
     }
 
     /** Real blur on Android 12+, a near-opaque fill below (software blur over a map is too slow). */
@@ -207,48 +188,12 @@ public class LiveMapFragment extends TabFragment {
         }
     }
 
-    /**
-     * osmdroid's configuration reads preferences and creates its tile cache folders: disk I/O that
-     * StrictMode flags on the main thread. It is done once, on a worker thread, before the first map.
-     */
-    private void loadOsmdroidConfigThen(Runnable onReady) {
-        if (osmdroidConfigured) {
-            onReady.run();
-            return;
-        }
-        Context app = requireContext().getApplicationContext();
-        AppExecutors executors = AppExecutors.get();
-        executors.io(() -> {
-            IConfigurationProvider config = Configuration.getInstance();
-            config.load(app, PreferenceManager.getDefaultSharedPreferences(app));
-            // Tile servers require an identifying user agent.
-            config.setUserAgentValue(BuildConfig.APPLICATION_ID);
-            osmdroidConfigured = true;
-            executors.main(() -> {
-                if (getView() != null) {
-                    onReady.run();
-                }
-            });
-        });
-    }
-
     private void createMap() {
         Context context = requireContext();
         mapView = new MapView(context);
         mapView.setTileSource(TileSourceFactory.MAPNIK);
         mapView.setTilesScaledToDpi(true);
-        mapView.getOverlayManager().getTilesOverlay()
-                .setColorFilter(new ColorMatrixColorFilter(NIGHT_BLUE_MATRIX));
-        mapView.setMultiTouchControls(true);
-        mapView.getZoomController().setVisibility(CustomZoomButtonsController.Visibility.NEVER);
-        mapView.setMinZoomLevel(MIN_ZOOM);
-        mapView.setMaxZoomLevel(MAX_ZOOM);
-        mapView.setHorizontalMapRepetitionEnabled(false);
-        mapView.setVerticalMapRepetitionEnabled(false);
-        // Tiles still loading show the theme's navy instead of osmdroid's grey checkerboard.
-        int navy = ContextCompat.getColor(context, R.color.background);
-        mapView.getOverlayManager().getTilesOverlay().setLoadingBackgroundColor(navy);
-        mapView.getOverlayManager().getTilesOverlay().setLoadingLineColor(navy);
+        MapStyle.applyNightStyle(mapView);
 
         Bundle state = pendingMapState;
         pendingMapState = null;
@@ -457,9 +402,9 @@ public class LiveMapFragment extends TabFragment {
                 for (Airport airport : airports) {
                     Marker marker = new Marker(mapView);
                     marker.setPosition(new GeoPoint(airport.getLat(), airport.getLon()));
-                    marker.setIcon(airportIcon(airport.getIata()));
+                    marker.setIcon(MapStyle.airportIcon(requireContext(), airport.getIata()));
                     // Anchor on the dot, at the left of the label.
-                    marker.setAnchor(dotCenterFraction(marker.getIcon()), Marker.ANCHOR_CENTER);
+                    marker.setAnchor(MapStyle.dotAnchorU(marker.getIcon(), requireContext()), Marker.ANCHOR_CENTER);
                     marker.setInfoWindow(null);
                     marker.setOnMarkerClickListener((m, map) -> {
                         startActivity(AirportBoardActivity.newIntent(requireContext(), airport.getIata()));
@@ -594,41 +539,5 @@ public class LiveMapFragment extends TabFragment {
         Drawable icon = ContextCompat.getDrawable(requireContext(), R.drawable.ic_flight).mutate();
         icon.setTint(ContextCompat.getColor(requireContext(), colorRes));
         return icon;
-    }
-
-    /** A white dot followed by the IATA code, drawn once into a bitmap per airport. */
-    private Drawable airportIcon(String iata) {
-        float density = getResources().getDisplayMetrics().density;
-        float dotRadius = 4 * density;
-        float ring = 3 * density;
-        float gap = 5 * density;
-
-        Paint text = new Paint(Paint.ANTI_ALIAS_FLAG);
-        text.setTypeface(Typeface.create(Typeface.MONOSPACE, Typeface.BOLD));
-        text.setTextSize(11 * density);
-        text.setColor(ContextCompat.getColor(requireContext(), R.color.text_secondary));
-
-        float dotSize = 2 * (dotRadius + ring);
-        int width = (int) Math.ceil(dotSize + gap + text.measureText(iata));
-        int height = (int) Math.ceil(Math.max(dotSize, text.getFontSpacing()));
-        Bitmap bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
-        Canvas canvas = new Canvas(bitmap);
-
-        Paint dot = new Paint(Paint.ANTI_ALIAS_FLAG);
-        dot.setColor(ContextCompat.getColor(requireContext(), R.color.glass_stroke));
-        float cx = dotSize / 2f;
-        float cy = height / 2f;
-        canvas.drawCircle(cx, cy, dotRadius + ring, dot);
-        dot.setColor(ContextCompat.getColor(requireContext(), R.color.white));
-        canvas.drawCircle(cx, cy, dotRadius, dot);
-        Paint.FontMetrics fm = text.getFontMetrics();
-        canvas.drawText(iata, dotSize + gap, cy - (fm.ascent + fm.descent) / 2f, text);
-        return new BitmapDrawable(getResources(), bitmap);
-    }
-
-    /** Horizontal anchor (0..1) of the dot's center inside an airport icon. */
-    private float dotCenterFraction(Drawable icon) {
-        float density = getResources().getDisplayMetrics().density;
-        return (4 + 3) * density / icon.getIntrinsicWidth();
     }
 }
