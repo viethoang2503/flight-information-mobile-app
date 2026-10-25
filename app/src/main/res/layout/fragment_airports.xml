@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/airport_filter_layout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/space_m"
+        android:hint="@string/airports_filter_hint"
+        app:endIconMode="clear_text"
+        app:startIconDrawable="@drawable/ic_search">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/airport_filter"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:imeOptions="actionDone"
+            android:inputType="textNoSuggestions"
+            android:maxLines="1" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/airport_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:listitem="@layout/item_airport" />
+
+        <TextView
+            android:id="@+id/airport_empty"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_l"
+            android:gravity="center"
+            android:text="@string/airports_empty"
+            android:textColor="?android:attr/textColorSecondary"
+            android:visibility="gone" />
+    </FrameLayout>
+
+</LinearLayout>

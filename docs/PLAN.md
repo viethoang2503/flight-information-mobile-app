@@ -7,10 +7,14 @@ Ký hiệu: 🧪 = cách kiểm tra phase đã xong.
 ## Tiến độ
 | Phase | Trạng thái |
 |---|---|
-| 0. Khung project | ✅ Code xong, chờ sync lần đầu bằng Android Studio |
-| 1. Model + Parser + Mock | ✅ Xong, 29 unit test pass (chạy bằng JDK 17 ngoài Gradle) |
-| 2. Data layer | ✅ Code xong. Phần dùng Android/Volley chưa được compile, chờ có Android SDK |
-| 3–7 | ⏳ Chưa làm |
+| 0. Khung project | ✅ Xong. Đã nâng lên AGP 9.4.1 + Gradle 9.6.0, compileSdk 37 để chạy với Android Studio 2026.2 (JDK 25) |
+| 1. Model + Parser + Mock | ✅ Xong, 29 unit test pass (`./gradlew testDebugUnitTest`) |
+| 2. Data layer | ✅ Xong, build được |
+| 3. Main + Search + Detail | ✅ Xong. Đã chạy trên emulator: tìm VN215 ra Detail, xoay ngang giữ dữ liệu |
+| 4. Airports + Board | ✅ Xong. Đã chạy trên emulator: danh sách sân bay, Board HAN |
+| 5–7 | ⏳ Chưa làm |
+
+---
 
 ## Phase 0: Khung project
 - `settings.gradle`, `build.gradle` (root + app), `gradle.properties`, `gradle/wrapper/*`, `.gitignore`, `local.properties.example`
@@ -55,6 +59,7 @@ Ký hiệu: 🧪 = cách kiểm tra phase đã xong.
 
 ## Phase 6: Live Map (F7)
 - `LiveMapFragment`: osmdroid MapView, marker máy bay xoay theo hướng bay, marker sân bay, bottom sheet thông tin, nút "Xem chuyến bay", refresh 30s khi tab đang hiển thị, ô đếm số máy bay
+- Chuyển `Configuration.getInstance().load(...)` của osmdroid ra khỏi `FlightInfoApp.onCreate` (StrictMode báo đọc/ghi đĩa trên main thread lúc mở app)
 - 🧪 Mock: có ~25 máy bay. Live: có dữ liệu từ OpenSky
 
 ## Phase 7: Hoàn thiện & tối ưu

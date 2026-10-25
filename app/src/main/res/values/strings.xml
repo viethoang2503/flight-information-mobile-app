@@ -79,4 +79,14 @@
     <string name="share_chooser">Share flight</string>
     <string name="share_text">%1$s %2$s → %3$s · Departs %4$s · Arrives %5$s · %6$s</string>
     <string name="content_airline_logo">Airline logo</string>
+    <!-- Airports & board -->
+    <string name="airports_filter_hint">Airport, city or code</string>
+    <string name="airports_empty">No airport matches your search.</string>
+    <string name="label_default_airport">Default</string>
+    <string name="tab_departures">Departures</string>
+    <string name="tab_arrivals">Arrivals</string>
+    <string name="board_title">%1$s (%2$s)</string>
+    <string name="board_city_country">%1$s · %2$s</string>
+    <string name="board_empty_departures">No departures right now.</string>
+    <string name="board_empty_arrivals">No arrivals right now.</string>
 </resources>

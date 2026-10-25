@@ -27,6 +27,11 @@
             android:exported="false"
             android:parentActivityName=".ui.MainActivity" />
 
+        <activity
+            android:name=".ui.airports.AirportBoardActivity"
+            android:exported="false"
+            android:parentActivityName=".ui.MainActivity" />
+
         <!-- Lets AppCompat persist the in-app language choice on Android 12 and below. -->
         <service
             android:name="androidx.appcompat.app.AppLocalesMetadataHolderService"

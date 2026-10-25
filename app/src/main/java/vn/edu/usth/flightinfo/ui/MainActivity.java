@@ -17,6 +17,7 @@ import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import vn.edu.usth.flightinfo.R;
+import vn.edu.usth.flightinfo.ui.airports.AirportsFragment;
 import vn.edu.usth.flightinfo.ui.search.SearchFragment;
 
 /**
@@ -140,7 +141,7 @@ public class MainActivity extends AppCompatActivity implements TabFragment.Host 
 
     private static TabFragment createTab(@IdRes int tabId) {
         if (tabId == R.id.nav_airports) {
-            return ComingSoonFragment.newInstance(R.string.tab_airports);
+            return new AirportsFragment();
         }
         if (tabId == R.id.nav_map) {
             return ComingSoonFragment.newInstance(R.string.tab_map);

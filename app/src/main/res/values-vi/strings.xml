@@ -71,4 +71,13 @@
     <string name="share_chooser">Chia sẻ chuyến bay</string>
     <string name="share_text">%1$s %2$s → %3$s · Khởi hành %4$s · Đến %5$s · %6$s</string>
     <string name="content_airline_logo">Logo hãng bay</string>
+    <string name="airports_filter_hint">Sân bay, thành phố hoặc mã</string>
+    <string name="airports_empty">Không có sân bay nào khớp.</string>
+    <string name="label_default_airport">Mặc định</string>
+    <string name="tab_departures">Chuyến đi</string>
+    <string name="tab_arrivals">Chuyến đến</string>
+    <string name="board_title">%1$s (%2$s)</string>
+    <string name="board_city_country">%1$s · %2$s</string>
+    <string name="board_empty_departures">Hiện không có chuyến khởi hành.</string>
+    <string name="board_empty_arrivals">Hiện không có chuyến hạ cánh.</string>
 </resources>
