@@ -45,7 +45,7 @@ public class MyFlightsFragment extends TabFragment {
     private FlightRepository repository;
     private FlightAdapter adapter;
     private SwipeRefreshLayout refreshLayout;
-    private View emptyView;
+    private View emptyView;\n    private View statsCard;
 
     private long lastRefreshAt;
     /** Flight numbers covered by the last refresh: a newly saved flight triggers a new one. */
@@ -88,6 +88,10 @@ public class MyFlightsFragment extends TabFragment {
         refreshLayout.setProgressBackgroundColorSchemeResource(R.color.surface);
         refreshLayout.setOnRefreshListener(() -> loadSaved(true));
         emptyView = view.findViewById(R.id.my_flights_empty);
+        statsCard = view.findViewById(R.id.my_flights_stats_card);
+        statsCard.setOnClickListener(v -> startActivity(
+                new android.content.Intent(requireContext(),
+                        vn.edu.usth.flightinfo.ui.stats.StatsActivity.class)));
 
         adapter = new FlightAdapter(false, flight -> startActivity(
                 FlightDetailActivity.newIntent(requireContext(), flight, isShowingMockData(), false)));
@@ -291,7 +295,9 @@ public class MyFlightsFragment extends TabFragment {
     }
 
     private void updateEmptyState() {
-        emptyView.setVisibility(adapter.getItemCount() == 0 ? View.VISIBLE : View.GONE);
+        boolean empty = adapter.getItemCount() == 0;
+        emptyView.setVisibility(empty ? View.VISIBLE : View.GONE);
+        if (statsCard != null) statsCard.setVisibility(empty ? View.GONE : View.VISIBLE);
     }
 
     private static boolean isFinal(FlightStatus status) {

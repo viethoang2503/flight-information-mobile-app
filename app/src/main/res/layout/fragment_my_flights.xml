@@ -10,17 +10,77 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <!-- Swipe a row left or right to remove it; bottom padding clears the floating tab bar -->
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/my_flights_list"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:clipToPadding="false"
-            android:paddingStart="@dimen/space_m"
-            android:paddingTop="@dimen/space_xs"
-            android:paddingEnd="@dimen/space_m"
-            android:paddingBottom="@dimen/nav_bar_clearance"
-            tools:listitem="@layout/item_flight" />
+            android:orientation="vertical">
+
+            <!-- F10: shown only while there is at least one saved flight. -->
+            <LinearLayout
+                android:id="@+id/my_flights_stats_card"
+                style="@style/Widget.FlightInfo.Glass.Clickable"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/space_m"
+                android:layout_marginTop="@dimen/space_s"
+                android:layout_marginEnd="@dimen/space_m"
+                android:layout_marginBottom="@dimen/space_s"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="@dimen/space_m"
+                android:visibility="gone"
+                android:contentDescription="@string/stats_open_content_description">
+
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginEnd="@dimen/space_m"
+                    android:importantForAccessibility="no"
+                    android:src="@drawable/ic_flight"
+                    app:tint="@color/brand_link" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/stats_open_title"
+                        android:textColor="@color/text_primary"
+                        android:textSize="@dimen/text_title"
+                        android:textStyle="bold" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="3dp"
+                        android:text="@string/stats_open_subtitle"
+                        android:textColor="@color/text_secondary"
+                        android:textSize="@dimen/text_caption" />
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="›"
+                    android:textColor="@color/brand_link"
+                    android:textSize="28sp" />
+            </LinearLayout>
+
+            <!-- Swipe a row left or right to remove it; bottom padding clears the floating tab bar -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/my_flights_list"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:clipToPadding="false"
+                android:paddingStart="@dimen/space_m"
+                android:paddingTop="@dimen/space_xs"
+                android:paddingEnd="@dimen/space_m"
+                android:paddingBottom="@dimen/nav_bar_clearance"
+                tools:listitem="@layout/item_flight" />
+        </LinearLayout>
 
         <!-- Empty state -->
         <LinearLayout

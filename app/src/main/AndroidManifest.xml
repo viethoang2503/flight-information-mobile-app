@@ -62,6 +62,12 @@
                 android:value="true" />
         </service>
 
+        <!-- F10 My Flights statistics -->
+        <activity
+            android:name=".ui.stats.StatsActivity"
+            android:exported="false"
+            android:parentActivityName=".ui.MainActivity" />
+
         <!-- F12 Route Map -->
         <activity
             android:name=".ui.detail.RouteMapActivity"

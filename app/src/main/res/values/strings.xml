@@ -93,6 +93,29 @@
     <string name="my_flights_removed">%s removed</string>
     <string name="action_undo">Undo</string>
 
+    <!-- F10 My Flights statistics -->
+    <string name="stats_title">My Flight Statistics</string>
+    <string name="stats_back">Back</string>
+    <string name="stats_subtitle">A summary of your saved flights</string>
+    <string name="stats_open_title">View statistics</string>
+    <string name="stats_open_subtitle">Distance, flight time and airline breakdown</string>
+    <string name="stats_open_content_description">Open My Flights statistics</string>
+    <string name="stats_flight_count">Flights saved</string>
+    <string name="stats_distance">Total distance</string>
+    <string name="stats_hours">Time in the air</string>
+    <string name="stats_on_time">On-time rate</string>
+    <string name="stats_value_km">%1$,d km</string>
+    <string name="stats_value_hours">%s h</string>
+    <string name="stats_value_percent">%1$d%%</string>
+    <string name="stats_airlines_title">Flights by airline</string>
+    <string name="stats_chart_empty">Save flights to see your airline chart.</string>
+    <string name="stats_chart_accessibility">Flights by airline:</string>
+    <string name="stats_chart_accessibility_empty">No airline statistics available.</string>
+    <string name="stats_other_airline">Other</string>
+    <string name="stats_busiest_airport_title">Most frequent departure airport</string>
+    <string name="stats_airport_count">%1$s · %2$d departures</string>
+    <string name="stats_no_airport">No departure airport data</string>
+
     <!-- Settings -->
     <string name="settings_title">Settings</string>
     <string name="pref_category_general">General</string>
