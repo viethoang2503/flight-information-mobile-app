@@ -39,6 +39,16 @@
             android:label="@string/settings_title"
             android:parentActivityName=".ui.MainActivity" />
 
+        <!-- F8 Authentication; MainActivity stays the only launcher. -->
+        <activity
+            android:name=".ui.auth.LoginActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".ui.auth.RegisterActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+
         <!-- Lets AppCompat persist the in-app language choice on Android 12 and below. -->
         <service
             android:name="androidx.appcompat.app.AppLocalesMetadataHolderService"

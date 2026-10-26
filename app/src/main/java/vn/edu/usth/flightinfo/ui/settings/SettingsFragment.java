@@ -9,10 +9,15 @@ import androidx.preference.ListPreference;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 
+import com.google.firebase.auth.FirebaseUser;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+
 import java.util.List;
 
 import vn.edu.usth.flightinfo.BuildConfig;
 import vn.edu.usth.flightinfo.R;
+import vn.edu.usth.flightinfo.data.auth.AuthManager;
+import vn.edu.usth.flightinfo.ui.auth.AuthNavigation;
 import vn.edu.usth.flightinfo.data.ApiException;
 import vn.edu.usth.flightinfo.data.Callback;
 import vn.edu.usth.flightinfo.data.local.AirportStore;
@@ -32,12 +37,51 @@ public class SettingsFragment extends PreferenceFragmentCompat {
     @Override
     public void onCreatePreferences(@Nullable Bundle savedInstanceState, @Nullable String rootKey) {
         setPreferencesFromResource(R.xml.preferences, rootKey);
+        setUpAccount();
         setUpLanguage();
         setUpDefaultAirport();
 
         Preference version = findPreference(KEY_VERSION);
         if (version != null) {
             version.setSummary(BuildConfig.VERSION_NAME);
+        }
+    }
+
+    /** Account actions reset the task to prevent Back returning to another user's screens. */
+    private void setUpAccount() {
+        AuthManager auth = AuthManager.get(requireContext());
+        Preference info = findPreference("auth_account_info");
+        Preference action = findPreference("auth_account_action");
+        if (info == null || action == null) {
+            return;
+        }
+        FirebaseUser user = auth.currentUser();
+        if (user == null) {
+            info.setTitle(R.string.auth_guest);
+            info.setSummary(R.string.auth_guest_summary);
+            action.setTitle(R.string.auth_sign_in);
+            action.setOnPreferenceClickListener(preference -> {
+                AuthNavigation.openLogin(requireActivity());
+                return true;
+            });
+        } else {
+            String name = user.getDisplayName();
+            info.setTitle(name == null || name.trim().isEmpty()
+                    ? getString(R.string.auth_account_fallback_name) : name);
+            info.setSummary(getString(R.string.auth_account_summary,
+                    user.getEmail() == null ? "" : user.getEmail()));
+            action.setTitle(R.string.auth_sign_out);
+            action.setOnPreferenceClickListener(preference -> {
+                new MaterialAlertDialogBuilder(requireContext())
+                        .setTitle(R.string.auth_sign_out)
+                        .setMessage(R.string.auth_sign_out_message)
+                        .setNegativeButton(R.string.auth_cancel, null)
+                        .setPositiveButton(R.string.auth_sign_out, (dialog, which) -> {
+                            auth.signOut();
+                            AuthNavigation.openLogin(requireActivity());
+                        }).show();
+                return true;
+            });
         }
     }
 

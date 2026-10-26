@@ -146,6 +146,44 @@
     <string name="format_vertical_rate">%.1f m/s</string>
     <string name="content_close">Close</string>
 
+    <!-- F8 Authentication -->
+    <string name="auth_login_title">Welcome to Flight Info</string>
+    <string name="auth_login_subtitle">Sign in to keep your saved flights together.</string>
+    <string name="auth_register_title">Create an account</string>
+    <string name="auth_register_subtitle">Your flights, ready for your next journey.</string>
+    <string name="auth_name">Display name</string>
+    <string name="auth_email">Email</string>
+    <string name="auth_password">Password</string>
+    <string name="auth_confirm_password">Confirm password</string>
+    <string name="auth_sign_in">Sign in</string>
+    <string name="auth_create_account">Create account</string>
+    <string name="auth_back_to_login">Back to sign in</string>
+    <string name="auth_reset">Forgot password?</string>
+    <string name="auth_continue_guest">Continue as guest</string>
+    <string name="auth_guest_hint">Guest flights stay on this device, separate from your account.</string>
+    <string name="auth_loading">Contacting Firebase. Please wait.</string>
+    <string name="auth_reset_sent">Password reset email sent. Check your inbox and spam folder.</string>
+    <string name="auth_validation_email">Enter a valid email address.</string>
+    <string name="auth_validation_password">Use at least 6 characters.</string>
+    <string name="auth_validation_name">Enter your display name.</string>
+    <string name="auth_validation_confirmation">Passwords do not match.</string>
+    <string name="auth_config_notice">Email sign-in is currently unavailable. You can continue as a guest.</string>
+    <string name="auth_error_not_configured">Email sign-in has not been configured yet. Please continue as a guest.</string>
+    <string name="auth_error_busy">Please wait for the current request to finish.</string>
+    <string name="auth_error_profile">Your account was created, but the name could not be saved. Sign in to finish setup.</string>
+    <string name="auth_error_credentials">Incorrect email or password.</string>
+    <string name="auth_error_email_in_use">This email already has an account. Sign in or reset your password.</string>
+    <string name="auth_error_weak_password">Password is too weak. Choose a stronger password.</string>
+    <string name="auth_error_network">No network connection. Check your connection and try again.</string>
+    <string name="auth_error_too_many_requests">Too many attempts. Please try again later.</string>
+    <string name="auth_account_category">Account</string>
+    <string name="auth_guest">Guest</string>
+    <string name="auth_guest_summary">Flights are saved locally for guest mode.</string>
+    <string name="auth_account_summary">%1$s\nSaved flights are stored on this device.</string>
+    <string name="auth_account_fallback_name">Flight Info member</string>
+    <string name="auth_sign_out">Sign out</string>
+    <string name="auth_sign_out_message">Sign out of this account? Your saved flights will be available when you sign in again on this device.</string>
+    <string name="auth_cancel">Cancel</string>
     <!-- F12 Route Map -->
     <string name="route_map_title">Flight route</string>
     <string name="route_map_tap_hint">Tap to expand</string>

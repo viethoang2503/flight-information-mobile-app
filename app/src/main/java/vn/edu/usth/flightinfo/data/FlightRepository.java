@@ -5,6 +5,7 @@ import android.content.Context;
 import java.util.List;
 
 import vn.edu.usth.flightinfo.BuildConfig;
+import vn.edu.usth.flightinfo.data.auth.AuthManager;
 import vn.edu.usth.flightinfo.data.local.Prefs;
 import vn.edu.usth.flightinfo.data.local.SavedFlightsDb;
 import vn.edu.usth.flightinfo.data.mock.MockDataSource;
@@ -26,11 +27,13 @@ public class FlightRepository {
     private final MockDataSource mock;
     private final SavedFlightsDb savedDb;
     private final Prefs prefs;
+    private final AuthManager auth;
 
     private FlightRepository(Context context) {
         mock = MockDataSource.get(context);
         savedDb = SavedFlightsDb.get(context);
         prefs = new Prefs(context);
+        auth = AuthManager.get(context);
     }
 
     public static synchronized FlightRepository get(Context context) {
@@ -62,29 +65,35 @@ public class FlightRepository {
     // --- My Flights (SQLite, on a worker thread) ---
 
     public void getSavedFlights(Callback<List<Flight>> callback) {
+        // Capture before queuing work, so an account change cannot redirect this operation.
+        String owner = auth.ownerId();
         AppExecutors executors = AppExecutors.get();
         executors.io(() -> {
-            List<Flight> flights = savedDb.getAll();
+            List<Flight> flights = savedDb.getAll(owner);
             executors.main(() -> callback.onSuccess(flights));
         });
     }
 
     public void isSaved(String flightIata, Callback<Boolean> callback) {
+        // Capture before queuing work, so an account change cannot redirect this operation.
+        String owner = auth.ownerId();
         AppExecutors executors = AppExecutors.get();
         executors.io(() -> {
-            boolean saved = savedDb.isSaved(flightIata);
+            boolean saved = savedDb.isSaved(owner, flightIata);
             executors.main(() -> callback.onSuccess(saved));
         });
     }
 
     /** Saves or removes a flight, then runs {@code onDone} on the main thread (may be null). */
     public void setSaved(Flight flight, boolean saved, Runnable onDone) {
+        // Capture before queuing work, so an account change cannot redirect this operation.
+        String owner = auth.ownerId();
         AppExecutors executors = AppExecutors.get();
         executors.io(() -> {
             if (saved) {
-                savedDb.save(flight);
+                savedDb.save(owner, flight);
             } else {
-                savedDb.delete(flight.getFlightIata());
+                savedDb.delete(owner, flight.getFlightIata());
             }
             if (onDone != null) {
                 executors.main(onDone);
@@ -94,6 +103,7 @@ public class FlightRepository {
 
     /** Stores refreshed data for a saved flight (no-op if it is not saved). */
     public void updateSaved(Flight flight) {
-        AppExecutors.get().io(() -> savedDb.update(flight));
+        String owner = auth.ownerId();
+        AppExecutors.get().io(() -> savedDb.update(owner, flight));
     }
 }

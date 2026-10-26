@@ -48,37 +48,40 @@ Mỗi người làm **1 tính năng** trên một nhánh riêng. Chi tiết yêu
 **Nhánh:** `feature/login`. **Kiến thức trình bày trên slide:** nhiều Activity + Intent flags, Firebase Auth, callback bất đồng bộ, SQLite migration.
 
 ### Task
-- [ ] **1. `data/auth/AuthManager`** (singleton)
+- [x] **1. `data/auth/AuthManager`** (singleton)
   - Bọc `FirebaseAuth`.
   - Hàm: `currentUser()`, `isGuest()`, `ownerId()` (uid, hoặc `"guest"`), `signIn`, `register`, `resetPassword`, `signOut`, `continueAsGuest`.
   - Cờ "khách" lưu trong SharedPreferences.
   - Callback dùng `Callback<T>` có sẵn.
-- [ ] **2. `LoginActivity`** + `activity_login.xml`
+- [x] **2. `LoginActivity`** + `activity_login.xml`
   - Ô email, ô mật khẩu (`app:endIconMode="password_toggle"`), nút **Đăng nhập**.
   - Link **Quên mật khẩu?** → `sendPasswordResetEmail`.
   - Link **Tạo tài khoản**.
   - Nút **Dùng thử không cần đăng nhập**.
-- [ ] **3. `RegisterActivity`** + `activity_register.xml`
+- [x] **3. `RegisterActivity`** + `activity_register.xml`
   - Tên hiển thị, email, mật khẩu, nhập lại mật khẩu.
   - Đăng ký → `createUserWithEmailAndPassword` → `updateProfile(displayName)`.
-- [ ] **4. Kiểm tra đầu vào**, lỗi hiện ngay trên ô nhập: email đúng dạng (`Patterns.EMAIL_ADDRESS`), mật khẩu ≥ 6 ký tự, hai mật khẩu khớp, tên không rỗng.
-- [ ] **5. Khi đang gửi:** ProgressBar + khoá nút.
-- [ ] **6. Dịch lỗi Firebase** sang câu dễ hiểu, hiện bằng Snackbar:
+- [x] **4. Kiểm tra đầu vào**, lỗi hiện ngay trên ô nhập: email đúng dạng (`Patterns.EMAIL_ADDRESS`), mật khẩu ≥ 6 ký tự, hai mật khẩu khớp, tên không rỗng.
+- [x] **5. Khi đang gửi:** ProgressBar + khoá nút.
+- [x] **6. Dịch lỗi Firebase** sang câu dễ hiểu, hiện bằng Snackbar:
   - Sai email hoặc mật khẩu.
   - Email đã có tài khoản.
   - Mật khẩu yếu.
   - Mất mạng.
   - Lỗi chung.
-- [ ] **7. `MainActivity`:** chưa đăng nhập và không phải khách → mở `LoginActivity` với `FLAG_ACTIVITY_NEW_TASK | FLAG_ACTIVITY_CLEAR_TASK`, rồi `finish()`. Đăng nhập xong mở lại Main với cùng cờ.
-- [ ] **8. `SavedFlightsDb` version 2**
+- [x] **7. `MainActivity`:** chưa đăng nhập và không phải khách → mở `LoginActivity` với `FLAG_ACTIVITY_NEW_TASK | FLAG_ACTIVITY_CLEAR_TASK`, rồi `finish()`. Đăng nhập xong mở lại Main với cùng cờ.
+- [x] **8. `SavedFlightsDb` version 2**
   - Thêm cột `owner`. Khoá chính đổi thành `(owner, flight_iata)`.
   - Migration 1 → 2 chép dữ liệu cũ thành `owner = 'guest'`, **không được xoá dữ liệu**.
   - `FlightRepository` truyền `AuthManager.ownerId()`.
-- [ ] **9. Settings:** thêm nhóm **Tài khoản** ở đầu.
+- [x] **9. Settings:** thêm nhóm **Tài khoản** ở đầu.
   - Dòng tên + email (hoặc "Khách").
   - **Đăng xuất**: có hộp thoại xác nhận, xong về Login.
   - Khi đang là khách thì hiện **Đăng nhập**.
-- [ ] **10. Manifest:** khai báo `LoginActivity` và `RegisterActivity` (`exported=false`). Thêm chuỗi EN/VI.
+- [x] **10. Manifest:** khai báo `LoginActivity` và `RegisterActivity` (`exported=false`). Thêm chuỗi EN/VI.
+
+Đã triển khai mã và kiểm tra tự động; xem [hướng dẫn F8](F8_IMPLEMENTATION.md).
+Các mục dưới cần Firebase thật và emulator/điện thoại, chưa đánh dấu hoàn tất.
 
 ### Tự kiểm tra
 - [ ] Đăng ký → tắt app → mở lại vẫn đang đăng nhập.

@@ -20,6 +20,8 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import eightbitlab.com.blurview.BlurTarget;
 import eightbitlab.com.blurview.BlurView;
 import vn.edu.usth.flightinfo.R;
+import vn.edu.usth.flightinfo.data.auth.AuthManager;
+import vn.edu.usth.flightinfo.ui.auth.AuthNavigation;
 import vn.edu.usth.flightinfo.ui.airports.AirportsFragment;
 import vn.edu.usth.flightinfo.ui.map.LiveMapFragment;
 import vn.edu.usth.flightinfo.ui.myflights.MyFlightsFragment;
@@ -44,6 +46,10 @@ public class MainActivity extends AppCompatActivity implements TabFragment.Host 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (!AuthManager.get(this).hasSession()) {
+            AuthNavigation.openLogin(this);
+            return;
+        }
         setContentView(R.layout.activity_main);
 
         toolbar = findViewById(R.id.toolbar);

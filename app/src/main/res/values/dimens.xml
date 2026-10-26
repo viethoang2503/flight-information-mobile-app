@@ -27,4 +27,8 @@
     <dimen name="text_title">18sp</dimen>
     <dimen name="text_code">17sp</dimen>
     <dimen name="text_airport_code">36sp</dimen>
+    <!-- F8 Authentication -->
+    <dimen name="auth_screen_gutter">16dp</dimen>
+    <dimen name="auth_text_title">26sp</dimen>
+    <dimen name="auth_touch_target">48dp</dimen>
 </resources>
