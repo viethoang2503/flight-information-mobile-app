@@ -189,6 +189,23 @@
     <string name="route_map_tap_hint">Tap to expand</string>
     <string name="route_map_full_title">%s Route</string>
     <string name="route_map_progress">Completed: %d%%</string>
+    <!-- F11 Flight reminders -->
+    <string name="action_remind">Remind me</string>
+    <string name="reminder_30_minutes">30 minutes before departure</string>
+    <string name="reminder_1_hour">1 hour before departure</string>
+    <string name="reminder_2_hours">2 hours before departure</string>
+    <string name="reminder_3_hours">3 hours before departure</string>
+    <string name="reminder_1_minute">1 minute before departure (debug)</string>
+    <string name="reminder_cancel">Cancel reminder</string>
+    <string name="reminder_current">Reminder set for %1$s</string>
+    <string name="reminder_scheduled">Reminder set for %1$s. Delivery may be a few minutes late.</string>
+    <string name="reminder_cancelled">Reminder cancelled</string>
+    <string name="reminder_time_passed">The reminder time has already passed</string>
+    <string name="reminder_unavailable">Unable to set a reminder. Check the flight departure details.</string>
+    <string name="reminder_permission_denied">Reminder saved. Allow notifications in app settings to receive it.</string>
+    <string name="reminder_channel_name">Flight reminders</string>
+    <string name="reminder_notification_title">%1$s is departing soon</string>
+    <string name="reminder_notification_body">%1$s · %2$s → %3$s · Gate %4$s</string>
     <!-- F9 Calendar -->
     <string name="action_add_calendar">Add to calendar</string>
     <string name="f9_calendar_title">%1$s %2$s → %3$s</string>

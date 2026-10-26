@@ -4,6 +4,9 @@
     <!-- Both are "normal" permissions: granted at install time, no runtime dialog. -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <!-- F11 Flight reminders -->
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <application
         android:name=".FlightInfoApp"
@@ -64,6 +67,13 @@
             android:name=".ui.detail.RouteMapActivity"
             android:exported="false"
             android:parentActivityName=".ui.detail.FlightDetailActivity" />
+        <!-- F11 Flight reminders -->
+        <receiver android:name=".ui.reminder.ReminderReceiver" android:exported="false" />
+        <receiver android:name=".ui.reminder.BootReceiver" android:exported="false">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

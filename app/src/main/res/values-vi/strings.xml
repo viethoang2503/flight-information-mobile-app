@@ -180,6 +180,23 @@
     <string name="route_map_tap_hint">Chạm để phóng to</string>
     <string name="route_map_full_title">Đường bay %s</string>
     <string name="route_map_progress">Đã bay: %d%%</string>
+    <!-- F11 Flight reminders -->
+    <string name="action_remind">Nhắc tôi</string>
+    <string name="reminder_30_minutes">30 phút trước khi cất cánh</string>
+    <string name="reminder_1_hour">1 giờ trước khi cất cánh</string>
+    <string name="reminder_2_hours">2 giờ trước khi cất cánh</string>
+    <string name="reminder_3_hours">3 giờ trước khi cất cánh</string>
+    <string name="reminder_1_minute">1 phút trước khi cất cánh (debug)</string>
+    <string name="reminder_cancel">Huỷ nhắc</string>
+    <string name="reminder_current">Đã đặt nhắc lúc %1$s</string>
+    <string name="reminder_scheduled">Đã đặt nhắc lúc %1$s. Thông báo có thể trễ vài phút.</string>
+    <string name="reminder_cancelled">Đã huỷ nhắc</string>
+    <string name="reminder_time_passed">Đã quá thời điểm nhắc</string>
+    <string name="reminder_unavailable">Không thể đặt nhắc. Hãy kiểm tra thông tin giờ khởi hành.</string>
+    <string name="reminder_permission_denied">Đã lưu lời nhắc. Hãy cho phép thông báo trong cài đặt ứng dụng để nhận lời nhắc.</string>
+    <string name="reminder_channel_name">Nhắc giờ bay</string>
+    <string name="reminder_notification_title">%1$s sắp cất cánh</string>
+    <string name="reminder_notification_body">%1$s · %2$s → %3$s · Cửa %4$s</string>
     <!-- F9 Calendar -->
     <string name="action_add_calendar">Thêm vào lịch</string>
     <string name="f9_calendar_title">%1$s %2$s → %3$s</string>
