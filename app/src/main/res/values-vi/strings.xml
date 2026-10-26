@@ -85,6 +85,29 @@
     <string name="my_flights_removed">Đã xoá %s</string>
     <string name="action_undo">Hoàn tác</string>
 
+    <!-- F10 Thống kê Chuyến của tôi -->
+    <string name="stats_title">Thống kê chuyến bay</string>
+    <string name="stats_back">Quay lại</string>
+    <string name="stats_subtitle">Tổng quan các chuyến bay bạn đã lưu</string>
+    <string name="stats_open_title">Xem thống kê</string>
+    <string name="stats_open_subtitle">Quãng đường, giờ bay và hãng hàng không</string>
+    <string name="stats_open_content_description">Mở thống kê Chuyến của tôi</string>
+    <string name="stats_flight_count">Số chuyến bay</string>
+    <string name="stats_distance">Tổng quãng đường</string>
+    <string name="stats_hours">Tổng giờ bay</string>
+    <string name="stats_on_time">Tỉ lệ đúng giờ</string>
+    <string name="stats_value_km">%1$,d km</string>
+    <string name="stats_value_hours">%s giờ</string>
+    <string name="stats_value_percent">%1$d%%</string>
+    <string name="stats_airlines_title">Số chuyến theo hãng</string>
+    <string name="stats_chart_empty">Lưu chuyến bay để xem biểu đồ hãng hàng không.</string>
+    <string name="stats_chart_accessibility">Số chuyến theo hãng:</string>
+    <string name="stats_chart_accessibility_empty">Chưa có dữ liệu thống kê hãng hàng không.</string>
+    <string name="stats_other_airline">Khác</string>
+    <string name="stats_busiest_airport_title">Sân bay đi nhiều nhất</string>
+    <string name="stats_airport_count">%1$s · %2$d lần khởi hành</string>
+    <string name="stats_no_airport">Chưa có dữ liệu sân bay đi</string>
+
     <!-- Cài đặt -->
     <string name="settings_title">Cài đặt</string>
     <string name="pref_category_general">Chung</string>
