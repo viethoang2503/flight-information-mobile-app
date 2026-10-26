@@ -8,6 +8,7 @@ import android.text.TextUtils;
 import androidx.core.app.NotificationManagerCompat;
 import org.json.JSONException;
 import org.json.JSONObject;
+import vn.edu.usth.flightinfo.data.auth.AuthManager;
 import vn.edu.usth.flightinfo.data.local.ReminderStore;
 import vn.edu.usth.flightinfo.model.Flight;
 
@@ -41,8 +42,14 @@ public final class ReminderScheduler {
             return false;
         }
         scheduleStored(flight.getFlightIata(), triggerAt, json);
-        store.save(flight.getFlightIata(), triggerAt, json);
+        store.save(flight.getFlightIata(), triggerAt, json, AuthManager.get(context).ownerId());
         return true;
+    }
+
+    /** The reminder for this flight set by the signed-in user (or guest), or null. */
+    public ReminderStore.Entry find(String flightIata) {
+        ReminderStore.Entry entry = store.get(flightIata);
+        return entry != null && entry.belongsTo(AuthManager.get(context).ownerId()) ? entry : null;
     }
 
     public void scheduleStored(String flightIata, long triggerAt, String json) {

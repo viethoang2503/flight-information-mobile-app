@@ -14,6 +14,7 @@ import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
 import org.json.JSONObject;
 import vn.edu.usth.flightinfo.R;
+import vn.edu.usth.flightinfo.data.auth.AuthManager;
 import vn.edu.usth.flightinfo.data.local.ReminderStore;
 import vn.edu.usth.flightinfo.data.parser.AirLabsParser;
 import vn.edu.usth.flightinfo.model.Flight;
@@ -31,6 +32,8 @@ public class ReminderReceiver extends BroadcastReceiver {
         if (entry == null) return; // Cancelled or already consumed.
         String json = entry.flightJson;
         try {
+            // Another account signed in since it was set: drop it silently (finally removes it).
+            if (!entry.belongsTo(AuthManager.get(context).ownerId())) return;
             JSONObject payload = new JSONObject(json);
             Flight flight = AirLabsParser.parseFlight(payload);
             if (Build.VERSION.SDK_INT >= 26) {

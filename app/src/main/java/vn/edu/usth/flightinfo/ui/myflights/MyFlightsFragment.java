@@ -45,7 +45,8 @@ public class MyFlightsFragment extends TabFragment {
     private FlightRepository repository;
     private FlightAdapter adapter;
     private SwipeRefreshLayout refreshLayout;
-    private View emptyView;\n    private View statsCard;
+    private View emptyView;
+    private View statsCard;
 
     private long lastRefreshAt;
     /** Flight numbers covered by the last refresh: a newly saved flight triggers a new one. */

@@ -107,6 +107,7 @@
     <string name="stats_value_km">%1$,d km</string>
     <string name="stats_value_hours">%s h</string>
     <string name="stats_value_percent">%1$d%%</string>
+    <string name="stats_value_none" translatable="false">—</string>
     <string name="stats_airlines_title">Flights by airline</string>
     <string name="stats_chart_empty">Save flights to see your airline chart.</string>
     <string name="stats_chart_accessibility">Flights by airline:</string>

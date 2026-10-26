@@ -42,7 +42,6 @@ public class StatsActivity extends AppCompatActivity {
         busiestAirportView = findViewById(R.id.stats_busiest_airport_value);
         chart = findViewById(R.id.stats_airline_chart);
 
-        findViewById(R.id.stats_toolbar).setOnClickListener(v -> finish());
         com.google.android.material.appbar.MaterialToolbar toolbar = findViewById(R.id.stats_toolbar);
         toolbar.setNavigationOnClickListener(v -> finish());
 
@@ -89,7 +88,9 @@ public class StatsActivity extends AppCompatActivity {
         countView.setText(String.valueOf(stats.getFlightCount()));
         distanceView.setText(getString(R.string.stats_value_km, Math.round(stats.getTotalDistanceKm())));
         hoursView.setText(getString(R.string.stats_value_hours, formatHours(stats.getTotalHours())));
-        punctualityView.setText(getString(R.string.stats_value_percent, Math.round(stats.getOnTimePercent())));
+        punctualityView.setText(stats.hasOnTimeData()
+                ? getString(R.string.stats_value_percent, Math.round(stats.getOnTimePercent()))
+                : getString(R.string.stats_value_none));
 
         List<BarChartView.Bar> bars = new ArrayList<>();
         for (FlightStats.AirlineCount airline : stats.getAirlines()) {
@@ -121,7 +122,7 @@ public class StatsActivity extends AppCompatActivity {
         countView.setText("0");
         distanceView.setText(getString(R.string.stats_value_km, 0));
         hoursView.setText(getString(R.string.stats_value_hours, "0"));
-        punctualityView.setText(getString(R.string.stats_value_percent, 0));
+        punctualityView.setText(R.string.stats_value_none);
         busiestAirportView.setText(getString(R.string.stats_no_airport));
         chart.setData(new ArrayList<>());
     }

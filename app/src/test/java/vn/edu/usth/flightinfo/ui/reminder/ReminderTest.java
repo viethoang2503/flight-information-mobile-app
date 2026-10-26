@@ -104,6 +104,18 @@ public class ReminderTest {
         assertNull(shadowOf(notifications).getNotification("VN215".hashCode()));
     }
 
+    @Test public void reminderOfAnotherAccountIsHiddenAndDoesNotNotify() throws Exception {
+        // No Firebase in unit tests, so the current owner is the guest.
+        store.save("VN215", System.currentTimeMillis() + 60_000L, flight("VN215").getRawJson(), "other-uid");
+        assertNull(scheduler.find("VN215"));
+        new ReminderReceiver().onReceive(context, alarmIntent("VN215"));
+        assertNull(shadowOf(notifications).getNotification("VN215".hashCode()));
+        assertNull(store.get("VN215"));
+
+        assertTrue(scheduler.schedule(flight("VN215"), 30));
+        assertNotNull(scheduler.find("VN215"));
+    }
+
     @Test public void notificationRetainsMockMode() throws Exception {
         assertTrue(scheduler.schedule(flight("VN215"), 30, true));
         new ReminderReceiver().onReceive(context, alarmIntent("VN215"));

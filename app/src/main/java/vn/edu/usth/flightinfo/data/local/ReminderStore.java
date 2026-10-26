@@ -19,18 +19,31 @@ public final class ReminderStore {
         public final String flightIata;
         public final long triggerAt;
         public final String flightJson;
-        public Entry(String flightIata, long triggerAt, String flightJson) {
+        /** AuthManager owner id of whoever set the reminder; null for entries saved before F8. */
+        public final String owner;
+        public Entry(String flightIata, long triggerAt, String flightJson, String owner) {
             this.flightIata = flightIata;
             this.triggerAt = triggerAt;
             this.flightJson = flightJson;
+            this.owner = owner;
+        }
+
+        /** Old entries without an owner are kept visible to everyone rather than lost. */
+        public boolean belongsTo(String ownerId) {
+            return owner == null || owner.equals(ownerId);
         }
     }
 
     public void save(String flightIata, long triggerAt, String flightJson) {
+        save(flightIata, triggerAt, flightJson, null);
+    }
+
+    public void save(String flightIata, long triggerAt, String flightJson, String owner) {
         try {
             JSONObject obj = new JSONObject();
             obj.put("triggerAt", triggerAt);
             obj.put("flightJson", flightJson);
+            if (owner != null) obj.put("owner", owner);
             prefs.edit().putString(flightIata, obj.toString()).apply();
         } catch (Exception ignored) { }
     }
@@ -40,7 +53,8 @@ public final class ReminderStore {
         if (serialized == null) return null;
         try {
             JSONObject obj = new JSONObject(serialized);
-            return new Entry(flightIata, obj.getLong("triggerAt"), obj.optString("flightJson", ""));
+            return new Entry(flightIata, obj.getLong("triggerAt"), obj.optString("flightJson", ""),
+                    obj.has("owner") ? obj.getString("owner") : null);
         } catch (Exception ignored) {
             return null;
         }

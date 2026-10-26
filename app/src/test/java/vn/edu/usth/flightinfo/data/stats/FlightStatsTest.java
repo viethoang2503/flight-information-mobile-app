@@ -11,7 +11,9 @@ import vn.edu.usth.flightinfo.model.Airport;
 import vn.edu.usth.flightinfo.model.Flight;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 public class FlightStatsTest {
     private Flight flight(String number, String airline, String dep, String arr,
@@ -36,8 +38,8 @@ public class FlightStatsTest {
     }
 
     @Test public void aggregatesCountDistanceDurationAndPunctuality() {
-        Flight a = flight("VN1", "VN", "AAA", "BBB", 60, "scheduled", 0);
-        Flight b = flight("VJ2", "VJ", "AAA", "CCC", 90, "scheduled", 20);
+        Flight a = flight("VN1", "VN", "AAA", "BBB", 60, "landed", 0);
+        Flight b = flight("VJ2", "VJ", "AAA", "CCC", 90, "active", 20);
         Flight c = flight("VN3", "VN", "BBB", "CCC", 30, "cancelled", null);
 
         FlightStats stats = FlightStats.from(Arrays.asList(a, b, c), airports());
@@ -51,6 +53,21 @@ public class FlightStatsTest {
         assertEquals("VN", stats.getAirlines().get(0).getCode());
         assertEquals(2, stats.getAirlines().get(0).getCount());
         assertEquals(379.6, stats.getTotalDistanceKm(), 2.0);
+    }
+
+    @Test public void flightsNotYetDepartedDoNotCountTowardsPunctuality() {
+        FlightStats stats = FlightStats.from(Arrays.asList(
+                flight("VN1", "VN", "AAA", "BBB", 60, "scheduled", 0),
+                flight("VJ2", "VJ", "AAA", "CCC", 90, "scheduled", 20)
+        ), airports());
+        assertFalse(stats.hasOnTimeData());
+
+        stats = FlightStats.from(Arrays.asList(
+                flight("VN1", "VN", "AAA", "BBB", 60, "scheduled", 0),
+                flight("VN2", "VN", "AAA", "BBB", 60, "landed", 30)
+        ), airports());
+        assertTrue(stats.hasOnTimeData());
+        assertEquals(0.0, stats.getOnTimePercent(), 0.001);
     }
 
     @Test public void emptyInputReturnsZeroesAndNoAirport() {

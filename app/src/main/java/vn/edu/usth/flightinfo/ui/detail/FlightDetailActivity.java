@@ -327,8 +327,9 @@ public class FlightDetailActivity extends AppCompatActivity {
         // Capture the displayed flight: auto-refresh must not change a dialog selection.
         Flight selectedFlight = flight;
         boolean selectedIsMock = isMock;
-        ReminderStore store = new ReminderStore(this);
-        ReminderStore.Entry existing = store.get(selectedFlight.getFlightIata());
+        ReminderScheduler scheduler = new ReminderScheduler(this);
+        // A reminder set by another account on this device is not shown or cancellable here.
+        ReminderStore.Entry existing = scheduler.find(selectedFlight.getFlightIata());
         int[] minutes = BuildConfig.DEBUG ? new int[]{30, 60, 120, 180, 1}
                 : new int[]{30, 60, 120, 180};
         List<String> options = new ArrayList<>();
@@ -344,7 +345,6 @@ public class FlightDetailActivity extends AppCompatActivity {
                         DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_TIME));
         new AlertDialog.Builder(this).setTitle(title)
                 .setItems(options.toArray(new String[0]), (dialog, which) -> {
-                    ReminderScheduler scheduler = new ReminderScheduler(this);
                     if (which == minutes.length) {
                         scheduler.cancel(selectedFlight.getFlightIata());
                         Snackbar.make(swipeRefresh, R.string.reminder_cancelled, Snackbar.LENGTH_SHORT).show();

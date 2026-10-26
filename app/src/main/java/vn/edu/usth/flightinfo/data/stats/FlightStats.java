@@ -20,16 +20,18 @@ public final class FlightStats {
     private final double totalDistanceKm;
     private final double totalHours;
     private final double onTimePercent;
+    private final int onTimeBase;
     private final List<AirlineCount> airlines;
     private final String busiestDepartureIata;
     private final int busiestDepartureCount;
 
-    private FlightStats(int count, double distance, double hours, double onTime,
+    private FlightStats(int count, double distance, double hours, double onTime, int onTimeBase,
                         List<AirlineCount> airlines, String airport, int airportCount) {
         this.flightCount = count;
         this.totalDistanceKm = distance;
         this.totalHours = hours;
         this.onTimePercent = onTime;
+        this.onTimeBase = onTimeBase;
         this.airlines = Collections.unmodifiableList(airlines);
         this.busiestDepartureIata = airport;
         this.busiestDepartureCount = airportCount;
@@ -66,8 +68,10 @@ public final class FlightStats {
                 if (depTs > 0 && arrTs > depTs) minutes += (arrTs - depTs) / 60.0;
             }
 
+            // Only flights that have actually departed have a known punctuality: a future
+            // flight with no delay yet must not count as "on time".
             FlightStatus status = flight.getStatus();
-            if (status != FlightStatus.CANCELLED) {
+            if (status == FlightStatus.EN_ROUTE || status == FlightStatus.LANDED) {
                 eligible++;
                 Integer delay = flight.getDelayMinutes();
                 if (delay == null || delay < FlightStatus.DELAY_THRESHOLD_MINUTES) onTime++;
@@ -108,7 +112,7 @@ public final class FlightStats {
             }
         }
         double punctuality = eligible == 0 ? 0.0 : 100.0 * onTime / eligible;
-        return new FlightStats(safeFlights.size(), distance, minutes / 60.0, punctuality,
+        return new FlightStats(safeFlights.size(), distance, minutes / 60.0, punctuality, eligible,
                 ranked, busiest, busiestCount);
     }
 
@@ -121,6 +125,8 @@ public final class FlightStats {
     public double getTotalDistanceKm() { return totalDistanceKm; }
     public double getTotalHours() { return totalHours; }
     public double getOnTimePercent() { return onTimePercent; }
+    /** False when no saved flight has departed yet, so the on-time rate means nothing. */
+    public boolean hasOnTimeData() { return onTimeBase > 0; }
     public List<AirlineCount> getAirlines() { return airlines; }
     public String getBusiestDepartureIata() { return busiestDepartureIata; }
     public int getBusiestDepartureCount() { return busiestDepartureCount; }
