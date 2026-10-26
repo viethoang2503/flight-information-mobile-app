@@ -21,4 +21,9 @@
         android:icon="@drawable/ic_alarm"
         android:title="@string/action_remind"
         app:showAsAction="ifRoom" />
+    <!-- F9 Calendar: placeholder only when Phase 7.0 hook was not supplied -->
+    <item android:id="@+id/action_add_calendar"
+        android:icon="@drawable/ic_event"
+        android:title="@string/action_add_calendar"
+        app:showAsAction="ifRoom" />
 </menu>

@@ -206,4 +206,12 @@
     <string name="reminder_channel_name">Flight reminders</string>
     <string name="reminder_notification_title">%1$s is departing soon</string>
     <string name="reminder_notification_body">%1$s · %2$s → %3$s · Gate %4$s</string>
+    <!-- F9 Calendar -->
+    <string name="action_add_calendar">Add to calendar</string>
+    <string name="f9_calendar_title">%1$s %2$s → %3$s</string>
+    <string name="f9_calendar_terminal">Terminal %1$s</string>
+    <string name="f9_calendar_gate">Gate %1$s</string>
+    <string name="f9_calendar_separator"> · </string>
+    <string name="f9_calendar_no_app">No calendar app found</string>
+    <string name="f9_calendar_missing_departure">Departure time is unavailable</string>
 </resources>
