@@ -16,4 +16,9 @@
         android:icon="@drawable/ic_refresh"
         android:title="@string/action_refresh"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/action_remind"
+        android:icon="@drawable/ic_alarm"
+        android:title="@string/action_remind"
+        app:showAsAction="ifRoom" />
 </menu>

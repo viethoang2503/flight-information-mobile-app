@@ -1,12 +1,16 @@
 package vn.edu.usth.flightinfo.ui.detail;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Paint;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.text.TextUtils;
+import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -20,6 +24,9 @@ import android.widget.TextView;
 import androidx.annotation.ColorRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.lifecycle.Lifecycle;
@@ -38,6 +45,7 @@ import org.osmdroid.views.MapView;
 import java.util.ArrayList;
 import java.util.List;
 
+import vn.edu.usth.flightinfo.BuildConfig;
 import vn.edu.usth.flightinfo.R;
 import vn.edu.usth.flightinfo.data.ApiException;
 import vn.edu.usth.flightinfo.data.Callback;
@@ -45,6 +53,7 @@ import vn.edu.usth.flightinfo.data.FlightRepository;
 import vn.edu.usth.flightinfo.data.WeatherRepository;
 import vn.edu.usth.flightinfo.data.local.AirportStore;
 import vn.edu.usth.flightinfo.data.local.Prefs;
+import vn.edu.usth.flightinfo.data.local.ReminderStore;
 import vn.edu.usth.flightinfo.data.parser.AirLabsParser;
 import vn.edu.usth.flightinfo.data.remote.ApiClient;
 import vn.edu.usth.flightinfo.model.Airport;
@@ -56,6 +65,7 @@ import vn.edu.usth.flightinfo.ui.common.ErrorMessages;
 import vn.edu.usth.flightinfo.ui.common.LocaleUtils;
 import vn.edu.usth.flightinfo.ui.common.StatusUi;
 import vn.edu.usth.flightinfo.ui.map.MapStyle;
+import vn.edu.usth.flightinfo.ui.reminder.ReminderScheduler;
 import vn.edu.usth.flightinfo.util.Airlines;
 import vn.edu.usth.flightinfo.util.TimeUtils;
 
@@ -83,6 +93,11 @@ public class FlightDetailActivity extends AppCompatActivity {
 
     private String flightIata;
     private Flight flight;
+    private final ActivityResultLauncher<String> notificationPermission = registerForActivityResult(
+            new ActivityResultContracts.RequestPermission(), granted -> {
+                if (!granted) Snackbar.make(findViewById(android.R.id.content),
+                        R.string.reminder_permission_denied, Snackbar.LENGTH_LONG).show();
+            });
     private boolean isMock;
     /** Null until the database answered. */
     private Boolean saved;
@@ -271,12 +286,17 @@ public class FlightDetailActivity extends AppCompatActivity {
         save.setTitle(isSaved ? R.string.action_unsave : R.string.action_save);
         save.setEnabled(flight != null && saved != null);
         menu.findItem(R.id.action_share).setEnabled(flight != null);
+        menu.findItem(R.id.action_remind).setEnabled(flight != null);
         return super.onPrepareOptionsMenu(menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
+        if (id == R.id.action_remind) {
+            onRemindMe();
+            return true;
+        }
         if (id == android.R.id.home) {
             finish();
             return true;
@@ -294,6 +314,66 @@ public class FlightDetailActivity extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    // --- F11 Flight reminders ---
+
+    private void onRemindMe() {
+        if (flight == null || TextUtils.isEmpty(flight.getFlightIata())) return;
+        // Capture the displayed flight: auto-refresh must not change a dialog selection.
+        Flight selectedFlight = flight;
+        boolean selectedIsMock = isMock;
+        ReminderStore store = new ReminderStore(this);
+        ReminderStore.Entry existing = store.get(selectedFlight.getFlightIata());
+        int[] minutes = BuildConfig.DEBUG ? new int[]{30, 60, 120, 180, 1}
+                : new int[]{30, 60, 120, 180};
+        List<String> options = new ArrayList<>();
+        options.add(getString(R.string.reminder_30_minutes));
+        options.add(getString(R.string.reminder_1_hour));
+        options.add(getString(R.string.reminder_2_hours));
+        options.add(getString(R.string.reminder_3_hours));
+        if (BuildConfig.DEBUG) options.add(getString(R.string.reminder_1_minute));
+        if (existing != null) options.add(getString(R.string.reminder_cancel));
+        String title = getString(R.string.action_remind);
+        if (existing != null) title = getString(R.string.reminder_current,
+                DateUtils.formatDateTime(this, existing.triggerAt,
+                        DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_TIME));
+        new AlertDialog.Builder(this).setTitle(title)
+                .setItems(options.toArray(new String[0]), (dialog, which) -> {
+                    ReminderScheduler scheduler = new ReminderScheduler(this);
+                    if (which == minutes.length) {
+                        scheduler.cancel(selectedFlight.getFlightIata());
+                        Snackbar.make(swipeRefresh, R.string.reminder_cancelled, Snackbar.LENGTH_SHORT).show();
+                        return;
+                    }
+                    long triggerAt = selectedFlight.getBestDepTs() * 1000L - minutes[which] * 60_000L;
+                    if (selectedFlight.getBestDepTs() <= 0 || TextUtils.isEmpty(selectedFlight.getRawJson())) {
+                        Snackbar.make(swipeRefresh, R.string.reminder_unavailable, Snackbar.LENGTH_LONG).show();
+                        return;
+                    }
+                    if (triggerAt <= System.currentTimeMillis()) {
+                        Snackbar.make(swipeRefresh, R.string.reminder_time_passed, Snackbar.LENGTH_LONG).show();
+                        return;
+                    }
+                    try {
+                        if (!scheduler.schedule(selectedFlight, minutes[which], selectedIsMock)) {
+                            Snackbar.make(swipeRefresh, R.string.reminder_time_passed, Snackbar.LENGTH_LONG).show();
+                            return;
+                        }
+                    } catch (RuntimeException error) {
+                        Snackbar.make(swipeRefresh, R.string.reminder_unavailable, Snackbar.LENGTH_LONG).show();
+                        return;
+                    }
+                    Snackbar.make(swipeRefresh, getString(R.string.reminder_scheduled,
+                            DateUtils.formatDateTime(this, triggerAt,
+                                    DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_TIME)),
+                            Snackbar.LENGTH_LONG).show();
+                    // Persist/schedule first, even if notification permission is denied.
+                    if (Build.VERSION.SDK_INT >= 33 && ContextCompat.checkSelfPermission(this,
+                            Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+                        notificationPermission.launch(Manifest.permission.POST_NOTIFICATIONS);
+                    }
+                }).setNegativeButton(android.R.string.cancel, null).show();
     }
 
     // --- Loading ---
