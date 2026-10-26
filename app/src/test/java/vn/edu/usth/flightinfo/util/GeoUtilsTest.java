@@ -3,8 +3,14 @@ package vn.edu.usth.flightinfo.util;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class GeoUtilsTest {
+
+    private static final double HAN_LAT = 21.2212;
+    private static final double HAN_LON = 105.8072;
+    private static final double SGN_LAT = 10.8188;
+    private static final double SGN_LON = 106.6519;
 
     @Test
     public void movesNorthAndEast() {
@@ -15,5 +21,35 @@ public class GeoUtilsTest {
         double[] east = GeoUtils.move(0.0, 106.0, 90, 111_320);
         assertEquals(0.0, east[0], 1e-6);
         assertEquals(107.0, east[1], 1e-6);
+    }
+
+    @Test
+    public void distanceKmBetweenHanoiAndSaigon() {
+        double dist = GeoUtils.distanceKm(HAN_LAT, HAN_LON, SGN_LAT, SGN_LON);
+        // Hanoi (HAN) to Saigon (SGN) is approximately 1,140 - 1,160 km
+        assertTrue("Distance should be around 1150 km, got: " + dist, dist > 1130 && dist < 1170);
+    }
+
+    @Test
+    public void bearingFromHanoiToSaigon() {
+        double b = GeoUtils.bearing(HAN_LAT, HAN_LON, SGN_LAT, SGN_LON);
+        // Going from Hanoi South-Southeast to Saigon: ~160 - 170 degrees
+        assertTrue("Bearing should be between 160° and 170°, got: " + b, b >= 160.0 && b <= 170.0);
+    }
+
+    @Test
+    public void interpolateEndpointsAndMidpoint() {
+        double[] start = GeoUtils.interpolate(HAN_LAT, HAN_LON, SGN_LAT, SGN_LON, 0.0);
+        assertEquals(HAN_LAT, start[0], 1e-5);
+        assertEquals(HAN_LON, start[1], 1e-5);
+
+        double[] end = GeoUtils.interpolate(HAN_LAT, HAN_LON, SGN_LAT, SGN_LON, 1.0);
+        assertEquals(SGN_LAT, end[0], 1e-5);
+        assertEquals(SGN_LON, end[1], 1e-5);
+
+        double[] mid = GeoUtils.interpolate(HAN_LAT, HAN_LON, SGN_LAT, SGN_LON, 0.5);
+        // Midpoint latitude should be roughly halfway between 21.22 and 10.82 (around ~16.0)
+        assertTrue(mid[0] < HAN_LAT && mid[0] > SGN_LAT);
+        assertEquals(16.05, mid[0], 0.5);
     }
 }

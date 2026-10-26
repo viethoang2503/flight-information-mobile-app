@@ -10,8 +10,10 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -29,6 +31,8 @@ import com.google.android.material.snackbar.Snackbar;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.osmdroid.views.CustomZoomButtonsController;
+import org.osmdroid.views.MapView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,6 +54,7 @@ import vn.edu.usth.flightinfo.model.Weather;
 import vn.edu.usth.flightinfo.ui.common.ErrorMessages;
 import vn.edu.usth.flightinfo.ui.common.LocaleUtils;
 import vn.edu.usth.flightinfo.ui.common.StatusUi;
+import vn.edu.usth.flightinfo.ui.map.MapStyle;
 import vn.edu.usth.flightinfo.util.Airlines;
 import vn.edu.usth.flightinfo.util.TimeUtils;
 
@@ -117,6 +122,9 @@ public class FlightDetailActivity extends AppCompatActivity {
     private TextView weatherSummary;
     private TextView metarRaw;
     private TextView metarHint;
+    private FrameLayout routeCardContainer;
+    private FrameLayout routeMapFrame;
+    private MapView routeMapView;
 
     /** Opens the detail of a flight that is already loaded; {@code refresh} reloads it on open. */
     public static Intent newIntent(Context context, Flight flight, boolean isMock, boolean refresh) {
@@ -200,6 +208,9 @@ public class FlightDetailActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        if (routeMapView != null) {
+            routeMapView.onResume();
+        }
         handler.removeCallbacks(autoRefresh);
         if (prefs.isAutoRefresh()) {
             handler.postDelayed(autoRefresh, AUTO_REFRESH_MS);
@@ -209,7 +220,18 @@ public class FlightDetailActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
+        if (routeMapView != null) {
+            routeMapView.onPause();
+        }
         handler.removeCallbacks(autoRefresh);
+    }
+
+    @Override
+    protected void onDestroy() {
+        if (routeMapView != null) {
+            routeMapView.onDetach();
+        }
+        super.onDestroy();
     }
 
     @Override
@@ -398,6 +420,7 @@ public class FlightDetailActivity extends AppCompatActivity {
         bindTime(arrTime, arrTimeOld, flight.getArrTime(), flight.getBestArrTime(), delayed);
         bindProgress();
         bindInfoRows();
+        bindRouteCard(dep, arr);
 
         String arrIcao = flight.getArrIcao() != null ? flight.getArrIcao() : arr != null ? arr.getIcao() : null;
         loadWeather(arrIcao);
@@ -581,5 +604,63 @@ public class FlightDetailActivity extends AppCompatActivity {
         weatherSummary = findViewById(R.id.weather_summary);
         metarRaw = findViewById(R.id.metar_raw);
         metarHint = findViewById(R.id.metar_hint);
+        routeCardContainer = findViewById(R.id.route_card_container);
+        routeMapFrame = findViewById(R.id.route_map_frame);
+        View routeCard = findViewById(R.id.route_card);
+        if (routeCard != null) {
+            routeCard.setOnClickListener(v -> openRouteMap());
+        }
+    }
+
+    private void openRouteMap() {
+        if (flight != null && flight.getRawJson() != null) {
+            startActivity(RouteMapActivity.newIntent(this, flight.getRawJson()));
+        }
+    }
+
+    private void bindRouteCard(Airport dep, Airport arr) {
+        if (routeCardContainer == null) {
+            return;
+        }
+        if (dep == null || arr == null) {
+            routeCardContainer.setVisibility(View.GONE);
+            return;
+        }
+        routeCardContainer.setVisibility(View.VISIBLE);
+
+        int percent = TimeUtils.progressPercent(flight.getBestDepTs(), flight.getBestArrTs(),
+                TimeUtils.nowSeconds());
+        if (flight.getStatus() == FlightStatus.LANDED) {
+            percent = 100;
+        } else if (flight.getStatus() == FlightStatus.SCHEDULED || flight.getStatus() == FlightStatus.DELAYED || flight.getStatus() == FlightStatus.CANCELLED) {
+            percent = 0;
+        }
+        final int progressPercent = percent;
+
+        MapStyle.loadConfigThen(this, () -> {
+            if (isFinishing() || isDestroyed()) {
+                return;
+            }
+            if (routeMapView == null) {
+                routeMapView = new MapView(this);
+                routeMapView.setMultiTouchControls(false);
+                routeMapView.getZoomController().setVisibility(CustomZoomButtonsController.Visibility.NEVER);
+                routeMapView.setTilesScaledToDpi(true);
+                routeMapView.setOnTouchListener((v, event) -> {
+                    if (event.getAction() == MotionEvent.ACTION_UP) {
+                        v.performClick();
+                    }
+                    return true;
+                });
+                routeMapView.setOnClickListener(v -> openRouteMap());
+                if (routeMapFrame != null) {
+                    routeMapFrame.removeAllViews();
+                    routeMapFrame.addView(routeMapView, new FrameLayout.LayoutParams(
+                            ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+                }
+            }
+            RouteMapHelper.setupRoute(routeMapView, dep, arr, progressPercent);
+            routeMapView.onResume();
+        });
     }
 }

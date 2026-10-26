@@ -136,4 +136,10 @@
     <string name="format_heading">%d°</string>
     <string name="format_vertical_rate">%.1f m/s</string>
     <string name="content_close">Đóng</string>
+
+    <!-- F12 Route Map -->
+    <string name="route_map_title">Hành trình bay</string>
+    <string name="route_map_tap_hint">Chạm để phóng to</string>
+    <string name="route_map_full_title">Hành trình %s</string>
+    <string name="route_map_progress">Đã bay: %d%%</string>
 </resources>
