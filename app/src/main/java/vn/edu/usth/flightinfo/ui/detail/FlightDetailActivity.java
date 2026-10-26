@@ -22,6 +22,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import androidx.lifecycle.Lifecycle;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.android.volley.toolbox.NetworkImageView;
@@ -658,9 +659,13 @@ public class FlightDetailActivity extends AppCompatActivity {
                     routeMapFrame.addView(routeMapView, new FrameLayout.LayoutParams(
                             ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
                 }
+                // Created after onResume() already ran: resume it once here. Later rebinds (auto
+                // refresh) and a callback landing while paused are left to onResume()/onPause().
+                if (getLifecycle().getCurrentState().isAtLeast(Lifecycle.State.RESUMED)) {
+                    routeMapView.onResume();
+                }
             }
             RouteMapHelper.setupRoute(routeMapView, dep, arr, progressPercent);
-            routeMapView.onResume();
         });
     }
 }

@@ -33,8 +33,8 @@ public class GeoUtilsTest {
     @Test
     public void bearingFromHanoiToSaigon() {
         double b = GeoUtils.bearing(HAN_LAT, HAN_LON, SGN_LAT, SGN_LON);
-        // Going from Hanoi South-Southeast to Saigon: ~160 - 170 degrees
-        assertTrue("Bearing should be between 160° and 170°, got: " + b, b >= 160.0 && b <= 170.0);
+        // Saigon is ~10.4° further south but only ~0.85° further east: almost due south, ~175 degrees
+        assertTrue("Bearing should be between 170° and 180°, got: " + b, b >= 170.0 && b <= 180.0);
     }
 
     @Test

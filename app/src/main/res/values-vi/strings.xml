@@ -175,4 +175,9 @@
     <string name="auth_sign_out">Đăng xuất</string>
     <string name="auth_sign_out_message">Đăng xuất khỏi tài khoản này? Các chuyến bay đã lưu sẽ xuất hiện khi bạn đăng nhập lại trên thiết bị này.</string>
     <string name="auth_cancel">Huỷ</string>
+    <!-- F12 Route Map -->
+    <string name="route_map_title">Đường bay</string>
+    <string name="route_map_tap_hint">Chạm để phóng to</string>
+    <string name="route_map_full_title">Đường bay %s</string>
+    <string name="route_map_progress">Đã bay: %d%%</string>
 </resources>
