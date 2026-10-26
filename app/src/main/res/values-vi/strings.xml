@@ -180,4 +180,12 @@
     <string name="route_map_tap_hint">Chạm để phóng to</string>
     <string name="route_map_full_title">Đường bay %s</string>
     <string name="route_map_progress">Đã bay: %d%%</string>
+    <!-- F9 Calendar -->
+    <string name="action_add_calendar">Thêm vào lịch</string>
+    <string name="f9_calendar_title">%1$s %2$s → %3$s</string>
+    <string name="f9_calendar_terminal">Nhà ga %1$s</string>
+    <string name="f9_calendar_gate">Cửa %1$s</string>
+    <string name="f9_calendar_separator"> · </string>
+    <string name="f9_calendar_no_app">Không tìm thấy ứng dụng Lịch</string>
+    <string name="f9_calendar_missing_departure">Chưa có giờ khởi hành</string>
 </resources>

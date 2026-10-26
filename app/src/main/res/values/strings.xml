@@ -189,4 +189,12 @@
     <string name="route_map_tap_hint">Tap to expand</string>
     <string name="route_map_full_title">%s Route</string>
     <string name="route_map_progress">Completed: %d%%</string>
+    <!-- F9 Calendar -->
+    <string name="action_add_calendar">Add to calendar</string>
+    <string name="f9_calendar_title">%1$s %2$s → %3$s</string>
+    <string name="f9_calendar_terminal">Terminal %1$s</string>
+    <string name="f9_calendar_gate">Gate %1$s</string>
+    <string name="f9_calendar_separator"> · </string>
+    <string name="f9_calendar_no_app">No calendar app found</string>
+    <string name="f9_calendar_missing_departure">Departure time is unavailable</string>
 </resources>
