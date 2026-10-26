@@ -184,4 +184,9 @@
     <string name="auth_sign_out">Sign out</string>
     <string name="auth_sign_out_message">Sign out of this account? Your saved flights will be available when you sign in again on this device.</string>
     <string name="auth_cancel">Cancel</string>
+    <!-- F12 Route Map -->
+    <string name="route_map_title">Flight route</string>
+    <string name="route_map_tap_hint">Tap to expand</string>
+    <string name="route_map_full_title">%s Route</string>
+    <string name="route_map_progress">Completed: %d%%</string>
 </resources>
