@@ -289,6 +289,10 @@ public class FlightDetailActivity extends AppCompatActivity {
             share();
             return true;
         }
+        if (id == R.id.action_add_calendar) {
+            onAddToCalendar();
+            return true;
+        }
         if (id == R.id.action_refresh) {
             loadFlight();
             return true;
@@ -668,4 +672,22 @@ public class FlightDetailActivity extends AppCompatActivity {
             RouteMapHelper.setupRoute(routeMapView, dep, arr, progressPercent);
         });
     }
+
+    // F9 Calendar: only this hook is changed in FlightDetailActivity.
+    private void onAddToCalendar() {
+        if (flight == null) {
+            return;
+        }
+        try {
+            Airport dep = AirportStore.get(this).find(flight.getDepIata());
+            startActivity(CalendarHelper.buildIntent(this, flight, dep));
+        } catch (IllegalArgumentException error) {
+            Snackbar.make(swipeRefresh, R.string.f9_calendar_missing_departure,
+                    Snackbar.LENGTH_LONG).show();
+        } catch (android.content.ActivityNotFoundException error) {
+            Snackbar.make(swipeRefresh, R.string.f9_calendar_no_app,
+                    Snackbar.LENGTH_LONG).show();
+        }
+    }
+
 }
