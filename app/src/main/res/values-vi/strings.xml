@@ -211,7 +211,8 @@
     <string name="reminder_1_minute">1 phút trước khi cất cánh (debug)</string>
     <string name="reminder_cancel">Huỷ nhắc</string>
     <string name="reminder_current">Đã đặt nhắc lúc %1$s</string>
-    <string name="reminder_scheduled">Đã đặt nhắc lúc %1$s. Thông báo có thể trễ vài phút.</string>
+    <string name="reminder_scheduled">Đã đặt nhắc lúc %1$s.</string>
+    <string name="reminder_scheduled_approx">Đã đặt nhắc lúc %1$s. Thông báo có thể trễ tới 10 phút (hãy cho phép “Báo thức và lời nhắc” cho ứng dụng để nhận đúng giờ).</string>
     <string name="reminder_cancelled">Đã huỷ nhắc</string>
     <string name="reminder_time_passed">Đã quá thời điểm nhắc</string>
     <string name="reminder_unavailable">Không thể đặt nhắc. Hãy kiểm tra thông tin giờ khởi hành.</string>

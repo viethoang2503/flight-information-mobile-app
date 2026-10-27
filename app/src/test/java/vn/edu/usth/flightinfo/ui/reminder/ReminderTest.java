@@ -16,6 +16,7 @@ import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.RuntimeEnvironment;
 import org.robolectric.annotation.Config;
+import org.robolectric.shadows.ShadowAlarmManager;
 import vn.edu.usth.flightinfo.data.local.ReminderStore;
 import vn.edu.usth.flightinfo.data.parser.AirLabsParser;
 import vn.edu.usth.flightinfo.model.Flight;
@@ -47,6 +48,31 @@ public class ReminderTest {
         assertEquals(flight.getRawJson(), new ReminderStore(context).get("VN215").flightJson);
         assertEquals(AlarmManager.RTC_WAKEUP, shadowOf(alarms).getScheduledAlarms().get(0).type);
         assertEquals(expected, shadowOf(alarms).getScheduledAlarms().get(0).triggerAtTime);
+    }
+
+    @Test @Config(sdk = 33)
+    public void usesAnExactIdleAlarmWhenAllowed() throws Exception {
+        ShadowAlarmManager.setCanScheduleExactAlarms(true);
+        assertTrue(scheduler.canScheduleExact());
+        assertTrue(scheduler.schedule(flight("VN215"), 30));
+        ShadowAlarmManager.ScheduledAlarm alarm = shadowOf(alarms).getScheduledAlarms().get(0);
+        assertEquals(ShadowAlarmManager.WINDOW_EXACT, alarm.getWindowLengthMs());
+        assertTrue(alarm.isAllowWhileIdle());
+    }
+
+    @Test @Config(sdk = 31)
+    public void fallsBackToATenMinuteWindowWithoutExactAlarms() throws Exception {
+        ShadowAlarmManager.setCanScheduleExactAlarms(false);
+        try {
+            assertFalse(scheduler.canScheduleExact());
+            Flight flight = flight("VN215");
+            assertTrue(scheduler.schedule(flight, 30));
+            ShadowAlarmManager.ScheduledAlarm alarm = shadowOf(alarms).getScheduledAlarms().get(0);
+            assertEquals(flight.getBestDepTs() * 1000L - 30 * 60_000L, alarm.getTriggerAtMs());
+            assertEquals(10 * 60_000L, alarm.getWindowLengthMs());
+        } finally {
+            ShadowAlarmManager.setCanScheduleExactAlarms(true);
+        }
     }
 
     @Test public void replacingOneFlightDoesNotReplaceAnotherFlight() throws Exception {

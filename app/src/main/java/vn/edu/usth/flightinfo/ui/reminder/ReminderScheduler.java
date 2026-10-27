@@ -4,6 +4,7 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.text.TextUtils;
 import androidx.core.app.NotificationManagerCompat;
 import org.json.JSONException;
@@ -12,8 +13,10 @@ import vn.edu.usth.flightinfo.data.auth.AuthManager;
 import vn.edu.usth.flightinfo.data.local.ReminderStore;
 import vn.edu.usth.flightinfo.model.Flight;
 
-/** Schedules inexact, idle-tolerant alarms; no exact-alarm permission required. */
+/** Schedules exact, idle-tolerant alarms, with a short-window fallback when they are not allowed. */
 public final class ReminderScheduler {
+    private static final long FALLBACK_WINDOW_MS = 10 * 60_000L;
+
     private final Context context;
     private final ReminderStore store;
     private final AlarmManager alarms;
@@ -57,7 +60,23 @@ public final class ReminderScheduler {
                 .putExtra("flightIata", flightIata);
         PendingIntent pending = PendingIntent.getBroadcast(context, flightIata.hashCode(), intent,
                 PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
-        alarms.setAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, triggerAt, pending);
+        if (canScheduleExact()) {
+            // On time, even in Doze. An inexact alarm may be deferred by up to ~75% of the time
+            // left, so a reminder set the day before could arrive after departure.
+            alarms.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, triggerAt, pending);
+        } else {
+            // Android 12 with the exact-alarm permission turned off: at most 10 minutes late
+            // while the device is awake (it can wait longer in deep Doze).
+            alarms.setWindow(AlarmManager.RTC_WAKEUP, triggerAt, FALLBACK_WINDOW_MS, pending);
+        }
+    }
+
+    /**
+     * USE_EXACT_ALARM is granted at install on Android 13+; on Android 12 the user can turn
+     * SCHEDULE_EXACT_ALARM off. Before Android 12 exact alarms need no permission.
+     */
+    public boolean canScheduleExact() {
+        return Build.VERSION.SDK_INT < Build.VERSION_CODES.S || alarms.canScheduleExactAlarms();
     }
 
     public void cancel(String flightIata) {

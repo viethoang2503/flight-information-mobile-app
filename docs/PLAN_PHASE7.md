@@ -122,5 +122,5 @@ F9 nhẹ hơn các phần khác. Nên giao cho người kiêm thêm việc làm 
 | Lúc demo không có mạng nên không đăng nhập được | Dùng chế độ khách. Hoặc đăng nhập sẵn trước khi demo (phiên đăng nhập được lưu) |
 | Xung đột khi merge `strings.xml` / Detail | Khối chuỗi riêng có comment. Chỉ sửa trong hàm móc của bước 8.0. Merge theo thứ tự ở 7.6 |
 | Notification không hiện trên emulator | Kiểm tra đã cấp quyền thông báo. Dùng lựa chọn "1 phút" ở debug. Không bật Do Not Disturb |
-| Báo thức bị trễ vài phút (Doze) | Chấp nhận được (không dùng exact alarm). Ghi rõ trong slide |
+| Báo thức bị trễ (Doze, báo thức không chính xác) | Dùng exact alarm (`USE_EXACT_ALARM`). Không có quyền thì cửa sổ 10 phút. Ghi rõ trong slide |
 | Migration DB làm mất dữ liệu | Viết migration chép dữ liệu sang bảng mới. Test bằng cách cài đè lên bản cũ đã có chuyến lưu |

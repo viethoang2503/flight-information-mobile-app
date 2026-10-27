@@ -50,9 +50,15 @@ Action Nhắc tôi mở AlertDialog theo theme hiện tại; chọn 30 phút, 1 
 3 giờ trước cất cánh; debug có thêm 1 phút trước cất cánh. Lời nhắc đã đặt hiển thị
 thời điểm và cho phép huỷ. Thời điểm đã qua hoặc dữ liệu không hợp lệ bị từ chối.
 
-AlarmManager dùng setAndAllowWhileIdle(RTC_WAKEUP), PendingIntent immutable,
-requestCode theo hashCode mã chuyến. Mỗi mã chuyến có một lời nhắc lưu bằng
-SharedPreferences kèm triggerAt và JSON. Không yêu cầu exact-alarm permission.
+AlarmManager dùng setExactAndAllowWhileIdle(RTC_WAKEUP) để nhắc đúng giờ (quyền
+USE_EXACT_ALARM trên Android 13+, SCHEDULE_EXACT_ALARM trên Android 12). Khi không có
+quyền exact thì dùng setWindow 10 phút. PendingIntent immutable, requestCode theo
+hashCode mã chuyến. Mỗi mã chuyến có một lời nhắc lưu bằng SharedPreferences kèm
+triggerAt, JSON và tài khoản đã đặt (owner).
+
+Bản đầu dùng setAndAllowWhileIdle (không chính xác). Test trên emulator cho thấy Android
+cho phép trễ tới khoảng 75% thời gian còn lại: nhắc 30 phút trước giờ bay chỉ hiện lúc
+1 phút trước giờ bay, nên đã đổi sang exact alarm.
 
 NotificationChannel flight_reminders hiển thị mã chuyến, giờ đi, tuyến và cửa;
 bấm thông báo mở đúng Detail, giữ chế độ Mock. Receiver xoá lời nhắc đã xử lý.

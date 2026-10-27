@@ -368,7 +368,9 @@ public class FlightDetailActivity extends AppCompatActivity {
                         Snackbar.make(swipeRefresh, R.string.reminder_unavailable, Snackbar.LENGTH_LONG).show();
                         return;
                     }
-                    Snackbar.make(swipeRefresh, getString(R.string.reminder_scheduled,
+                    // Without exact alarms (Android 12, permission off) say it may be late.
+                    Snackbar.make(swipeRefresh, getString(scheduler.canScheduleExact()
+                                    ? R.string.reminder_scheduled : R.string.reminder_scheduled_approx,
                             DateUtils.formatDateTime(this, triggerAt,
                                     DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_TIME)),
                             Snackbar.LENGTH_LONG).show();

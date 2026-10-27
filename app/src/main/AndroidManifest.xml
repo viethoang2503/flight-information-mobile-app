@@ -7,6 +7,12 @@
     <!-- F11 Flight reminders -->
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <!-- F11: on-time reminders. USE_EXACT_ALARM is granted at install (Android 13+);
+         Android 12 uses SCHEDULE_EXACT_ALARM, which the user may turn off. -->
+    <uses-permission android:name="android.permission.USE_EXACT_ALARM" />
+    <uses-permission
+        android:name="android.permission.SCHEDULE_EXACT_ALARM"
+        android:maxSdkVersion="32" />
 
     <application
         android:name=".FlightInfoApp"

@@ -135,6 +135,7 @@ Testing: JUnit 4, Robolectric 4.16.1, `org.json`.
 | `INTERNET`, `ACCESS_NETWORK_STATE` | API calls |
 | `POST_NOTIFICATIONS` | Flight reminders (Android 13+, requested the first time a reminder is set) |
 | `RECEIVE_BOOT_COMPLETED` | Restore pending reminders after the device restarts |
+| `USE_EXACT_ALARM` (Android 13+), `SCHEDULE_EXACT_ALARM` (Android 12) | Deliver reminders on time, even when the device is idle. Without it, reminders use a 10-minute window |
 
 ## Project documents
 

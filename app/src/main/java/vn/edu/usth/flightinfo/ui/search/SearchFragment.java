@@ -84,9 +84,16 @@ public class SearchFragment extends TabFragment {
 
         searchButton.setOnClickListener(v -> search());
         input.setOnEditorActionListener((v, actionId, event) -> {
-            boolean enter = event != null && event.getKeyCode() == KeyEvent.KEYCODE_ENTER
-                    && event.getAction() == KeyEvent.ACTION_DOWN;
-            if (actionId == EditorInfo.IME_ACTION_SEARCH || enter) {
+            if (event != null && event.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
+                // Hardware Enter: search on the press only, but consume the release too.
+                // Otherwise TextView follows the release with IME_ACTION_SEARCH and the flight
+                // opens twice.
+                if (event.getAction() == KeyEvent.ACTION_DOWN) {
+                    search();
+                }
+                return true;
+            }
+            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                 search();
                 return true;
             }

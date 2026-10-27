@@ -222,7 +222,8 @@
     <string name="reminder_1_minute">1 minute before departure (debug)</string>
     <string name="reminder_cancel">Cancel reminder</string>
     <string name="reminder_current">Reminder set for %1$s</string>
-    <string name="reminder_scheduled">Reminder set for %1$s. Delivery may be a few minutes late.</string>
+    <string name="reminder_scheduled">Reminder set for %1$s.</string>
+    <string name="reminder_scheduled_approx">Reminder set for %1$s. It may arrive up to 10 minutes late (allow “Alarms &amp; reminders” for this app to get it on time).</string>
     <string name="reminder_cancelled">Reminder cancelled</string>
     <string name="reminder_time_passed">The reminder time has already passed</string>
     <string name="reminder_unavailable">Unable to set a reminder. Check the flight departure details.</string>

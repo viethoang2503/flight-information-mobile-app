@@ -122,7 +122,11 @@ Custom View (`onDraw`, `onMeasure`), xử lý chạm, Executor + Handler, unit t
 ## 5. F11: Nhắc giờ bay
 - Màn Detail: action **🔔 Nhắc tôi** (`ic_alarm`).
 - Hộp thoại (style kính, dùng `AlertDialog` của theme) cho chọn: **30 phút / 1 giờ / 2 giờ / 3 giờ trước khi cất cánh**. Nếu chuyến đã có lời nhắc thì có thêm dòng **Huỷ nhắc** và hiện giờ đã đặt.
-- **Đặt nhắc:** `AlarmManager.setAndAllowWhileIdle(RTC_WAKEUP, triggerAt, pendingIntent)`. Cách này cho phép lệch vài phút, nên **không cần** quyền `SCHEDULE_EXACT_ALARM`.
+- **Đặt nhắc:** `AlarmManager.setExactAndAllowWhileIdle(RTC_WAKEUP, triggerAt, pendingIntent)`, báo đúng giờ kể cả khi máy ở chế độ Doze.
+  - Quyền: `USE_EXACT_ALARM` (Android 13+, được cấp lúc cài, không hỏi người dùng) và `SCHEDULE_EXACT_ALARM` cho Android 12 (`maxSdkVersion=32`). Android 11 trở xuống không cần quyền.
+  - Không có quyền (Android 12, người dùng tắt "Báo thức và lời nhắc"): dùng `setWindow` cửa sổ 10 phút và Snackbar báo có thể trễ tới 10 phút.
+  - Không dùng `setAndAllowWhileIdle` (báo thức không chính xác): Android cho nó trễ tới khoảng 75% thời gian từ lúc đặt đến giờ nhắc, nên nhắc đặt từ hôm trước có thể đến sau giờ cất cánh (đã thấy khi test trên emulator).
+  - `USE_EXACT_ALARM` chỉ được Google Play chấp nhận cho app báo thức / lịch. Đồ án không phát hành lên Play nên dùng được.
   - `triggerAt = bestDepTs*1000 − lead`. Nếu thời điểm này đã qua thì báo Snackbar "Đã quá thời điểm nhắc".
   - PendingIntent dùng `FLAG_IMMUTABLE`, `requestCode = flightIata.hashCode()` (mỗi chuyến một lời nhắc).
 - **`ReminderReceiver`** (BroadcastReceiver, `exported=false`):
@@ -167,6 +171,7 @@ osmdroid Polyline/Marker, tính toán hình học, Activity + Intent extras.
 | `ReminderReceiver` | F11 | `exported=false` |
 | `BootReceiver` + `RECEIVE_BOOT_COMPLETED` | F11 | normal permission |
 | `POST_NOTIFICATIONS` | F11 | runtime, Android 13+ |
+| `USE_EXACT_ALARM`, `SCHEDULE_EXACT_ALARM` (≤ Android 12) | F11 | nhắc đúng giờ; Android 13+ cấp lúc cài |
 
 ## 8. Tiêu chí hoàn thành
 1. **F8:**
