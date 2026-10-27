@@ -7,13 +7,13 @@ Ký hiệu: 🧪 = cách kiểm tra bước đã xong.
 ## Tiến độ
 | Bước | Người | Trạng thái |
 |---|---|---|
-| 7.0 Chuẩn bị chung | Trưởng nhóm | ⏳ |
-| 7.1 F8 Đăng nhập (Firebase) | Người 1 | Đã triển khai; build/test/lint pass; chờ Firebase nhóm và demo thiết bị ([chi tiết](F8_IMPLEMENTATION.md)) |
-| 7.2 F9 Thêm vào Lịch | Người 2 | ⏳ |
-| 7.3 F10 Thống kê My Flights | Người 3 | ⏳ |
-| 7.4 F11 Nhắc giờ bay | Người 4 | ⏳ |
-| 7.5 F12 Bản đồ hành trình | Người 5 | ⏳ |
-| 7.6 Gộp & kiểm thử chung | Cả nhóm | ⏳ |
+| 7.0 Chuẩn bị chung | Trưởng nhóm | ✅ `MapStyle`, `GeoUtils`, hàm móc trong Detail. ⏳ Còn `google-services.json` |
+| 7.1 F8 Đăng nhập (Firebase) | Người 1 | ✅ Đã merge (PR #2). Chờ `google-services.json` để demo đăng nhập email ([chi tiết](F8_IMPLEMENTATION.md)) |
+| 7.2 F9 Thêm vào Lịch | Người 2 | ✅ Đã merge (PR #3, #5–#7). Chưa làm Onboarding (tuỳ chọn) ([kiểm thử](F9_TESTING.md)) |
+| 7.3 F10 Thống kê My Flights | Người 3 | ✅ Đã merge (PR #8) ([chi tiết](F10_IMPLEMENTATION.md)) |
+| 7.4 F11 Nhắc giờ bay | Người 4 | ✅ Đã merge (PR #4) ([chi tiết](F11_IMPLEMENTATION.md)) |
+| 7.5 F12 Bản đồ hành trình | Người 5 | ✅ Đã merge (PR #1) |
+| 7.6 Gộp & kiểm thử chung | Cả nhóm | 🔄 Đã gộp, 59+ unit test pass. Còn chạy lại tiêu chí §8 trên emulator |
 
 ---
 

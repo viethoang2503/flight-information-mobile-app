@@ -95,11 +95,11 @@
 
     <!-- F10 My Flights statistics -->
     <string name="stats_title">My Flight Statistics</string>
-    <string name="stats_back">Back</string>
     <string name="stats_subtitle">A summary of your saved flights</string>
     <string name="stats_open_title">View statistics</string>
     <string name="stats_open_subtitle">Distance, flight time and airline breakdown</string>
     <string name="stats_open_content_description">Open My Flights statistics</string>
+    <string name="stats_open_chevron" translatable="false">›</string>
     <string name="stats_flight_count">Flights saved</string>
     <string name="stats_distance">Total distance</string>
     <string name="stats_hours">Time in the air</string>

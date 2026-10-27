@@ -172,7 +172,7 @@ util/          TimeUtils · UnitUtils · CallsignMapper · Executors
 
 - **Package:** `vn.edu.usth.flightinfo`
 - **SDK:** minSdk 24, compileSdk 37, targetSdk 34 (giữ cửa sổ kiểu cũ, không bắt buộc edge-to-edge như targetSdk 35). Java 17. AGP 9.4.1, Gradle 9.6.0.
-- **Thư viện:** AppCompat, Material, RecyclerView, ViewPager2, SwipeRefreshLayout, Preference, **Volley 1.2.1**, **osmdroid 6.1.x**, **BlurView 3.2.0**, **Firebase Auth** (BoM 35.1.0, đợt 2). Test: JUnit 4 + `org.json:json` (vì `org.json` trên JVM unit test là stub).
+- **Thư viện:** AppCompat, Material, RecyclerView, ViewPager2, SwipeRefreshLayout, Preference, **Volley 1.2.1**, **osmdroid 6.1.x**, **BlurView 3.2.0**, **Firebase Auth** (BoM 35.1.0, đợt 2). Test: JUnit 4 + Robolectric (test cần Android: SQLite, Activity, AlarmManager) + `org.json:json` (vì `org.json` trên JVM unit test là stub).
 - **Threading:**
   - Network: Volley (async, callback chạy trên main thread).
   - Đọc file assets/raw, SQLite: `ExecutorService` + `Handler(Looper.getMainLooper())`. Đây là bản thay thế AsyncTask (đã deprecated) nhưng cùng mô hình Thread/Handler của bài 6.

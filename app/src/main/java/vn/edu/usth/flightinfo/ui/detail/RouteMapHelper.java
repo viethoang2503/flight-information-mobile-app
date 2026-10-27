@@ -57,9 +57,11 @@ public final class RouteMapHelper {
         double fraction = clampedPercent / 100.0;
 
         List<GeoPoint> allPoints = new ArrayList<>(ROUTE_POINTS);
+        List<double[]> allCoords = new ArrayList<>(ROUTE_POINTS);
         for (int i = 0; i < ROUTE_POINTS; i++) {
             double f = (double) i / (ROUTE_POINTS - 1);
             double[] coords = GeoUtils.interpolate(dep.getLat(), dep.getLon(), arr.getLat(), arr.getLon(), f);
+            allCoords.add(coords);
             allPoints.add(new GeoPoint(coords[0], coords[1]));
         }
 
@@ -154,13 +156,10 @@ public final class RouteMapHelper {
         planeMarker.setInfoWindow(null);
         mapView.getOverlays().add(planeMarker);
 
-        // 5. Frame map bounds with padding
-        double north = Math.max(dep.getLat(), arr.getLat());
-        double south = Math.min(dep.getLat(), arr.getLat());
-        double east = Math.max(dep.getLon(), arr.getLon());
-        double west = Math.min(dep.getLon(), arr.getLon());
-
-        BoundingBox box = new BoundingBox(north, east, south, west);
+        // 5. Frame the whole curve (a long great circle bulges past both airports), including
+        // routes across the 180° meridian. osmdroid draws the polyline across it by itself.
+        double[] bounds = GeoUtils.bounds(allCoords);
+        BoundingBox box = new BoundingBox(bounds[0], bounds[1], bounds[2], bounds[3]);
         int marginPx = (int) (44 * density);
 
         Runnable zoomTask = () -> {

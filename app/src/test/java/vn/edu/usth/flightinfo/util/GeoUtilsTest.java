@@ -52,4 +52,32 @@ public class GeoUtilsTest {
         assertTrue(mid[0] < HAN_LAT && mid[0] > SGN_LAT);
         assertEquals(16.05, mid[0], 0.5);
     }
+
+    @Test
+    public void boundsOfDomesticRouteAreItsEnds() {
+        double[] box = GeoUtils.bounds(route(HAN_LAT, HAN_LON, SGN_LAT, SGN_LON));
+        assertEquals(HAN_LAT, box[0], 0.2);   // north
+        assertEquals(SGN_LON, box[1], 0.2);   // east
+        assertEquals(SGN_LAT, box[2], 0.2);   // south
+        assertEquals(HAN_LON, box[3], 0.2);   // west
+    }
+
+    @Test
+    public void boundsAcrossTheDateLineKeepWestGreaterThanEast() {
+        // Saigon (SGN) to San Francisco (SFO) crosses the 180° meridian over the North Pacific.
+        double[] box = GeoUtils.bounds(route(10.8188, 106.6519, 37.6213, -122.3790));
+        assertEquals(-122.379, box[1], 0.01);  // east = SFO
+        assertEquals(106.652, box[3], 0.01);   // west = SGN
+        assertTrue("west > east marks a date-line box", box[3] > box[1]);
+        // The great circle bulges well north of both airports.
+        assertTrue("north should exceed SFO latitude, got " + box[0], box[0] > 45.0);
+    }
+
+    private static java.util.List<double[]> route(double lat1, double lon1, double lat2, double lon2) {
+        java.util.List<double[]> points = new java.util.ArrayList<>();
+        for (int i = 0; i <= 63; i++) {
+            points.add(GeoUtils.interpolate(lat1, lon1, lat2, lon2, i / 63.0));
+        }
+        return points;
+    }
 }

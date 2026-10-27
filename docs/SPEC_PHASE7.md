@@ -103,7 +103,7 @@ Intent ngầm định, Intent extras, `startActivity` sang app khác.
     - Số chuyến.
     - Tổng quãng đường (km, great-circle giữa hai sân bay).
     - Tổng giờ bay (từ `duration`, hoặc giờ đến − giờ đi).
-    - Tỉ lệ đúng giờ (% chuyến không trễ ≥ 15 phút và không bị huỷ).
+    - Tỉ lệ đúng giờ: trong các chuyến **đã cất cánh** (đang bay hoặc đã hạ cánh), % chuyến trễ dưới 15 phút. Chuyến chưa bay hoặc bị huỷ không tính. Chưa có chuyến nào đã bay thì hiện "—".
   - **Biểu đồ cột** "Số chuyến theo hãng" (top 5, các hãng còn lại gộp thành "Khác"). Mỗi cột có logo hoặc mã hãng ở dưới.
   - Dòng **"Sân bay đi nhiều nhất"**: mã + tên thành phố + số lần.
 - **`BarChartView`** (custom View, `ui/stats/`):
@@ -152,7 +152,7 @@ BroadcastReceiver, AlarmManager, Notification + NotificationChannel, PendingInte
   - Bản đồ tự zoom vừa khung (`zoomToBoundingBox` có lề).
 - **Toạ độ sân bay** lấy từ `AirportStore`. Thiếu toạ độ thì ẩn thẻ.
 - **Dùng chung với Live Map:** chuyển bộ lọc màu xanh đêm, phần nạp cấu hình osmdroid và hàm vẽ icon sân bay từ `LiveMapFragment` sang `ui/map/MapStyle`. Phần này làm ở bước chuẩn bị (xem PLAN).
-- **Unit test:** `GeoUtils.interpolate`, `GeoUtils.bearing` (HAN → SGN khoảng 160–170°).
+- **Unit test:** `GeoUtils.interpolate`, `GeoUtils.bearing` (HAN → SGN khoảng 175°, gần như thẳng hướng Nam).
 
 ### Kiến thức thể hiện
 osmdroid Polyline/Marker, tính toán hình học, Activity + Intent extras.

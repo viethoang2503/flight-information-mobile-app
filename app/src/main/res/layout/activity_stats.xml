@@ -1,19 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- No root background: the window background already draws the gradient (overdraw). -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_window"
     android:orientation="vertical">
 
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/stats_toolbar"
+        style="@style/Widget.FlightInfo.Toolbar"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@android:color/transparent"
-        android:title="@string/stats_title"
-        android:titleTextColor="@color/text_primary"
-        android:navigationIcon="@drawable/ic_close"
-        android:contentDescription="@string/stats_back" />
+        android:layout_height="?attr/actionBarSize" />
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -59,7 +56,7 @@
                     <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                         android:text="@string/stats_flight_count" android:textColor="@color/text_secondary" android:textSize="@dimen/text_caption"/>
                     <TextView android:id="@+id/stats_count" android:layout_width="wrap_content" android:layout_height="wrap_content"
-                        android:text="0" android:textColor="@color/text_primary" android:textSize="28sp" android:textStyle="bold"/>
+                        tools:text="0" android:textColor="@color/text_primary" android:textSize="28sp" android:textStyle="bold"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -75,7 +72,7 @@
                     <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                         android:text="@string/stats_distance" android:textColor="@color/text_secondary" android:textSize="@dimen/text_caption"/>
                     <TextView android:id="@+id/stats_distance_value" android:layout_width="wrap_content" android:layout_height="wrap_content"
-                        android:text="0 km" android:textColor="@color/text_primary" android:textSize="25sp" android:textStyle="bold"/>
+                        tools:text="0 km" android:textColor="@color/text_primary" android:textSize="25sp" android:textStyle="bold"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -91,7 +88,7 @@
                     <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                         android:text="@string/stats_hours" android:textColor="@color/text_secondary" android:textSize="@dimen/text_caption"/>
                     <TextView android:id="@+id/stats_hours_value" android:layout_width="wrap_content" android:layout_height="wrap_content"
-                        android:text="0 h" android:textColor="@color/text_primary" android:textSize="25sp" android:textStyle="bold"/>
+                        tools:text="0 h" android:textColor="@color/text_primary" android:textSize="25sp" android:textStyle="bold"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -107,7 +104,7 @@
                     <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                         android:text="@string/stats_on_time" android:textColor="@color/text_secondary" android:textSize="@dimen/text_caption"/>
                     <TextView android:id="@+id/stats_punctuality_value" android:layout_width="wrap_content" android:layout_height="wrap_content"
-                        android:text="0%" android:textColor="@color/text_primary" android:textSize="25sp" android:textStyle="bold"/>
+                        tools:text="0%" android:textColor="@color/text_primary" android:textSize="25sp" android:textStyle="bold"/>
                 </LinearLayout>
             </GridLayout>
 
@@ -151,7 +148,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/space_s"
-                    android:text="—"
+                    android:text="@string/stats_value_none"
                     android:textColor="@color/text_primary"
                     android:textSize="@dimen/text_title"
                     android:textStyle="bold" />

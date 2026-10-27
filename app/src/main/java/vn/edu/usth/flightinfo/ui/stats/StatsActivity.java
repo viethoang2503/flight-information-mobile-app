@@ -7,6 +7,8 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.material.appbar.MaterialToolbar;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -42,8 +44,13 @@ public class StatsActivity extends AppCompatActivity {
         busiestAirportView = findViewById(R.id.stats_busiest_airport_value);
         chart = findViewById(R.id.stats_airline_chart);
 
-        com.google.android.material.appbar.MaterialToolbar toolbar = findViewById(R.id.stats_toolbar);
-        toolbar.setNavigationOnClickListener(v -> finish());
+        // Same as SettingsActivity: the up arrow is handled in onOptionsItemSelected().
+        MaterialToolbar toolbar = findViewById(R.id.stats_toolbar);
+        setSupportActionBar(toolbar);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setTitle(R.string.stats_title);
+        }
 
         loadStats();
     }

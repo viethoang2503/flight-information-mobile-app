@@ -1,5 +1,7 @@
 package vn.edu.usth.flightinfo.util;
 
+import java.util.List;
+
 /** Geometry and great-circle calculations for flight tracking and routes. */
 public final class GeoUtils {
 
@@ -7,6 +9,41 @@ public final class GeoUtils {
     private static final double EARTH_RADIUS_KM = 6371.0;
 
     private GeoUtils() {
+    }
+
+    /**
+     * Bounding box of a path of {lat, lon} points, as {north, east, south, west}.
+     * Longitudes are followed from point to point the shorter way round, so a path crossing the
+     * 180° meridian gets west &gt; east (the date-line convention of osmdroid's BoundingBox)
+     * instead of a box spanning the whole world.
+     */
+    public static double[] bounds(List<double[]> points) {
+        double north = -90.0;
+        double south = 90.0;
+        double lon = 0.0;
+        double minLon = 0.0;
+        double maxLon = 0.0;
+        double previousLon = 0.0;
+        for (int i = 0; i < points.size(); i++) {
+            double[] point = points.get(i);
+            north = Math.max(north, point[0]);
+            south = Math.min(south, point[0]);
+            if (i == 0) {
+                lon = minLon = maxLon = point[1];
+            } else {
+                // Step in (-180, 180]: the shorter way from the previous point.
+                lon += ((point[1] - previousLon) + 540.0) % 360.0 - 180.0;
+                minLon = Math.min(minLon, lon);
+                maxLon = Math.max(maxLon, lon);
+            }
+            previousLon = point[1];
+        }
+        return new double[]{north, wrapLongitude(maxLon), south, wrapLongitude(minLon)};
+    }
+
+    /** Brings a longitude back into [-180, 180). */
+    static double wrapLongitude(double lon) {
+        return ((lon + 180.0) % 360.0 + 360.0) % 360.0 - 180.0;
     }
 
     /** Returns {lat, lon} after moving {@code distanceMeters} along {@code bearingDeg} (0 = north). */

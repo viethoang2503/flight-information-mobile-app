@@ -28,6 +28,9 @@ public final class AuthManager {
 
     private AuthManager(Context context) {
         prefs = context.getSharedPreferences("flight_auth", Context.MODE_PRIVATE);
+        // Wait for the file here: FlightInfoApp builds this on a worker thread at startup, so
+        // MainActivity's session check finds it loaded instead of reading the disk itself.
+        prefs.contains(KEY_GUEST);
         FirebaseApp app = FirebaseApp.initializeApp(context);
         firebase = app == null ? null : FirebaseAuth.getInstance(app);
     }

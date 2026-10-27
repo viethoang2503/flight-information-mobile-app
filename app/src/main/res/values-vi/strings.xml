@@ -87,7 +87,6 @@
 
     <!-- F10 Thống kê Chuyến của tôi -->
     <string name="stats_title">Thống kê chuyến bay</string>
-    <string name="stats_back">Quay lại</string>
     <string name="stats_subtitle">Tổng quan các chuyến bay bạn đã lưu</string>
     <string name="stats_open_title">Xem thống kê</string>
     <string name="stats_open_subtitle">Quãng đường, giờ bay và hãng hàng không</string>

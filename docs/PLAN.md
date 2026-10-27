@@ -15,8 +15,8 @@ Ký hiệu: 🧪 = cách kiểm tra phase đã xong.
 | 4.5 Giao diện Liquid Glass | ✅ Xong. Áp cho Search, Detail, Airports, Board. Đã chạy trên emulator |
 | 5. My Flights + Settings | ✅ Xong. Đã chạy trên emulator: lưu, vuốt xoá + Undo, tắt app vẫn còn, đổi tiếng Việt |
 | 6. Live Map | ✅ Xong. Đã chạy trên emulator: OpenSky thật (live) và 23 máy bay mock, sheet kính mờ, "View flight" mở Detail |
-| 7. Đợt 2: 5 tính năng mới (F8–F12) | ⏳ **Làm tiếp theo.** Xem [PLAN_PHASE7.md](PLAN_PHASE7.md) và [SPEC_PHASE7.md](SPEC_PHASE7.md) |
-| 8. Hoàn thiện & tối ưu | ⏳ Làm cuối cùng, sau Phase 7 |
+| 7. Đợt 2: 5 tính năng mới (F8–F12) | ✅ Đã merge cả 5 tính năng (PR #1–#8), build/test/lint pass. Còn thiếu `app/google-services.json` để demo đăng nhập email. Xem [PLAN_PHASE7.md](PLAN_PHASE7.md) |
+| 8. Hoàn thiện & tối ưu | 🔄 Đang làm. Đã có README, icon đơn sắc, bỏ nền thừa và chuỗi hard-code ở màn Thống kê. Còn: đo overdraw trên emulator, slide |
 
 ---
 
