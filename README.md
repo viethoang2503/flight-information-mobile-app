@@ -1,5 +1,7 @@
 # Flight Info
 
+**Finding files for the final presentation:** Open [`frontend/`](frontend/README.md) for Android screens and XML resources, or [`backend/`](backend/README.md) for repositories, API services, parsers, models, and local storage. These are navigation links to the original `app/src/main/` files; the app's source paths and behavior are unchanged. The detailed Vietnamese study guide is at [`docs/FINAL_EXAM_GUIDE_VI.md`](docs/FINAL_EXAM_GUIDE_VI.md).
+
 An Android app for looking up flight information, built for passengers and people picking someone up at Vietnamese airports.
 Final project for the Mobile Application Development course at USTH (topic #30: Flight Info).
 
