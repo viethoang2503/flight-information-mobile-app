@@ -678,6 +678,28 @@ Preview trong Detail không nhận pan/zoom, bấm vào mở RouteMapActivity. F
 
 Thiếu sân bay trong assets thì không dựng được tuyến. Đường great-circle không phải route ATC hay vết bay thực tế của chuyến.
 
+### 9.13 Bảng logic cơ bản để nhớ nhanh khi bị hỏi
+
+Bảng này tóm tắt câu trả lời theo ba ý: người dùng làm gì, code quyết định gì, và màn hình cho thấy gì. Các mục 9.1–9.12 ở trên giải thích chi tiết từng nhánh.
+
+| Tính năng | Thao tác hoặc dữ liệu đầu vào | Logic chính trong code | Kết quả nhìn thấy |
+|---|---|---|---|
+| Search | Nhập mã `VN215` | Chuẩn hóa và kiểm tra regex; FlightRepository chọn nguồn; AirLabsParser tạo Flight; recent lưu JSON | Mở Detail hoặc hiện lỗi/Retry |
+| Detail | Nhận mã hoặc JSON Flight | Render snapshot; chọn giờ actual → estimated → scheduled; tính status/delay/progress; tải METAR theo ICAO đến | Vé thông tin, gate, trạng thái, thời tiết |
+| Airports | Nhập từ khóa sân bay | AirportStore đọc assets; Airport.matches lọc; ghim sân bay mặc định | Danh sách sân bay đã lọc |
+| Board | Chọn sân bay và tab đi/đến | `getSchedules()` dùng `dep_iata` hoặc `arr_iata`; sort theo giờ tương ứng | Bảng giờ, kéo để tải lại |
+| My Flights | Bấm sao hoặc vuốt | SQLite lưu theo owner; vuốt chỉ ẩn item, Undo khôi phục, hết Snackbar mới xóa | Danh sách chuyến quan tâm |
+| Settings | Chọn ngôn ngữ, nguồn, đơn vị | AppCompat đổi locale; Prefs lưu các setting khác; mode ảnh hưởng repository | UI đổi ngôn ngữ và cách hiển thị |
+| Mock/fallback | Chọn Auto/Live/Mock | Mock không gọi flight API; Auto fallback khi lỗi kỹ thuật, trừ NOT_FOUND | Banner demo khi kết quả từ mock |
+| Live Map | Mở tab Map | MapRepository lấy OpenSky/mock; parse aircraft có tọa độ; marker theo ICAO24; poll 30 giây khi hiện | Máy bay trên bản đồ, sheet khi chạm |
+| Auth | Sign in/register/guest | Firebase xác thực hoặc guest flag; AuthViewModel giữ state; UID làm owner local | Vào Main và thấy dữ liệu đã lưu của owner |
+| Calendar | Bấm thêm lịch ở Detail | CalendarHelper tạo ACTION_INSERT với giờ milliseconds | App Lịch mở form để người dùng xác nhận |
+| Stats | Mở từ My Flights | FlightStats tính trên saved flights; BarChartView vẽ Canvas | Số liệu và biểu đồ hãng bay |
+| Reminder | Chọn số phút trước giờ đi | Tính trigger từ bestDepTs, lưu payload, đặt AlarmManager; receiver kiểm tra quyền/owner | Thông báo khi đến giờ nếu được phép |
+| Route Map | Bấm preview trong Detail | GeoUtils tạo tuyến great-circle; marker theo tiến trình thời gian | Bản đồ hành trình fullscreen |
+
+Ví dụ thầy chỉ vào nút sao, bạn có thể lần theo `FlightDetailActivity.toggleSaved()` → `FlightRepository.setSaved()` → `SavedFlightsDb.save()` → `MyFlightsFragment.loadSaved()`. Với mỗi nút khác, hãy tìm listener ở Activity/Fragment trước rồi lần xuống tầng data tương tự.
+
 ## 10. Thiết kế giao diện và hiệu năng
 
 ### 10.1 Cách tạo phong cách kính xanh đêm
@@ -1146,18 +1168,34 @@ Nếu thời gian ít, ưu tiên một luồng request giải thích trọn vẹ
 6. Kiểm tra máy có app Lịch và quyền notification trước buổi thi.
 7. Nếu demo reminder debug, chọn chuyến scheduled có giờ đi tương lai phù hợp. 1 phút là trước giờ đi một phút.
 
-### 16.4 Thứ tự demo và điều cần giải thích
+### 16.4 Luồng demo giao diện khoảng 5–7 phút
 
-1. Search VN215, chỉ loading, nguồn demo và Detail. Nói model được truyền bằng JSON để mở nhanh.
-2. Xem status/giờ, mở rộng raw METAR và route fullscreen. Nói rõ route là ước tính.
-3. Save, quay My Flights, vuốt rồi Undo. Giải thích database chưa bị xóa ngay.
-4. Mở Stats. Giải thích dữ liệu lấy từ saved local và chart tự vẽ.
-5. Mở HAN board, chuyển Departures/Arrivals và pull refresh.
-6. Mở Map, chọn aircraft và sân bay. Chỉ ra nguồn mock nếu đang mock.
-7. Đổi tiếng Việt/Anh trong Settings và nói về resource qualifier.
-8. Nếu đủ thời gian, thêm Calendar, đặt reminder hoặc demo hai account có saved list riêng.
+Đây là thứ tự thao tác cụ thể. Các mã `VN215`, `QH201` và `VJ501` có trong dữ liệu mẫu của project. `VN215` có raw status active, `QH201` scheduled với delay 35 phút và `VJ501` landed tại mốc fixture. MockTimeShifter dịch thời gian của fixture theo hiện tại. Nếu cần lưu vài chuyến cho Stats, làm trước buổi thi để không mất thời gian trên sân khấu.
 
-Đừng chuyển sang Live chỉ để gây ấn tượng nếu chưa xác minh quota/key/mạng. Khi demo Live không thành công, hãy giải thích loại lỗi và fallback dựa trên kết quả thật.
+| Bước | Bạn bấm gì trên điện thoại? | Thầy nhìn thấy gì? | Bạn nói ngắn gọn điều gì? |
+|---|---|---|---|
+| 1. Vào app | Chọn **Continue as guest** nếu màn Login xuất hiện | Main với bốn tab | "Guest dùng app không cần Firebase; tài khoản dùng Firebase Authentication." |
+| 2. Chọn nguồn | **Settings → Data source → Demo data only**, quay Main | Setting chuyển sang Mock | "Flight, board, weather và aircraft dùng fixture đóng gói; logo/tile vẫn có thể cần mạng." |
+| 3. Tìm chuyến | **Search → nhập VN215 → Search** | Loading, Detail và banner demo | "Search kiểm tra mã; repository chọn mock; parser đổi JSON thành Flight; Detail nhận snapshot qua Intent." |
+| 4. Xem Detail | Chỉ vào status, giờ đi/đến, gate; bấm raw METAR | Thông tin chuyến và weather | "Actual được ưu tiên hơn estimated, rồi scheduled. METAR lấy theo ICAO sân bay đến." |
+| 5. Xem tuyến | Bấm preview bản đồ hành trình | RouteMapActivity fullscreen | "Tuyến là great-circle giữa hai sân bay; icon là ước tính theo thời gian, không phải vị trí OpenSky." |
+| 6. Lưu chuyến | Back về Detail, bấm sao, mở **My Flights** | VN215 nằm trong danh sách lưu | "SavedFlightsDb lưu JSON theo owner trong SQLite trên máy." |
+| 7. Thử Undo | Vuốt VN215 sang trái rồi bấm **Undo** | Row biến mất rồi trở lại | "Vuốt tạm ẩn item; SQLite chỉ xóa khi hết cơ hội Undo." |
+| 8. Xem Stats | Bấm thẻ thống kê trong My Flights | Các chỉ số và biểu đồ cột | "FlightStats tính từ saved flights; BarChartView tự vẽ Canvas." |
+| 9. Xem board | **Airports → HAN → Departures/Arrivals**; kéo để refresh | Hai bảng chuyến đi/đến | "Một endpoint schedules nhận dep_iata hoặc arr_iata; mỗi tab sort theo giờ tương ứng." |
+| 10. Xem Map | Mở tab **Map**, chạm aircraft rồi chạm một sân bay | Sheet máy bay và bảng sân bay | "Map dùng AircraftState từ OpenSky hoặc mock, khác route map trong Detail." |
+
+Nếu thầy muốn thấy trạng thái khác, tìm `QH201` để giải thích ngưỡng trễ 15 phút và tìm `VJ501` để chỉ trạng thái LANDED. Chọn thêm chuyến đã lưu của hãng khác nếu muốn biểu đồ Stats có nhiều cột. Khi tìm mã không tồn tại, MockDataSource trả NOT_FOUND; đây là nhánh lỗi hợp lệ để demo Retry hoặc thông báo.
+
+### 16.5 Nhánh demo mở rộng khi còn thời gian
+
+- **Đa ngôn ngữ:** Trong Settings chọn Tiếng Việt hoặc English, quay lại một màn và chỉ ra Android lấy string từ `values-vi` hoặc `values`.
+- **Calendar:** Trong Detail bấm biểu tượng lịch. App Lịch mở form đã điền; chỉ lưu nếu bạn muốn tạo sự kiện thật trên thiết bị demo.
+- **Reminder:** Chọn một flight còn giờ khởi hành trong tương lai, đặt trước giờ bay. Android 13+ có thể hỏi quyền notification. Chỉ chọn debug 1 phút khi giờ khởi hành còn hơn một phút và bạn đã kiểm tra fixture tại thời điểm demo.
+- **Auth:** Nếu có mạng và tài khoản thử nghiệm, đăng nhập, lưu một chuyến rồi đổi account để cho thấy My Flights được lọc theo UID. Chuyến vẫn lưu local trên cùng thiết bị.
+- **Live mode:** Chuyển Data source sang Live để nói về API thật khi key, quota và mạng đã được kiểm tra trước. Auto sẽ fallback mock với lỗi kỹ thuật nhưng không fallback NOT_FOUND.
+
+Nếu còn 2–3 phút, chỉ cần làm bước 1–6 và bước 9–10. Điều quan trọng nhất là diễn giải một luồng trọn vẹn từ thao tác Search tới dữ liệu và Detail. Việc chuẩn bị demo ở chế độ Mock giúp phần tra cứu không phụ thuộc quota của AirLabs; vẫn nên giữ mạng để tải tile, logo và thử Firebase nếu cần.
 
 ## 17. Câu hỏi vấn đáp
 
